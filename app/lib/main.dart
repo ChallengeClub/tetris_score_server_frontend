@@ -1,5 +1,10 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'blocks/form.dart';
 
 // providerのgolabal宣言
 final formProvider = Provider((_) => 0);
@@ -16,7 +21,6 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int value = ref.watch(formProvider);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -29,16 +33,15 @@ class MyApp extends ConsumerWidget {
 
 class MyHomePage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref){
-    final int value = ref.watch(formProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Tetris評価サーバ"),
       ),
       body: Center(
-        child: Text(value.toString())
+        child: Container(margin: const EdgeInsets.all(40), child: SubmitForm()),
       ),
     );
   }
-    
-  }
+}
+
