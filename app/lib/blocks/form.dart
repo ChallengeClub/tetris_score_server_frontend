@@ -6,14 +6,16 @@ import '../models/form_model.dart';
 
 class SubmitForm extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    // final _formController = useTextEditingController.fromValue(TextEditingValue.fromJSON(formData.toMap()));
-    final _formController = useTextEditingController(text: 'initial text');
-    final _formCardHeight = _screenSize.height * 0.1;
+    final _urlFormController = useTextEditingController();
+    final _branchFormController = useTextEditingController(text: "master");
+    final _levelFormController = useTextEditingController(text: "1");
+    final _formCardHeight = _screenSize.height * 0.15;
     final _formCardWidth = _screenSize.width * 0.5;
+
     return Form(
       key: _formKey,
       child: Container(
@@ -28,10 +30,11 @@ class SubmitForm extends HookWidget {
                   width: _formCardWidth,
                   height: _formCardHeight,
                   child: TextFormField(
+                    autofocus: true,
                     decoration: const InputDecoration(
                       labelText: 'repository url *',
                     ),
-                    // controller: _formController,
+                    controller: _urlFormController,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -51,8 +54,8 @@ class SubmitForm extends HookWidget {
                   child: TextFormField(
                     decoration: const InputDecoration(
                       labelText: 'branch name (default: master)',
-                      hintText: 'master',
                     ),
+                    controller: _branchFormController,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -71,12 +74,16 @@ class SubmitForm extends HookWidget {
                   height: _formCardHeight,
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: 'drop interval (default: 1000)',
-                      hintText: '1000',
+                      labelText: 'game level (default: 1)',
                     ),
+                    controller: _levelFormController,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
+                      }
+                      List level_lists = ["1", "2", "3"];
+                      if (!level_lists.contains(value)) {
+                        return 'Value must be in ${level_lists}';
                       }
                       return null;
                     },
@@ -88,9 +95,10 @@ class SubmitForm extends HookWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  print(_formController.toString());
                   if (_formKey.currentState!.validate()) {
-                    // Process data.
+                    print(_urlFormController.text);
+                    print(_branchFormController.text);
+                    print(_levelFormController.text);
                   }
                 },
                 child: const Text('Submit'),
