@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/form_model.dart';
+import '../../model/form_model.dart';
 
 class SubmitForm extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -81,9 +81,9 @@ class SubmitForm extends HookWidget {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
-                      List level_lists = ["1", "2", "3"];
-                      if (!level_lists.contains(value)) {
-                        return 'Value must be in ${level_lists}';
+                      List levels = ["1", "2", "3"];
+                      if (!levels.contains(value)) {
+                        return 'Value must be in ${levels}';
                       }
                       return null;
                     },
@@ -96,9 +96,12 @@ class SubmitForm extends HookWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    print(_urlFormController.text);
-                    print(_branchFormController.text);
-                    print(_levelFormController.text);
+                    FormModel formModel = FormModel(
+                      _urlFormController.text,
+                      _branchFormController.text,
+                      _levelFormController.text,
+                    );
+                    print(formModel);
                   }
                 },
                 child: const Text('Submit'),
