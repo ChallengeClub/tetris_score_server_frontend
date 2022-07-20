@@ -3,12 +3,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../model/form_model.dart';
+import '../../view_model/providers.dart';
 
-class SubmitForm extends HookWidget {
+class SubmitForm extends HookConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var _screenSize = MediaQuery.of(context).size;
     final _urlFormController = useTextEditingController();
     final _branchFormController = useTextEditingController(text: "master");
@@ -102,6 +103,7 @@ class SubmitForm extends HookWidget {
                       _levelFormController.text,
                     );
                     print(formModel);
+                    final state = ref.watch(formStateNotifierProvider.state);
                   }
                 },
                 child: const Text('Submit'),
