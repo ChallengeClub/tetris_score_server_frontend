@@ -21,6 +21,13 @@ resource "aws_s3_bucket_policy" "bucket" {
   policy = data.aws_iam_policy_document.static-hosting.json
 }
 
+resource "aws_s3_bucket_versioning" "versioning" {
+  bucket = aws_s3_bucket.bucket.id
+  versioning_configuration {
+    status = "Disabled"
+  }
+}
+
 data "aws_iam_policy_document" "static-hosting" {
   statement {
     sid    = "Allow CloudFront"
