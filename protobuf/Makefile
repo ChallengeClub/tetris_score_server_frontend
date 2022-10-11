@@ -1,2 +1,3 @@
 compile:
-	protoc --dart_out=. score_evaluation_message.proto
+	protoc --dart_out=/protobuf score_evaluation_message.proto
+	

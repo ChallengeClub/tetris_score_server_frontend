@@ -8,6 +8,9 @@ services:
       - type: bind
         source: ./app
         target: /app
+      - type: bind
+        source: ./protobuf
+        target: /protobuf
     env_file: .env
     tty: true
     ports:
