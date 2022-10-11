@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package tutorial;
+
+message ScoreEvaluationMessage {
+  string repository_url = 1;
+  string branch = 2;
+  int32 drop_interval = 3;
+  GameLevel level = 4;
+  string game_mode = 5;
+  int32 game_time = 6;
+  int32 timeout = 7;
+  string predict_weight_path = 8;
+  int32 trial_num = 9;
+
+  enum GameLevel {
+    EASY = 0;
+    MIDIUM = 1;
+    HARD = 2;
+  }
+}
