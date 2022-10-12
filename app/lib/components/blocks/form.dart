@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../model/form_model.dart';
+import '../../model/score_evaluation_message.pb.dart';
 
 class SubmitForm extends HookWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -15,6 +16,7 @@ class SubmitForm extends HookWidget {
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.15;
     final _formCardWidth = _screenSize.width * 0.5;
+    ScoreEvaluationMessage evalMsg = ScoreEvaluationMessage();
 
     return Form(
       key: _formKey,
