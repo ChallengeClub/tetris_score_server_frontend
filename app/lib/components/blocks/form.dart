@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider/provider.dart';
 
 import '../../model/form_model.dart';
 import '../../view_model/providers.dart';
@@ -16,6 +17,7 @@ class SubmitForm extends HookConsumerWidget {
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.15;
     final _formCardWidth = _screenSize.width * 0.5;
+    final _state = ref.watch(formStateNotifierProvider);
 
     return Form(
       key: _formKey,
@@ -96,17 +98,14 @@ class SubmitForm extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    FormModel formModel = FormModel(
-                      _urlFormController.text,
-                      _branchFormController.text,
-                      _levelFormController.text,
-                    );
-                    print(formModel);
-                    final state = ref.watch(formStateNotifierProvider.state);
-                  }
+                  // FormModel formModel = FormModel(
+                  //   _urlFormController.text,
+                  //   _branchFormController.text,
+                  //   _levelFormController.text,
+                  // );
+                  context.read(formStateNotifierProvider.notifier).submitMessage();
                 },
-                child: const Text('Submit'),
+                child: Text(_state),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import '../repository/form_repository.dart';
+import 'package:state_notifier/state_notifier.dart';
 
 abstract class FormState {
   const FormState();
@@ -8,12 +9,8 @@ class FormInitial extends FormState {
   const FormInitial();
 }
 
-class FormLoading extends FormState {
-  const FormLoading();
-}
-
-class FormLoaded extends FormState {
-  const FormLoaded();
+class FormSubmitted extends FormState {
+  const FormSubmitted();
 }
 
 class FormError extends FormState {
@@ -24,13 +21,12 @@ class FormError extends FormState {
 class FormStateNotifier extends StateNotifier<FormState> {
   final FormRepository _formRepository;
   FormStateNotifier(this._formRepository): super(FormInitial);
-  Future<void> checkIsExistRepository(String url) async{
+  Future<void> submitMessage(String msg) async{
     try{
-      state = FormLoading();
-      await _formRepository.fetchRepository(url);
-      state = FormLoaded();
+      await _formRepository.putRequest(msg);
+      state = FormSubmitted();
     } catch(e){
-      state = FormError(e)
+      state = FormError(e);
     }
   }
 }
