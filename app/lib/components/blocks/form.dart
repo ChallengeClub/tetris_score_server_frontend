@@ -106,7 +106,7 @@ class SubmitForm extends HookConsumerWidget {
                     )
                   );
                 },
-                child: Text("submit"),
+                child: const Text("submit"),
               ),
             )
           ],
