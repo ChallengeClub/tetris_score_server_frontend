@@ -1,13 +1,16 @@
 import 'dart:math';
+import '../model/form_model.dart';
 
 abstract class FormRepository {
-  Future<void> putRequest(String msg);
+  Future<bool> putRequest(FormModel msg);
 }
 
 class FormRepositoryImpl implements FormRepository {
-  int value = 0;
   @override
-  Future<void> putRequest(String msg) async {
-    return Future.delayed(Duration(seconds: 2));
+  Future<bool> putRequest(FormModel msg) async {
+    return Future.delayed(
+      Duration(seconds: 2),
+      () => true,
+      );
     }
 }

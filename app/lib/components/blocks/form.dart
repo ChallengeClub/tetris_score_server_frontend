@@ -17,7 +17,7 @@ class SubmitForm extends HookConsumerWidget {
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.15;
     final _formCardWidth = _screenSize.width * 0.5;
-    final _state = ref.watch(formStateNotifierProvider);
+    final _state = ref.watch(formStateNotifierProvider.notifier);
 
     return Form(
       key: _formKey,
@@ -98,16 +98,17 @@ class SubmitForm extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // FormModel formModel = FormModel(
-                  //   _urlFormController.text,
-                  //   _branchFormController.text,
-                  //   _levelFormController.text,
-                  // );
-                  context.read(formStateNotifierProvider.notifier).submitMessage();
+                  ref.read(formStateNotifierProvider.notifier).submitMessage(
+                    FormModel(
+                      _urlFormController.text,
+                      _branchFormController.text,
+                      _levelFormController.text,
+                    )
+                  );
                 },
-                child: Text(_state),
+                child: Text("submit"),
               ),
-            ),
+            )
           ],
         ),
       ),

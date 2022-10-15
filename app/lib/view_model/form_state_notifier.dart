@@ -1,4 +1,5 @@
 import '../repository/form_repository.dart';
+import '../model/form_model.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 abstract class FormState {
@@ -7,6 +8,9 @@ abstract class FormState {
 
 class FormInitial extends FormState {
   const FormInitial();
+}
+class FormSubmitting extends FormState {
+  const FormSubmitting();
 }
 
 class FormSubmitted extends FormState {
@@ -20,13 +24,14 @@ class FormError extends FormState {
 
 class FormStateNotifier extends StateNotifier<FormState> {
   final FormRepository _formRepository;
-  FormStateNotifier(this._formRepository): super(FormInitial);
-  Future<void> submitMessage(String msg) async{
+  FormStateNotifier(this._formRepository): super(FormInitial());
+  Future<void> submitMessage(FormModel data) async{
     try{
-      await _formRepository.putRequest(msg);
-      state = FormSubmitted();
+      state = FormSubmitting();
+      bool res =  await _formRepository.putRequest(data);
+      state = res ? FormSubmitted() : FormError("error occured");
     } catch(e){
-      state = FormError(e);
+      state = FormError("error occured");
     }
   }
 }
