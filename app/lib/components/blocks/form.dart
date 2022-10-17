@@ -12,7 +12,8 @@ class SubmitForm extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var _screenSize = MediaQuery.of(context).size;
-    final _urlFormController = useTextEditingController();
+    final _userNameFormController = useTextEditingController();
+    final _repositoryNameFormController = useTextEditingController(text: "tetris");
     final _branchFormController = useTextEditingController(text: "master");
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.15;
@@ -35,9 +36,30 @@ class SubmitForm extends HookConsumerWidget {
                   child: TextFormField(
                     autofocus: true,
                     decoration: const InputDecoration(
-                      labelText: 'repository url *',
+                      labelText: 'user name',
                     ),
-                    controller: _urlFormController,
+                    controller: _userNameFormController,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ),
+            ),Card(
+              color: Theme.of(context).colorScheme.surfaceVariant,
+              child: Center(
+                child: SizedBox(
+                  width: _formCardWidth,
+                  height: _formCardHeight,
+                  child: TextFormField(
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      labelText: 'repository name',
+                    ),
+                    controller: _repositoryNameFormController,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -56,7 +78,7 @@ class SubmitForm extends HookConsumerWidget {
                   height: _formCardHeight,
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: 'branch name (default: master)',
+                      labelText: 'branch name',
                     ),
                     controller: _branchFormController,
                     validator: (String? value) {
@@ -77,7 +99,7 @@ class SubmitForm extends HookConsumerWidget {
                   height: _formCardHeight,
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: 'game level (default: 1)',
+                      labelText: 'game level',
                     ),
                     controller: _levelFormController,
                     validator: (String? value) {
@@ -100,7 +122,8 @@ class SubmitForm extends HookConsumerWidget {
                 onPressed: () {
                   ref.read(formStateNotifierProvider.notifier).submitMessage(
                     FormModel(
-                      _urlFormController.text,
+                      _userNameFormController.text,
+                      _repositoryNameFormController.text,
                       _branchFormController.text,
                       _levelFormController.text,
                     )
