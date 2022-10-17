@@ -9,9 +9,15 @@ abstract class FormRepository {
 class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> checkExistBranch(FormModel msg) async {
-    var url = Uri.https('github.com', 'seigot/tetris/tree/master');
+    var url = Uri.https('github.com', '${msg.user_name}/${msg.repository_name}/tree/${msg.branch_name}');
     var response = await http.get(url);
-    print(response.statusCode);
-    return true;
+    print(url);
+    final bool res;
+    if (response.statusCode == 200){
+        res = true;
+    }else{
+        res = false;
+    }
+    return res;
     }
 }

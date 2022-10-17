@@ -28,10 +28,9 @@ class FormStateNotifier extends StateNotifier<FormState> {
   Future<void> submitMessage(FormModel data) async{
     try{
       state = FormSubmitting();
-      print("method called");
       bool res =  await _formRepository.checkExistBranch(data);
       state = res ? FormSubmitted() : FormError("error occured");
-      print("method ended");
+      print(state);
     } catch(e){
       state = FormError("error occured");
       print(e);
