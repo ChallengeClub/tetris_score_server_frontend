@@ -126,7 +126,13 @@ class SubmitForm extends HookConsumerWidget {
                       _userNameFormController.text,
                       _repositoryNameFormController.text,
                       _branchFormController.text,
-                      _levelFormController.text,
+                      1000,
+                      int.parse(_levelFormController.text),
+                      "default",
+                      180,
+                      185,
+                      "",
+                      10
                     )
                   );
                 },
