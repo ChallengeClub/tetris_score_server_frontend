@@ -18,7 +18,7 @@ class SubmitForm extends HookConsumerWidget {
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.15;
     final _formCardWidth = _screenSize.width * 0.5;
-    final _state = ref.watch(formStateNotifierProvider.notifier);
+    final _state = ref.watch(formStateNotifierProvider.notifier).state;
 
     return Form(
       key: _formKey,

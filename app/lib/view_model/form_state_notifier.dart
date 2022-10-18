@@ -29,8 +29,7 @@ class FormStateNotifier extends StateNotifier<FormState> {
     try{
       state = FormSubmitting();
       bool res =  await _formRepository.checkExistBranch(data);
-      state = res ? FormSubmitted() : FormError("error occured");
-      print(state);
+      state = res ? FormSubmitted() : FormError("failed to confirm branch exists");
     } catch(e){
       state = FormError("error occured");
       print(e);
