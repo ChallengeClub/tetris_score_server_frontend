@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:provider/provider.dart';
 
 import '../../model/form_model.dart';
 import '../../model/score_evaluation_message.pb.dart';
+import '../../view_model/providers.dart';
 
-class SubmitForm extends HookWidget {
+class SubmitForm extends HookConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var _screenSize = MediaQuery.of(context).size;
     final _userNameFormController = useTextEditingController();
     final _repositoryNameFormController = useTextEditingController(text: "tetris");
@@ -17,7 +19,7 @@ class SubmitForm extends HookWidget {
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.15;
     final _formCardWidth = _screenSize.width * 0.5;
-    ScoreEvaluationMessage evalMsg = ScoreEvaluationMessage();
+    final _state = ref.watch(formStateNotifierProvider.notifier).state;
 
     return Form(
       key: _formKey,
@@ -119,19 +121,18 @@ class SubmitForm extends HookWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    FormModel formModel = FormModel(
+                  ref.read(formStateNotifierProvider.notifier).submitMessage(
+                    FormModel(
                       _userNameFormController.text,
                       _repositoryNameFormController.text,
                       _branchFormController.text,
                       _levelFormController.text,
-                    );
-                    print(formModel);
-                  }
+                    )
+                  );
                 },
-                child: const Text('Submit'),
+                child: const Text("Submit"),
               ),
-            ),
+            )
           ],
         ),
       ),
