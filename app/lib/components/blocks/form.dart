@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/form_model.dart';
+import '../../model/score_evaluation_message.pb.dart';
 import '../../view_model/providers.dart';
 
 class SubmitForm extends HookConsumerWidget {
@@ -125,7 +126,13 @@ class SubmitForm extends HookConsumerWidget {
                       _userNameFormController.text,
                       _repositoryNameFormController.text,
                       _branchFormController.text,
-                      _levelFormController.text,
+                      1000,
+                      int.parse(_levelFormController.text),
+                      "default",
+                      180,
+                      185,
+                      "",
+                      10
                     )
                   );
                 },

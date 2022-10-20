@@ -27,9 +27,15 @@ class FormStateNotifier extends StateNotifier<FormState> {
   FormStateNotifier(this._formRepository): super(FormInitial());
   Future<void> submitMessage(FormModel data) async{
     try{
+      bool res;
       state = FormSubmitting();
-      bool res =  await _formRepository.checkExistBranch(data);
-      state = res ? FormSubmitted() : FormError("failed to confirm branch exists");
+      res = await _formRepository.checkExistBranch(data);
+      if (res==false){
+        state = FormError("failed to confirm branch exists");
+        return;
+      }
+      res = await _formRepository.sendRequestToAPI(data);
+      state = res ? FormSubmitted() : FormError("failed to submit branch exists");
     } catch(e){
       state = FormError("error occured");
       print(e);
