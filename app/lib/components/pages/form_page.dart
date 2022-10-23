@@ -8,9 +8,6 @@ class FormPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Tetris評価サーバ 入力フォーム"),
-      ),
       body: Center(
         child: Container(margin: const EdgeInsets.all(40), child: SubmitForm()),
       ),

@@ -17,7 +17,7 @@ class SubmitForm extends HookConsumerWidget {
     final _repositoryNameFormController = useTextEditingController(text: "tetris");
     final _branchFormController = useTextEditingController(text: "master");
     final _levelFormController = useTextEditingController(text: "1");
-    final _formCardHeight = _screenSize.height * 0.15;
+    final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider.notifier).state;
 
