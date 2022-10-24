@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'components/pages/form_page.dart';
+import 'components/pages/results_page.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -43,7 +44,7 @@ class MyApp extends ConsumerWidget {
         body: TabBarView(
           children: [
             FormPage(),
-            Text("results page")
+            ResultsPage()
           ],
         ),
       )
