@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/providers.dart';
+import '../parts/result_card.dart';
 
 class ResultsList extends HookConsumerWidget{
   @override
@@ -16,10 +17,7 @@ class ResultsList extends HookConsumerWidget{
       itemCount: _state.length, 
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          child: ListTile(
-            title: Text(_state[index].repository_url),
-            subtitle: Text("${_state[index].mean_score}")
-          ),
+            child: ResultsCard(result: _state[index])
         );
       },
     );
