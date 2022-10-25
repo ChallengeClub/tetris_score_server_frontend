@@ -9,8 +9,9 @@ import '../../view_model/providers.dart';
 class ResultsTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<ResultModel> _results = ref.watch(resultStateNotifierProvider.notifier).state;
+    final List<ResultModel> _results = ref.watch(resultStateNotifierProvider);
     final List<String> _columnList = getResultColumns();
+    ref.read(resultStateNotifierProvider.notifier).fetchResults();
 
     return SingleChildScrollView(
       child: DataTable(
