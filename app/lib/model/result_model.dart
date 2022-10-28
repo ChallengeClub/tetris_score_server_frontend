@@ -12,6 +12,13 @@ class ResultModel{
         this.created_at,
         this.mean_score
     );
+    
+    ResultModel.fromJson(dynamic map)
+      : repository_url = map['RepositoryURL'],
+        status = map['Status'],
+        branch = map['Branch'],
+        created_at = map['CreatedAt']*1000,
+        mean_score = map['MeanScore'];
 }
 
 List<String> getResultColumns(){

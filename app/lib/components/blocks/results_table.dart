@@ -11,7 +11,6 @@ class ResultsTable extends HookConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final List<ResultModel> _results = ref.watch(resultStateNotifierProvider);
     final List<String> _columnList = getResultColumns();
-    ref.read(resultStateNotifierProvider.notifier).fetchResults();
 
     return SingleChildScrollView(
       child: DataTable(

@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../model/result_model.dart';
@@ -10,14 +11,18 @@ abstract class DBRepository {
 class DBRepositoryImpl implements DBRepository {
   @override
   Future<List<ResultModel>> getLatestResults() async {
-    List<ResultModel> results;
-    results = [
-        ResultModel("https://github.com/seigot/tetris", "succeeded", "master", 1665154184000, 1020),
-        ResultModel("https://github.com/seigot/tetris", "succeeded", "master", 1665154004000, 1230)
-    ];
-    var response = await Future.delayed(Duration(seconds: 1), () {
-      return results;
-    });
-    return response;
+    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
+    if (_api==null){
+      return [];
+    }
+    final uri = Uri.parse("${_api}/results");
+    http.Response result = await http.get(uri);
+    var _map = convert.jsonDecode(result.body);
+    List<dynamic> items = _map['Items'];
+    
+    List<ResultModel> results = items.map(
+        (var item) => ResultModel.fromJson(item)
+    ).toList();
+    return results;
   }
 }
