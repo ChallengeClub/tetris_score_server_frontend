@@ -14,7 +14,7 @@ abstract class FormRepository {
 class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> checkExistBranch(FormModel msg) async {
-    var url = Uri.https('github.com', '${msg.user_name}/${msg.repository_name}/tree/${msg.branch_name}');
+    var url = Uri.https('api.github.com', 'repos/${msg.user_name}/${msg.repository_name}/branches/${msg.branch_name}');
     var response = await http.get(url);
     bool res;
     if (response.statusCode == 200){
