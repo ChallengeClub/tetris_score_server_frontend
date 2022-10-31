@@ -1,9 +1,9 @@
-resource "aws_cloudfront_distribution" "static-hosting" {
+resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
   origin {
-    domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
-    origin_id   = aws_s3_bucket.bucket.id
+    domain_name = aws_s3_bucket.tetris-hosting-bucket.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.tetris-hosting-bucket.id
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.static-hosting.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.tetris-hosting.cloudfront_access_identity_path
     }
   }
 
@@ -14,7 +14,7 @@ resource "aws_cloudfront_distribution" "static-hosting" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.bucket.id
+    target_origin_id = aws_s3_bucket.tetris-hosting-bucket.id
 
     forwarded_values {
       query_string = false
@@ -41,4 +41,4 @@ resource "aws_cloudfront_distribution" "static-hosting" {
   }
 }
 
-resource "aws_cloudfront_origin_access_identity" "static-hosting" {}
+resource "aws_cloudfront_origin_access_identity" "tetris-hosting" {}
