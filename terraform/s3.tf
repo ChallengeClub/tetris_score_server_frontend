@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tetris-hosting-bucket" {
-  bucket_prefix = "tetris-hosting-policy-doc"
+  bucket_prefix = "tetris-hosting"
 }
 
 # access control list
