@@ -31,7 +31,7 @@ class FormStateNotifier extends StateNotifier<FormState> {
       state = FormSubmitting();
       res = await _formRepository.checkExistBranch(data);
       if (res==false){
-        state = FormError("failed to confirm branch exists");
+        state = FormError("no such repository or branch\ngithub.com/${data.user_name}/${data.repository_name}/${data.branch_name}");
         return;
       }
       res = await _formRepository.sendRequestToAPI(data);
