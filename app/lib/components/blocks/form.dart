@@ -146,7 +146,7 @@ class SubmitForm extends HookConsumerWidget {
                 } else if (_state is form.FormSubmitting){
                   return CircularProgressIndicator();
                 } else if (_state is form.FormSubmitted){
-                  return Text("submitted");
+                  return Text("form successfully submitted");
                 } else if (_state is form.FormError){
                   return Text(_state.message);
                 } else {
@@ -154,6 +154,19 @@ class SubmitForm extends HookConsumerWidget {
                 }
               })(),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0.0),
+              child: ((){
+                if (_state is form.FormError || _state is form.FormSubmitted){
+                  return ElevatedButton(
+                    onPressed: (){
+                      ref.read(formStateNotifierProvider.notifier).initializeState();
+                    },
+                    child: const Text("OK"),
+                  );
+                } 
+              })(),
+            )
           ],
         ),
       ),
