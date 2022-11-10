@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../model/form_model.dart';
 import '../../model/score_evaluation_message.pb.dart';
 import '../../view_model/providers.dart';
+import '../../view_model/form_state_notifier.dart' as form;
 
 class SubmitForm extends HookConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -19,7 +20,7 @@ class SubmitForm extends HookConsumerWidget {
     final _levelFormController = useTextEditingController(text: "1");
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
-    final _state = ref.watch(formStateNotifierProvider.notifier).state;
+    final _state = ref.watch(formStateNotifierProvider);
 
     return Form(
       key: _formKey,
@@ -119,25 +120,52 @@ class SubmitForm extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  ref.read(formStateNotifierProvider.notifier).submitMessage(
-                    FormModel(
-                      _userNameFormController.text,
-                      _repositoryNameFormController.text,
-                      _branchFormController.text,
-                      1000,
-                      int.parse(_levelFormController.text),
-                      "default",
-                      180,
-                      185,
-                      "",
-                      10
-                    )
+              child: ((){
+                if (_state is form.FormInitial){
+                  return ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) { // validate form data when button pressed
+                        ref.read(formStateNotifierProvider.notifier).submitMessage(
+                          FormModel(
+                            _userNameFormController.text,
+                            _repositoryNameFormController.text,
+                            _branchFormController.text,
+                            1000,
+                            int.parse(_levelFormController.text),
+                            "default",
+                            180,
+                            185,
+                            "",
+                            10
+                          )
+                        );
+                      }
+                    },
+                    child: const Text("Submit"),
                   );
-                },
-                child: const Text("Submit"),
-              ),
+                } else if (_state is form.FormSubmitting){
+                  return CircularProgressIndicator();
+                } else if (_state is form.FormSubmitted){
+                  return Text("form successfully submitted");
+                } else if (_state is form.FormError){
+                  return Text(_state.message);
+                } else {
+                 return Text("unexpected error occured\n${_state}");
+                }
+              })(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0.0),
+              child: ((){
+                if (_state is form.FormError || _state is form.FormSubmitted){
+                  return ElevatedButton(
+                    onPressed: (){
+                      ref.read(formStateNotifierProvider.notifier).initializeState();
+                    },
+                    child: const Text("OK"),
+                  );
+                } 
+              })(),
             )
           ],
         ),

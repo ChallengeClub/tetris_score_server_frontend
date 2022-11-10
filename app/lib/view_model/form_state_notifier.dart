@@ -1,6 +1,7 @@
 import '../repository/form_repository.dart';
 import '../model/form_model.dart';
 import 'package:state_notifier/state_notifier.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 abstract class FormState {
   const FormState();
@@ -25,20 +26,33 @@ class FormError extends FormState {
 class FormStateNotifier extends StateNotifier<FormState> {
   final FormRepository _formRepository;
   FormStateNotifier(this._formRepository): super(FormInitial());
+
   Future<void> submitMessage(FormModel data) async{
-    try{
-      bool res;
-      state = FormSubmitting();
-      res = await _formRepository.checkExistBranch(data);
-      if (res==false){
-        state = FormError("failed to confirm branch exists");
-        return;
-      }
-      res = await _formRepository.sendRequestToAPI(data);
-      state = res ? FormSubmitted() : FormError("failed to submit branch exists");
-    } catch(e){
-      state = FormError("error occured");
-      print(e);
+    // check internet connection
+    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      state = FormError("error internet disconnected");
+      return;
     }
+    try{
+    bool res;
+    state = FormSubmitting();
+
+    res = await _formRepository.checkExistBranch(data);
+    if (res==false){
+      state = FormError("no such repository or branch\ngithub.com/${data.user_name}/${data.repository_name}/${data.branch_name}");
+      return;
+    }
+
+    res = await _formRepository.sendRequestToAPI(data);
+    state = res ? FormSubmitted() : FormError("failed to submit form to api");
+    } catch(e){
+      state = FormError("error occured\n${e}");
+    }
+    
+  }
+
+  void initializeState(){
+    state = FormInitial();
   }
 }
