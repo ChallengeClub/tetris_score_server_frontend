@@ -15,15 +15,8 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> checkExistBranch(FormModel msg) async {
     RegExp exp = new RegExp(r'https://github.com/(.+)/(.+)$');
-    if (!exp.hasMatch(msg.repository_URL)){
-      return false;
-    }
     RegExpMatch? match = exp.firstMatch(msg.repository_URL);
-    if (match==null){
-      return false;
-    }
     var url = Uri.https('api.github.com', 'repos/${match.group(1)}/${match.group(2)}/branches/${msg.branch_name}');
-    print(url);
     http.Response response = await http.get(url);
     bool res;
     if (response.statusCode == 200){
