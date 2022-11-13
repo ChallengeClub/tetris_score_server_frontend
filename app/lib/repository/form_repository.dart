@@ -13,16 +13,15 @@ abstract class FormRepository {
 
 class FormRepositoryImpl implements FormRepository {
   @override
+  // this method must be called after formStateNotifier.checkRepositoryURLPattern
   Future<bool> checkExistBranch(FormModel msg) async {
-    var url = Uri.https('api.github.com', 'repos/${msg.user_name}/${msg.repository_name}/branches/${msg.branch_name}');
-    var response = await http.get(url);
-    bool res;
-    if (response.statusCode == 200){
-        res = true;
-    }else{
-        res = false;
-    }
-    return res;
+    RegExp exp = new RegExp(r'https://github.com/(.+)/(.+)$');
+    RegExpMatch? match = exp.firstMatch(msg.repository_URL);
+    // becase this method is called after formStateNotifier.checkRepositoryURLPattern,
+    // `match` variable cannot be null
+    var url = Uri.https('api.github.com', 'repos/${match!.group(1)}/${match!.group(2)}/branches/${msg.branch_name}');
+    http.Response response = await http.get(url);
+    return response.statusCode == 200;
   }
   
   @override
@@ -33,13 +32,7 @@ class FormRepositoryImpl implements FormRepository {
       return false;
     }
     final uri = Uri.parse("${_api}/score_evaluation");
-    var response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
-    bool res;
-    if (response.statusCode == 200){
-        res = true;
-    }else{
-        res = false;
-    }
-    return res;
+    http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
+    return response.statusCode == 200;
   }
 }

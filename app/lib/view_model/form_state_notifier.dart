@@ -31,7 +31,7 @@ class FormStateNotifier extends StateNotifier<FormState> {
     // check internet connection
     ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      state = FormError("error internet disconnected");
+      state = FormError("error: internet disconnected");
       return;
     }
     try{
@@ -40,19 +40,35 @@ class FormStateNotifier extends StateNotifier<FormState> {
 
     res = await _formRepository.checkExistBranch(data);
     if (res==false){
-      state = FormError("no such repository or branch\ngithub.com/${data.user_name}/${data.repository_name}/${data.branch_name}");
+      state = FormError("repository or branch doesn't exists");
       return;
     }
-
     res = await _formRepository.sendRequestToAPI(data);
     state = res ? FormSubmitted() : FormError("failed to submit form to api");
     } catch(e){
       state = FormError("error occured\n${e}");
     }
-    
+  }
+
+  String? checkRepositoryURLPattern(String? value){
+    if (value == null || value.isEmpty) {
+      state = FormError("invalid repository URL");
+      return 'Please enter some text';
+    }
+
+    RegExp exp = new RegExp(r'https://github.com/(.+)/(.+)$');
+    if (!exp.hasMatch(value)){
+      state = FormError("invalid repository URL");
+      return 'must match like "https://github.com/user/repository"';
+    }
+    return null;
   }
 
   void initializeState(){
     state = FormInitial();
+  }
+
+  void setFormValidationErrorState(){
+    state = FormError("form validation error\nfix invalid forms");
   }
 }
