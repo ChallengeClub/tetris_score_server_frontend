@@ -14,8 +14,17 @@ abstract class FormRepository {
 class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> checkExistBranch(FormModel msg) async {
-    var url = Uri.https('api.github.com', 'repos/${msg.user_name}/${msg.repository_name}/branches/${msg.branch_name}');
-    var response = await http.get(url);
+    RegExp exp = new RegExp(r'https://github.com/(.+)/(.+)$');
+    if (!exp.hasMatch(msg.repository_URL)){
+      return false;
+    }
+    RegExpMatch? match = exp.firstMatch(msg.repository_URL);
+    if (match==null){
+      return false;
+    }
+    var url = Uri.https('api.github.com', 'repos/${match.group(1)}/${match.group(2)}/branches/${msg.branch_name}');
+    print(url);
+    http.Response response = await http.get(url);
     bool res;
     if (response.statusCode == 200){
         res = true;

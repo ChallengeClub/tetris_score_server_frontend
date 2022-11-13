@@ -14,8 +14,8 @@ class SubmitForm extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var _screenSize = MediaQuery.of(context).size;
-    final _userNameFormController = useTextEditingController();
-    final _repositoryNameFormController = useTextEditingController(text: "tetris");
+    final _userNameFormController = useTextEditingController(text: "sry, invalid now");
+    final _repositoryURLFormController = useTextEditingController(text: "https://github.com/seigot/tetris");
     final _branchFormController = useTextEditingController(text: "master");
     final _levelFormController = useTextEditingController(text: "1");
     final _predictWeightPathController = useTextEditingController(text: "outputs/latest/best_weight.pt");
@@ -40,7 +40,7 @@ class SubmitForm extends HookConsumerWidget {
                     width: _formCardWidth,
                     height: _formCardHeight,
                     child: TextFormField(
-                      autofocus: true,
+                      enabled: false,
                       decoration: const InputDecoration(
                         labelText: 'user name',
                       ),
@@ -64,14 +64,12 @@ class SubmitForm extends HookConsumerWidget {
                     child: TextFormField(
                       autofocus: true,
                       decoration: const InputDecoration(
-                        labelText: 'repository name',
+                        labelText: 'github repository URL',
                       ),
-                      controller: _repositoryNameFormController,
+                      controller: _repositoryURLFormController,
                       validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
+                        String? res = ref.read(formStateNotifierProvider.notifier).checkRepositoryURLPattern(value);
+                        return res;
                       },
                     ),
                   ),
@@ -127,6 +125,7 @@ class SubmitForm extends HookConsumerWidget {
                 child: ExpansionTile(
                 title: Text('options'),
                 controlAffinity: ListTileControlAffinity.leading,
+                maintainState: true,
                 children: <Widget>[
                   Center(
                     child: SizedBox(
@@ -189,12 +188,13 @@ class SubmitForm extends HookConsumerWidget {
                     return ElevatedButton(
                       onPressed: () {
                         if (!_formKey.currentState!.validate()) {// validate form data when button pressed
+                          ref.read(formStateNotifierProvider.notifier).setFormValidationErrorState();
                           return;
                         }
                         ref.read(formStateNotifierProvider.notifier).submitMessage(
                           FormModel(
                             _userNameFormController.text,
-                            _repositoryNameFormController.text,
+                            _repositoryURLFormController.text,
                             _branchFormController.text,
                             1000,
                             int.parse(_levelFormController.text),

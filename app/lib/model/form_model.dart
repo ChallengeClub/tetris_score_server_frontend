@@ -2,7 +2,7 @@ import 'score_evaluation_message.pb.dart';
 
 class FormModel {
   final String user_name;
-  final String repository_name;
+  final String repository_URL;
   final String branch_name;
   final int drop_interval;
   final int level;
@@ -15,7 +15,7 @@ class FormModel {
 
   FormModel(
     this.user_name, 
-    this.repository_name, 
+    this.repository_URL, 
     this.branch_name,
     this.drop_interval,
     this.level,
@@ -28,7 +28,7 @@ class FormModel {
 
   ScoreEvaluationMessage toProtobufMsg(){
     ScoreEvaluationMessage msg = ScoreEvaluationMessage();
-    msg.repositoryUrl = "https:/github.com/${this.user_name}/${this.repository_name}";
+    msg.repositoryUrl = this.repository_URL;
     msg.branch = this.branch_name;
     msg.dropInterval = this.drop_interval;
     msg.level = ScoreEvaluationMessage_GameLevel.EASY;
