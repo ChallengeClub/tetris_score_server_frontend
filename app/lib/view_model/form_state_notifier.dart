@@ -51,7 +51,6 @@ class FormStateNotifier extends StateNotifier<FormState> {
   }
 
   String? checkRepositoryURLPattern(String? value){
-
     if (value == null || value.isEmpty) {
       state = FormError("invalid repository URL");
       return 'Please enter some text';
