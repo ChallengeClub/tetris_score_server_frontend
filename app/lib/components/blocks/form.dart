@@ -18,9 +18,10 @@ class SubmitForm extends HookConsumerWidget {
     final _repositoryURLFormController = useTextEditingController(text: "https://github.com/seigot/tetris");
     final _branchFormController = useTextEditingController(text: "master");
     final _levelFormController = useTextEditingController(text: "1");
-    final _predictWeightPathController = useTextEditingController(text: "outputs/latest/best_weight.pt");
+    final _predictWeightPathController = useTextEditingController(text: "");
     final _trialNumberController = useTextEditingController(text: "1");
     final _gameModeController = useTextEditingController(text: "default");
+    final _gameTimeController = useTextEditingController(text: "180");
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider);
@@ -157,6 +158,25 @@ class SubmitForm extends HookConsumerWidget {
                         controller: _predictWeightPathController,
                       ),
                     ),
+                  ),Center(
+                    child: SizedBox(
+                      width: _formCardWidth,
+                      height: _formCardHeight,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'game time',
+                        ),
+                        controller: _gameTimeController,
+                        validator: (String? value) {
+                          if (value==null || int.parse(value, onError: (value) => 0)<=0) {
+                            return 'please input positive integer';
+                          } else if (int.parse(value, onError: (value) => 0)>180){
+                            return 'game time cannot be more than 180 s';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
                   ),
                   Center(
                     child: SizedBox(
@@ -199,7 +219,7 @@ class SubmitForm extends HookConsumerWidget {
                             1000,
                             int.parse(_levelFormController.text),
                             _gameModeController.text,
-                            180,
+                            int.parse(_gameTimeController.text),
                             185,
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
