@@ -18,7 +18,7 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'repositoryUrl')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'branch')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dropInterval', $pb.PbFieldType.O3)
-    ..e<ScoreEvaluationMessage_GameLevel>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: ScoreEvaluationMessage_GameLevel.EASY, valueOf: ScoreEvaluationMessage_GameLevel.valueOf, enumValues: ScoreEvaluationMessage_GameLevel.values)
+    ..e<ScoreEvaluationMessage_GameLevel>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: ScoreEvaluationMessage_GameLevel.ZERO, valueOf: ScoreEvaluationMessage_GameLevel.valueOf, enumValues: ScoreEvaluationMessage_GameLevel.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gameMode')
     ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gameTime', $pb.PbFieldType.O3)
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeout', $pb.PbFieldType.O3)

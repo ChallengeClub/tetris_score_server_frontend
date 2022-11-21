@@ -10,14 +10,18 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class ScoreEvaluationMessage_GameLevel extends $pb.ProtobufEnum {
-  static const ScoreEvaluationMessage_GameLevel EASY = ScoreEvaluationMessage_GameLevel._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'EASY');
-  static const ScoreEvaluationMessage_GameLevel MIDIUM = ScoreEvaluationMessage_GameLevel._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'MIDIUM');
-  static const ScoreEvaluationMessage_GameLevel HARD = ScoreEvaluationMessage_GameLevel._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'HARD');
+  static const ScoreEvaluationMessage_GameLevel ZERO = ScoreEvaluationMessage_GameLevel._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ZERO');
+  static const ScoreEvaluationMessage_GameLevel ONE = ScoreEvaluationMessage_GameLevel._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ONE');
+  static const ScoreEvaluationMessage_GameLevel TWO = ScoreEvaluationMessage_GameLevel._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'TWO');
+  static const ScoreEvaluationMessage_GameLevel THREE = ScoreEvaluationMessage_GameLevel._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'THREE');
+  static const ScoreEvaluationMessage_GameLevel FOUR = ScoreEvaluationMessage_GameLevel._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'FOUR');
 
   static const $core.List<ScoreEvaluationMessage_GameLevel> values = <ScoreEvaluationMessage_GameLevel> [
-    EASY,
-    MIDIUM,
-    HARD,
+    ZERO,
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
   ];
 
   static final $core.Map<$core.int, ScoreEvaluationMessage_GameLevel> _byValue = $pb.ProtobufEnum.initByValue(values);
