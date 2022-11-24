@@ -31,7 +31,7 @@ class FormModel {
     msg.repositoryUrl = this.repository_URL;
     msg.branch = this.branch_name;
     msg.dropInterval = this.drop_interval;
-    msg.level = ScoreEvaluationMessage_GameLevel.EASY;
+    msg.level = ScoreEvaluationMessage_GameLevel.values[this.level];
     msg.gameMode = this.game_mode;
     msg.gameTime = this.game_time;
     msg.timeout = this.timeout;
