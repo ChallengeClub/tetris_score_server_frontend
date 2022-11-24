@@ -29,11 +29,13 @@ const ScoreEvaluationMessage$json = const {
 const ScoreEvaluationMessage_GameLevel$json = const {
   '1': 'GameLevel',
   '2': const [
-    const {'1': 'EASY', '2': 0},
-    const {'1': 'MIDIUM', '2': 1},
-    const {'1': 'HARD', '2': 2},
+    const {'1': 'ZERO', '2': 0},
+    const {'1': 'ONE', '2': 1},
+    const {'1': 'TWO', '2': 2},
+    const {'1': 'THREE', '2': 3},
+    const {'1': 'FOUR', '2': 4},
   ],
 };
 
 /// Descriptor for `ScoreEvaluationMessage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List scoreEvaluationMessageDescriptor = $convert.base64Decode('ChZTY29yZUV2YWx1YXRpb25NZXNzYWdlEiUKDnJlcG9zaXRvcnlfdXJsGAEgASgJUg1yZXBvc2l0b3J5VXJsEhYKBmJyYW5jaBgCIAEoCVIGYnJhbmNoEiMKDWRyb3BfaW50ZXJ2YWwYAyABKAVSDGRyb3BJbnRlcnZhbBJACgVsZXZlbBgEIAEoDjIqLnR1dG9yaWFsLlNjb3JlRXZhbHVhdGlvbk1lc3NhZ2UuR2FtZUxldmVsUgVsZXZlbBIbCglnYW1lX21vZGUYBSABKAlSCGdhbWVNb2RlEhsKCWdhbWVfdGltZRgGIAEoBVIIZ2FtZVRpbWUSGAoHdGltZW91dBgHIAEoBVIHdGltZW91dBIuChNwcmVkaWN0X3dlaWdodF9wYXRoGAggASgJUhFwcmVkaWN0V2VpZ2h0UGF0aBIbCgl0cmlhbF9udW0YCSABKAVSCHRyaWFsTnVtIisKCUdhbWVMZXZlbBIICgRFQVNZEAASCgoGTUlESVVNEAESCAoESEFSRBAC');
+final $typed_data.Uint8List scoreEvaluationMessageDescriptor = $convert.base64Decode('ChZTY29yZUV2YWx1YXRpb25NZXNzYWdlEiUKDnJlcG9zaXRvcnlfdXJsGAEgASgJUg1yZXBvc2l0b3J5VXJsEhYKBmJyYW5jaBgCIAEoCVIGYnJhbmNoEiMKDWRyb3BfaW50ZXJ2YWwYAyABKAVSDGRyb3BJbnRlcnZhbBJACgVsZXZlbBgEIAEoDjIqLnR1dG9yaWFsLlNjb3JlRXZhbHVhdGlvbk1lc3NhZ2UuR2FtZUxldmVsUgVsZXZlbBIbCglnYW1lX21vZGUYBSABKAlSCGdhbWVNb2RlEhsKCWdhbWVfdGltZRgGIAEoBVIIZ2FtZVRpbWUSGAoHdGltZW91dBgHIAEoBVIHdGltZW91dBIuChNwcmVkaWN0X3dlaWdodF9wYXRoGAggASgJUhFwcmVkaWN0V2VpZ2h0UGF0aBIbCgl0cmlhbF9udW0YCSABKAVSCHRyaWFsTnVtIjwKCUdhbWVMZXZlbBIICgRaRVJPEAASBwoDT05FEAESBwoDVFdPEAISCQoFVEhSRUUQAxIICgRGT1VSEAQ=');
