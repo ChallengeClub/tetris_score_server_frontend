@@ -8,7 +8,7 @@ class ResultsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: ResultsTable(),
       ),
     );

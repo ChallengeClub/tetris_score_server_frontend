@@ -11,14 +11,30 @@ abstract class DBRepository {
 class DBRepositoryImpl implements DBRepository {
   @override
   Future<List<ResultModel>> getLatestResults() async {
-    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
-    if (_api==null){
-      return [];
-    }
-    final uri = Uri.parse("${_api}/results");
-    http.Response result = await http.get(uri);
-    var _map = convert.jsonDecode(result.body);
-    List<dynamic> items = _map['Items'];
+    // String? _api = dotenv.env['EVALUATION_REQUEST_API'];
+    // if (_api==null){
+    //   return [];
+    // }
+    // final uri = Uri.parse("${_api}/results");
+    // http.Response result = await http.get(uri);
+    // var _map = convert.jsonDecode(result.body);
+    // List<dynamic> items = _map['Items'];
+    List<dynamic> items = [
+      {
+        "CreatedAt": 1000001,
+        "Status": "W",
+        "RepositoryURL": "https://github.com/seigot/tetris",
+        "Branch": "master",
+        "MeanScore": 100
+      },
+      {
+        "CreatedAt": 120000100,
+        "Status": "S",
+        "RepositoryURL": "https://github.com/seigot/tetris",
+        "Branch": "master",
+        "MeanScore": 1000
+      },
+    ];
     
     List<ResultModel> results = items.map(
         (var item) => ResultModel.fromJson(item)

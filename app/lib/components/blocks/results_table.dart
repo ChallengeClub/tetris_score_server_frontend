@@ -11,9 +11,11 @@ class ResultsTable extends HookConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final List<ResultModel> _results = ref.watch(resultStateNotifierProvider);
     final List<String> _columnList = getResultColumns();
+    var _screenSize = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
-      child: DataTable(
+      child: FittedBox(
+        child: DataTable(
         columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
         rows: _results.map((ResultModel result) => DataRow(
           cells: <DataCell>[
@@ -24,6 +26,6 @@ class ResultsTable extends HookConsumerWidget{
             DataCell(Text(result.mean_score.toString()))
           ]
         )).toList()
-      ));
+      )));
   }
 }
