@@ -25,14 +25,32 @@ class DBRepositoryImpl implements DBRepository {
         "Status": "W",
         "RepositoryURL": "https://github.com/seigot/tetris",
         "Branch": "master",
-        "MeanScore": 100
+        "MeanScore": 100,
+        "GameTime": 180,
+        "Level": 1,
+        "GameMode": "default",
+        "ValuePredictWeight": "",
+        "TrialNum": 1,
+        "StdDevScore": 1,
+        "MaxScore": 100,
+        "MinScore": 100,
+        "ErrorMessage": ""
       },
       {
         "CreatedAt": 120000100,
         "Status": "S",
         "RepositoryURL": "https://github.com/seigot/tetris",
         "Branch": "master",
-        "MeanScore": 1000
+        "MeanScore": 1000,
+        "GameTime": 180,
+        "Level": 1,
+        "GameMode": "default",
+        "ValuePredictWeight": "",
+        "TrialNum": 1,
+        "StdDevScore": 1,
+        "MaxScore": 100,
+        "MinScore": 100,
+        "ErrorMessage": ""
       },
     ];
     

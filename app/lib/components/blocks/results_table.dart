@@ -20,7 +20,7 @@ class ResultsTable extends HookConsumerWidget{
 
   DataTable mapToDataTableForMobilePhone(List<ResultModel> _results){
     const List<String> _columnList = [
-        "createdAt",
+        "created at",
         "status",
         "repository url"
     ];
@@ -39,8 +39,12 @@ class ResultsTable extends HookConsumerWidget{
     const List<String> _columnList = [
         "created at",
         "status",
+        "level",
         "repository url",
         "branch",
+        "game mode",
+        "game time",
+        "trial number",
         "mean score"
     ];
     return DataTable(
@@ -49,8 +53,12 @@ class ResultsTable extends HookConsumerWidget{
         cells: <DataCell>[
                 DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().substring(0, DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().length-4))),
                 DataCell(Text(result.status)),
+                DataCell(Text(result.level.toString())),
                 DataCell(Text(result.repository_url)),
                 DataCell(Text(result.branch)),
+                DataCell(Text(result.game_mode)),
+                DataCell(Text(result.game_time.toString())),
+                DataCell(Text(result.trial_number.toString())),
                 DataCell(Text(result.mean_score.toString()))
               ]
       )).toList()
