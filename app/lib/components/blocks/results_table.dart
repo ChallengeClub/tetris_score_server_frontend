@@ -10,22 +10,50 @@ class ResultsTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<ResultModel> _results = ref.watch(resultStateNotifierProvider);
-    final List<String> _columnList = getResultColumns();
     var _screenSize = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
       child: FittedBox(
-        child: DataTable(
-        columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
-        rows: _results.map((ResultModel result) => DataRow(
-          cells: <DataCell>[
-            DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString())),
-            DataCell(Text(result.status)),
-            DataCell(Text(result.repository_url)),
-            DataCell(Text(result.branch)),
-            DataCell(Text(result.mean_score.toString()))
-          ]
-        )).toList()
-      )));
+        child: (_screenSize.width <= 500) ? this.mapToDataTableForMobilePhone(_results) : this.mapToDataTable(_results)
+      ));
+  }
+
+  DataTable mapToDataTableForMobilePhone(List<ResultModel> _results){
+    const List<String> _columnList = [
+        "createdAt",
+        "status",
+        "repository url"
+    ];
+    return DataTable(
+      columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
+      rows: _results.map((ResultModel result) => DataRow(
+        cells: <DataCell>[
+                DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().substring(0, DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().length-4))),
+                DataCell(Text(result.status)),
+                DataCell(Text(result.repository_url))
+              ]
+      )).toList()
+    );
+  }
+  DataTable mapToDataTable(List<ResultModel> _results){
+    const List<String> _columnList = [
+        "created at",
+        "status",
+        "repository url",
+        "branch",
+        "mean score"
+    ];
+    return DataTable(
+      columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
+      rows: _results.map((ResultModel result) => DataRow(
+        cells: <DataCell>[
+                DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().substring(0, DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().length-4))),
+                DataCell(Text(result.status)),
+                DataCell(Text(result.repository_url)),
+                DataCell(Text(result.branch)),
+                DataCell(Text(result.mean_score.toString()))
+              ]
+      )).toList()
+    );
   }
 }

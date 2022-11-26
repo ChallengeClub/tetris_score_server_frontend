@@ -20,13 +20,3 @@ class ResultModel{
         created_at = map['CreatedAt']*1000,
         mean_score = map['MeanScore'];
 }
-
-List<String> getResultColumns(){
-    return [
-        "createdAt",
-        "status",
-        "repository_url",
-        "branch",
-        "mean_score"
-    ];
-}
