@@ -3,14 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/result_model.dart';
+import '../../model/result_model.dart' as ResultModel;
 import '../../view_model/providers.dart';
 import '../parts/result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<ResultModel> _results = ref.watch(resultStateNotifierProvider);
+    final List<ResultModel.ResultModel> _results = ref.watch(resultStateNotifierProvider);
     var _screenSize = MediaQuery.of(context).size;
     List<String> _columnList = this.getResultColumns(_screenSize.width);
 
@@ -20,7 +20,7 @@ class ResultsTable extends HookConsumerWidget{
         child: DataTable(
           showCheckboxColumn: false,
           columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
-          rows: _results.map((ResultModel result) => DataRow(
+          rows: _results.map((ResultModel.ResultModel result) => DataRow(
             onSelectChanged: (_) => ResultDialog.showResultDialog(context, result),
             cells: this.mapToDataCells(_screenSize.width, result)
           )).toList()
@@ -49,15 +49,15 @@ class ResultsTable extends HookConsumerWidget{
     return res;
     }
 
-  List<DataCell> mapToDataCells(var width, ResultModel result){
+  List<DataCell> mapToDataCells(var width, ResultModel.ResultModel result){
     List<DataCell> cells = [
-        DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().substring(0, DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().length-4))),
+        DataCell(Text(ResultModel.datetimeToString(result.created_at))),
         DataCell(Text(result.status)),
         DataCell(Text(result.repository_url))
       ];
     if (width >= 700){ // for desktop size
       cells = [
-        DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().substring(0, DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().length-4))),
+        DataCell(Text(ResultModel.datetimeToString(result.created_at))),
         DataCell(Text(result.status)),
         DataCell(Text(result.level.toString())),
         DataCell(Text(result.repository_url)),
