@@ -16,4 +16,8 @@ class ResultNotifier extends StateNotifier<List<ResultModel>> {
       print(e);
     }
   }
+
+  void sortResultsByCreatedAt(){
+    state.sort((b, a) => a.created_at.compareTo(b.created_at));
+  }
 }
