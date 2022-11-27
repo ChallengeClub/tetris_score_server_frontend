@@ -16,6 +16,7 @@ class ResultsTable extends HookConsumerWidget{
 
     return SingleChildScrollView(
       child: FittedBox(
+        fit: BoxFit.fitWidth,
         child: DataTable(
           showCheckboxColumn: false,
           columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
