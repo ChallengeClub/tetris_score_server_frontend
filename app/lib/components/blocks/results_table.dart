@@ -20,18 +20,19 @@ class ResultsTable extends HookConsumerWidget{
           showCheckboxColumn: false,
           columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
           rows: _results.map((ResultModel result) => DataRow(
+            onSelectChanged: (_) => ResultDialog.showResultDialog(context, result),
             cells: this.mapToDataCells(_screenSize.width, result)
           )).toList()
         )
       ));
   }
   List<String> getResultColumns(var width){
-    List<String> res = [
+    List<String> res = [ // for mobile size
         "created at",
         "status",
         "repository url"
       ];
-    if (width >= 500){
+    if (width >= 700){ // for desktop size
       res = [
         "created at",
         "status",
@@ -53,7 +54,7 @@ class ResultsTable extends HookConsumerWidget{
         DataCell(Text(result.status)),
         DataCell(Text(result.repository_url))
       ];
-    if (width >= 500){
+    if (width >= 700){ // for desktop size
       cells = [
         DataCell(Text(DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().substring(0, DateTime.fromMillisecondsSinceEpoch(result.created_at).toString().length-4))),
         DataCell(Text(result.status)),

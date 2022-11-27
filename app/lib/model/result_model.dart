@@ -47,3 +47,9 @@ class ResultModel{
         min_score = map['MinScore'],
         error_message = map['ErrorMessage'];
 }
+
+String datetimeToString(int datetime){
+    String _datetime = DateTime.fromMillisecondsSinceEpoch(datetime
+    ).toString();
+    return _datetime.substring(0, _datetime.length-4);
+}
