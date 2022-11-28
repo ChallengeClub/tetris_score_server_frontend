@@ -14,7 +14,7 @@ class SubmitForm extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var _screenSize = MediaQuery.of(context).size;
-    final _userNameFormController = useTextEditingController(text: "sry, invalid now");
+    final _userNameFormController = useTextEditingController(text: "");
     final _repositoryURLFormController = useTextEditingController(text: "https://github.com/seigot/tetris");
     final _branchFormController = useTextEditingController(text: "master");
     final _levelFormController = useTextEditingController(text: "1");
@@ -41,7 +41,6 @@ class SubmitForm extends HookConsumerWidget {
                     width: _formCardWidth,
                     height: _formCardHeight,
                     child: TextFormField(
-                      enabled: false,
                       decoration: const InputDecoration(
                         labelText: 'user name',
                       ),

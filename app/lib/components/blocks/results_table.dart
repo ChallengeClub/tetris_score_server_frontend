@@ -30,12 +30,14 @@ class ResultsTable extends HookConsumerWidget{
   }
   List<String> getResultColumns(var width){
     List<String> res = [ // for mobile size
+        "name",
         "created at",
         "status",
         "repository url"
       ];
     if (width >= 700){ // for desktop size
       res = [
+        "name",
         "created at",
         "status",
         "level",
@@ -52,12 +54,14 @@ class ResultsTable extends HookConsumerWidget{
 
   List<DataCell> mapToDataCells(var width, ResultModel.ResultModel result){
     List<DataCell> cells = [
+        DataCell(Text(result.name)),
         DataCell(Text(ResultModel.datetimeToString(result.created_at))),
         DataCell(Text(result.status)),
         DataCell(Text(result.repository_url))
       ];
     if (width >= 700){ // for desktop size
       cells = [
+        DataCell(Text(result.name)),
         DataCell(Text(ResultModel.datetimeToString(result.created_at))),
         DataCell(Text(result.status)),
         DataCell(Text(result.level.toString())),
