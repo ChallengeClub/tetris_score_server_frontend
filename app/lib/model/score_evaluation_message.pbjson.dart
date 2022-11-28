@@ -12,6 +12,9 @@ import 'dart:typed_data' as $typed_data;
 const ScoreEvaluationMessage$json = const {
   '1': 'ScoreEvaluationMessage',
   '2': const [
+    const {'1': 'name', '3': 12, '4': 1, '5': 9, '9': 0, '10': 'name', '17': true},
+    const {'1': 'id', '3': 10, '4': 1, '5': 9, '9': 1, '10': 'id', '17': true},
+    const {'1': 'created_at', '3': 11, '4': 1, '5': 5, '9': 2, '10': 'createdAt', '17': true},
     const {'1': 'repository_url', '3': 1, '4': 1, '5': 9, '10': 'repositoryUrl'},
     const {'1': 'branch', '3': 2, '4': 1, '5': 9, '10': 'branch'},
     const {'1': 'drop_interval', '3': 3, '4': 1, '5': 5, '10': 'dropInterval'},
@@ -23,6 +26,11 @@ const ScoreEvaluationMessage$json = const {
     const {'1': 'trial_num', '3': 9, '4': 1, '5': 5, '10': 'trialNum'},
   ],
   '4': const [ScoreEvaluationMessage_GameLevel$json],
+  '8': const [
+    const {'1': '_name'},
+    const {'1': '_id'},
+    const {'1': '_created_at'},
+  ],
 };
 
 @$core.Deprecated('Use scoreEvaluationMessageDescriptor instead')
@@ -38,4 +46,4 @@ const ScoreEvaluationMessage_GameLevel$json = const {
 };
 
 /// Descriptor for `ScoreEvaluationMessage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List scoreEvaluationMessageDescriptor = $convert.base64Decode('ChZTY29yZUV2YWx1YXRpb25NZXNzYWdlEiUKDnJlcG9zaXRvcnlfdXJsGAEgASgJUg1yZXBvc2l0b3J5VXJsEhYKBmJyYW5jaBgCIAEoCVIGYnJhbmNoEiMKDWRyb3BfaW50ZXJ2YWwYAyABKAVSDGRyb3BJbnRlcnZhbBJACgVsZXZlbBgEIAEoDjIqLnR1dG9yaWFsLlNjb3JlRXZhbHVhdGlvbk1lc3NhZ2UuR2FtZUxldmVsUgVsZXZlbBIbCglnYW1lX21vZGUYBSABKAlSCGdhbWVNb2RlEhsKCWdhbWVfdGltZRgGIAEoBVIIZ2FtZVRpbWUSGAoHdGltZW91dBgHIAEoBVIHdGltZW91dBIuChNwcmVkaWN0X3dlaWdodF9wYXRoGAggASgJUhFwcmVkaWN0V2VpZ2h0UGF0aBIbCgl0cmlhbF9udW0YCSABKAVSCHRyaWFsTnVtIjwKCUdhbWVMZXZlbBIICgRaRVJPEAASBwoDT05FEAESBwoDVFdPEAISCQoFVEhSRUUQAxIICgRGT1VSEAQ=');
+final $typed_data.Uint8List scoreEvaluationMessageDescriptor = $convert.base64Decode('ChZTY29yZUV2YWx1YXRpb25NZXNzYWdlEhcKBG5hbWUYDCABKAlIAFIEbmFtZYgBARITCgJpZBgKIAEoCUgBUgJpZIgBARIiCgpjcmVhdGVkX2F0GAsgASgFSAJSCWNyZWF0ZWRBdIgBARIlCg5yZXBvc2l0b3J5X3VybBgBIAEoCVINcmVwb3NpdG9yeVVybBIWCgZicmFuY2gYAiABKAlSBmJyYW5jaBIjCg1kcm9wX2ludGVydmFsGAMgASgFUgxkcm9wSW50ZXJ2YWwSQAoFbGV2ZWwYBCABKA4yKi50dXRvcmlhbC5TY29yZUV2YWx1YXRpb25NZXNzYWdlLkdhbWVMZXZlbFIFbGV2ZWwSGwoJZ2FtZV9tb2RlGAUgASgJUghnYW1lTW9kZRIbCglnYW1lX3RpbWUYBiABKAVSCGdhbWVUaW1lEhgKB3RpbWVvdXQYByABKAVSB3RpbWVvdXQSLgoTcHJlZGljdF93ZWlnaHRfcGF0aBgIIAEoCVIRcHJlZGljdFdlaWdodFBhdGgSGwoJdHJpYWxfbnVtGAkgASgFUgh0cmlhbE51bSI8CglHYW1lTGV2ZWwSCAoEWkVSTxAAEgcKA09ORRABEgcKA1RXTxACEgkKBVRIUkVFEAMSCAoERk9VUhAEQgcKBV9uYW1lQgUKA19pZEINCgtfY3JlYXRlZF9hdA==');

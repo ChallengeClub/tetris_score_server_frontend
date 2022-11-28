@@ -28,6 +28,7 @@ class FormModel {
 
   ScoreEvaluationMessage toProtobufMsg(){
     ScoreEvaluationMessage msg = ScoreEvaluationMessage();
+    msg.name = this.user_name;
     msg.repositoryUrl = this.repository_URL;
     msg.branch = this.branch_name;
     msg.dropInterval = this.drop_interval;

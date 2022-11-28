@@ -24,6 +24,9 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeout', $pb.PbFieldType.O3)
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'predictWeightPath')
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'trialNum', $pb.PbFieldType.O3)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', $pb.PbFieldType.O3)
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..hasRequiredFields = false
   ;
 
@@ -38,6 +41,9 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     $core.int? timeout,
     $core.String? predictWeightPath,
     $core.int? trialNum,
+    $core.String? id,
+    $core.int? createdAt,
+    $core.String? name,
   }) {
     final _result = create();
     if (repositoryUrl != null) {
@@ -66,6 +72,15 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     }
     if (trialNum != null) {
       _result.trialNum = trialNum;
+    }
+    if (id != null) {
+      _result.id = id;
+    }
+    if (createdAt != null) {
+      _result.createdAt = createdAt;
+    }
+    if (name != null) {
+      _result.name = name;
     }
     return _result;
   }
@@ -170,5 +185,32 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
   $core.bool hasTrialNum() => $_has(8);
   @$pb.TagNumber(9)
   void clearTrialNum() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get id => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set id($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasId() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearId() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.int get createdAt => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set createdAt($core.int v) { $_setSignedInt32(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasCreatedAt() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearCreatedAt() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get name => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set name($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasName() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearName() => clearField(12);
 }
 

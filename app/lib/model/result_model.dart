@@ -1,4 +1,5 @@
 class ResultModel{
+    final String name;
     final String repository_url;
     final String status;
     final String branch;
@@ -15,6 +16,7 @@ class ResultModel{
     final String error_message;
 
     ResultModel(
+        this.name,
         this.repository_url,
         this.status,
         this.branch,
@@ -32,7 +34,8 @@ class ResultModel{
     );
     
     ResultModel.fromJson(dynamic map)
-      : repository_url = map['RepositoryURL'],
+      : name = map['Name'],
+        repository_url = map['RepositoryURL'],
         status = map['Status'],
         branch = map['Branch'],
         created_at = map['CreatedAt']*1000,
