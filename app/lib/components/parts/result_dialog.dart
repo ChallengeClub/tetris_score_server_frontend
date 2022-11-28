@@ -11,6 +11,7 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
+              Text("name: ${result.name}"),
               Text("url: ${result.repository_url}"),
               Text("status: ${result.status}"),
               Text("branch: ${result.branch}"),
