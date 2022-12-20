@@ -11,7 +11,6 @@ services:
       - type: bind
         source: ./protobuf
         target: /protobuf
-    env_file: .env
     tty: true
     ports:
       - "$WEB_SERVER_PORT:$WEB_SERVER_PORT"

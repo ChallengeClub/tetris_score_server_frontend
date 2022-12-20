@@ -15,7 +15,8 @@ class DBRepositoryImpl implements DBRepository {
     if (_api==null){
       return [];
     }
-    final uri = Uri.parse("${_api}/results");
+    print(_api);
+    final uri = Uri.parse("http://localhost:8000/results");
     http.Response result = await http.get(uri);
     var _map = convert.jsonDecode(result.body);
     List<dynamic> items = _map['Items'];
