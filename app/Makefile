@@ -8,7 +8,7 @@ hosting:
 	EVALUATION_REQUEST_API=http://localhost:$(MOCK_SERVER_PORT) flutter run lib/main.dart -d web-server --web-port=${WEB_SERVER_PORT} --web-hostname 0.0.0.0
 
 server:
-	MOCK_SERVER_PORT=$(MOCK_SERVER_PORT) dart test/repository/db_repository.mock.dart
+	MOCK_SERVER_PORT=$(MOCK_SERVER_PORT) dart test/repository/mock_server.dart
 
 prod_build:
 	flutter build web

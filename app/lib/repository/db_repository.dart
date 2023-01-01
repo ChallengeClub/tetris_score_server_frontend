@@ -15,12 +15,10 @@ class DBRepositoryImpl implements DBRepository {
     if (_api==null){
       return [];
     }
-    print(_api);
     final uri = Uri.parse("http://localhost:8000/results");
     http.Response result = await http.get(uri);
     var _map = convert.jsonDecode(result.body);
     List<dynamic> items = _map['Items'];
-    
     List<ResultModel> results = items.map(
         (var item) => ResultModel.fromJson(item)
     ).toList();
