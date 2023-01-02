@@ -32,13 +32,23 @@ class CompetitionEntryPage extends ConsumerWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: ElevatedButton(
-                    onPressed: (){
-                        ref.read(resultStateNotifierProvider.notifier).fetchResults();
-                        ref.read(resultStateNotifierProvider.notifier).sortResultsByCreatedAt();
-                    },
-                    child: const Text("Refresh")
-                  )
+                  child: Row(
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: (){
+                          ref.read(resultStateNotifierProvider.notifier).writeToFile();
+                        },
+                        child: const Text("Download")
+                      ),
+                      ElevatedButton(
+                        onPressed: (){
+                            ref.read(resultStateNotifierProvider.notifier).fetchResults();
+                            ref.read(resultStateNotifierProvider.notifier).sortResultsByCreatedAt();
+                        },
+                        child: const Text("Refresh")
+                      )
+                    ]
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
