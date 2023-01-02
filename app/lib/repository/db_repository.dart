@@ -29,7 +29,6 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<List<EntryModel>> getEntries() async {
-    print("get Entries pressed");
     String? _api = dotenv.env['EVALUATION_REQUEST_API'];
     if (_api==null){
       return [];

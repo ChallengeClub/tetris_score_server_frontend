@@ -15,7 +15,6 @@ class EntryNotifier extends StateNotifier<List<EntryModel>> {
   Future<void> fetchEntries() async {
     try{
       state = await _dbRepository.getEntries();
-      print(state);
     } catch(e){
       print(e);
     }
