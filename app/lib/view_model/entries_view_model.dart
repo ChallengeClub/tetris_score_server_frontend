@@ -20,8 +20,14 @@ class EntryNotifier extends StateNotifier<List<EntryModel>> {
     }
   }
 
-  void sortEntriesByCreatedAt(){
-    state.sort((b, a) => a.created_at.compareTo(b.created_at));
+  void sortEntriesByColumn(String _column, bool _isAscending){
+    print("sortEntries called: $_isAscending, $_column");
+    if (_isAscending){
+      state = state..sort((a, b) => a.getMember(_column).compareTo(b.getMember(_column)));
+    } else {
+      state = state..sort((b, a) => a.getMember(_column).compareTo(b.getMember(_column)));
+    }
+    print(state);
   }
 
   Future<void> writeToFile() async {

@@ -9,7 +9,7 @@ class EntryModel{
     final String predict_weight_path;
     final String error_message;
 
-    EntryModel(
+    const EntryModel(
         this.name,
         this.repository_url,
         this.status,
@@ -43,19 +43,46 @@ class EntryModel{
         predict_weight_path,
         error_message
       ];
+    
+    dynamic getMember(String key){
+        var res;
+        if (key=="name"){
+            res = name;
+        } else if (key=="repository_url"){
+            res = repository_url;
+        } else if (key=="status"){
+            res = status;
+        } else if (key=="branch"){
+            res = branch;
+        } else if (key=="created_at"){
+            res = created_at;
+        } else if (key=="level"){
+            res = level;
+        } else if (key=="game_mode"){
+            res = game_mode;
+        } else if (key=="predict_weight_path"){
+            res = predict_weight_path;
+        } else if (key=="error_message"){
+            res = error_message;
+        } else {
+            res = null;
+        }
+        print("$key, $res");
+        return res;
+    }
 }
 
-List<String> getHeader()=>[
-    'name',
-    'repository_url',
-    'status',
-    'branch',
-    'created_at',
-    'level',
-    'game_mode',
-    'predict_weight_path',
-    'error_message'
-];
+List<String> getHeader()=> [
+        'name',
+        'repository_url',
+        'status',
+        'branch',
+        'created_at',
+        'level',
+        'game_mode',
+        'predict_weight_path',
+        'error_message'
+    ];
 
 String datetimeToString(int datetime){
     String _datetime = DateTime.fromMillisecondsSinceEpoch(datetime

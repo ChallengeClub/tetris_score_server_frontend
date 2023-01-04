@@ -43,7 +43,7 @@ class CompetitionEntryPage extends ConsumerWidget {
                       ElevatedButton(
                         onPressed: (){
                           ref.read(entryStateNotifierProvider.notifier).fetchEntries();
-                          ref.read(entryStateNotifierProvider.notifier).sortEntriesByCreatedAt();
+                          ref.read(entryStateNotifierProvider.notifier).sortEntriesByColumn("created_at", true);
                           print("button pressed");
                         },
                         child: const Text("Refresh")

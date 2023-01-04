@@ -11,16 +11,32 @@ class EntryStatusTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<EntryModel.EntryModel> _entries = ref.watch(entryStateNotifierProvider);
-    ref.read(entryStateNotifierProvider.notifier).sortEntriesByCreatedAt();
     var _screenSize = MediaQuery.of(context).size;
     List<String> _columnList = this.getEntryColumns(_screenSize.width);
+
+    int _currentSortColumn = 0;
+    bool _isAscending = true;
+    ref.read(entryStateNotifierProvider.notifier).sortEntriesByColumn("created_at", true);
 
     return SingleChildScrollView(
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: DataTable(
           showCheckboxColumn: false,
-          columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
+          sortColumnIndex: _currentSortColumn,
+          sortAscending: _isAscending,
+          headingRowColor: MaterialStateProperty.all(Colors.amber[200]),
+          columns: _columnList.map(
+            (String column) => DataColumn(
+              label: Text(column),
+              onSort: (sortColumnIndex, isSortAscending){
+                _isAscending ^= true;
+                ref.read(
+                  entryStateNotifierProvider.notifier
+                ).sortEntriesByColumn(column, isSortAscending);
+              }
+            )
+          ).toList(),
           rows: _entries.map((EntryModel.EntryModel entry) => DataRow(
             onSelectChanged: (_) => EntryDialog.showEntryDialog(context,entry),
             cells: this.mapToDataCells(_screenSize.width, entry)
@@ -30,21 +46,21 @@ class EntryStatusTable extends HookConsumerWidget{
   }
   List<String> getEntryColumns(var width){
     List<String> res = [ // for mobile size
+        "created_at",
         "name",
-        "created at",
         "level",
-        "repository url",
+        "repository_url",
         "status"
       ];
     if (width >= 700){ // for desktop size
       res = [
+        "created_at",
         "name",
-        "created at",
         "status",
         "level",
-        "repository url",
+        "repository_url",
         "branch",
-        "game mode",
+        "game_mode",
       ];
     }
     return res;
@@ -52,16 +68,16 @@ class EntryStatusTable extends HookConsumerWidget{
 
   List<DataCell> mapToDataCells(var width, EntryModel.EntryModel entry){
     List<DataCell> cells = [
-        DataCell(Text(entry.name)),
         DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
+        DataCell(Text(entry.name)),
         DataCell(Text(entry.level.toString())),
         DataCell(Text(entry.repository_url)),
         DataCell(Text(entry.status)),
       ];
     if (width >= 700){ // for desktop size
       cells = [
-        DataCell(Text(entry.name)),
         DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
+        DataCell(Text(entry.name)),
         DataCell(Text(entry.status)),
         DataCell(Text(entry.level.toString())),
         DataCell(Text(entry.repository_url)),
