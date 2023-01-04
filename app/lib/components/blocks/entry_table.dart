@@ -4,46 +4,47 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/entry_model.dart' as EntryModel;
+import '../../model/entry_table_model.dart';
 import '../parts/entry_dialog.dart' as EntryDialog;
 import '../../view_model/providers.dart';
 
 class EntryStatusTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<EntryModel.EntryModel> _entries = ref.watch(entryStateNotifierProvider);
+    EntryTable _entryTable = ref.watch(entryTableStateNotifierProvider);
     var _screenSize = MediaQuery.of(context).size;
     List<String> _columnList = this.getEntryColumns(_screenSize.width);
-
-    int _currentSortColumn = 0;
-    bool _isAscending = true;
-    ref.read(entryStateNotifierProvider.notifier).sortEntriesByColumn("created_at", true);
 
     return SingleChildScrollView(
       child: FittedBox(
         fit: BoxFit.fitWidth,
-        child: DataTable(
-          showCheckboxColumn: false,
-          sortColumnIndex: _currentSortColumn,
-          sortAscending: _isAscending,
-          headingRowColor: MaterialStateProperty.all(Colors.amber[200]),
-          columns: _columnList.map(
-            (String column) => DataColumn(
-              label: Text(column),
-              onSort: (sortColumnIndex, isSortAscending){
-                _isAscending ^= true;
-                ref.read(
-                  entryStateNotifierProvider.notifier
-                ).sortEntriesByColumn(column, isSortAscending);
-              }
-            )
-          ).toList(),
-          rows: _entries.map((EntryModel.EntryModel entry) => DataRow(
-            onSelectChanged: (_) => EntryDialog.showEntryDialog(context,entry),
-            cells: this.mapToDataCells(_screenSize.width, entry)
-          )).toList()
-        )
-      ));
+        child: (() {
+          if (_entryTable.entries.length == 0) {
+          // 初期化後、通信中
+            return Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+          return DataTable(
+            showCheckboxColumn: false,
+            sortColumnIndex: _columnList.indexOf(_entryTable.sortColumn),
+            sortAscending: _entryTable.isSortedAscending,
+            headingRowColor: MaterialStateProperty.all(Colors.amber[200]),
+            columns: _columnList.map(
+              (String column) => DataColumn(
+                label: Text(column),
+              )
+            ).toList(),
+            rows: _entryTable.entries.map((EntryModel.EntryModel entry) => DataRow(
+              onSelectChanged: (_) => EntryDialog.showEntryDialog(context,entry),
+              cells: this.mapToDataCells(_screenSize.width, entry)
+            )).toList()
+          );
+        })()
+      )
+    );
   }
+   
   List<String> getEntryColumns(var width){
     List<String> res = [ // for mobile size
         "created_at",

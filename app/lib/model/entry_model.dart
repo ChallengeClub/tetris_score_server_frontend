@@ -89,3 +89,19 @@ String datetimeToString(int datetime){
     ).toString();
     return _datetime.substring(0, _datetime.length-4);
 }
+
+List<EntryModel> getExampleEntryModel() {
+  return [
+    EntryModel(
+      "example",
+      "example.com",
+      "waiting",
+      "",
+      0,
+      1,
+      "",
+      "",
+      "",
+    )
+  ];
+}

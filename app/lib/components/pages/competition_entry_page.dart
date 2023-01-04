@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../blocks/entry_form.dart';
-import '../blocks/entries_table.dart';
+import '../blocks/entry_table.dart';
 import '../../view_model/providers.dart';
 
 class CompetitionEntryPage extends ConsumerWidget {
@@ -36,14 +36,13 @@ class CompetitionEntryPage extends ConsumerWidget {
                     children: <Widget>[
                       ElevatedButton(
                         onPressed: (){
-                          ref.read(entryStateNotifierProvider.notifier).writeToFile();
+                          ref.read(entryTableStateNotifierProvider.notifier).writeToFile();
                         },
                         child: const Text("Download")
                       ),
                       ElevatedButton(
                         onPressed: (){
-                          ref.read(entryStateNotifierProvider.notifier).fetchEntries();
-                          ref.read(entryStateNotifierProvider.notifier).sortEntriesByColumn("created_at", true);
+                          ref.read(entryTableStateNotifierProvider.notifier).fetchEntries();
                           print("button pressed");
                         },
                         child: const Text("Refresh")
