@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/entry_model.dart' as EntryModel;
+import '../parts/entry_dialog.dart' as EntryDialog;
 import '../../view_model/providers.dart';
 
 class EntryStatusTable extends HookConsumerWidget{
@@ -21,6 +22,7 @@ class EntryStatusTable extends HookConsumerWidget{
           showCheckboxColumn: false,
           columns: _columnList.map((String column) => DataColumn(label: Text(column))).toList(),
           rows: _entries.map((EntryModel.EntryModel entry) => DataRow(
+            onSelectChanged: (_) => EntryDialog.showEntryDialog(context,entry),
             cells: this.mapToDataCells(_screenSize.width, entry)
           )).toList()
         )

@@ -168,7 +168,7 @@ class EntryForm extends HookConsumerWidget {
                           ref.read(formStateNotifierProvider.notifier).setFormValidationErrorState();
                           return;
                         }
-                        ref.read(formStateNotifierProvider.notifier).submitMessage(
+                        ref.read(formStateNotifierProvider.notifier).submitEntryMessage(
                           FormModel(
                             _userNameFormController.text,
                             _repositoryURLFormController.text,

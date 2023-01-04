@@ -42,12 +42,16 @@ class EntryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(title: const Text('Tetris HP')),
-      body: Row(
-        children: <Widget>[
-          CompetitionButton(),
-          ServerButton()
-        ],
-      ),
+      body: Container(
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.all(8),
+          children: <Widget>[
+            CompetitionButton(),
+            ServerButton()
+          ],
+        ),
+      )
     );
   }
 }
