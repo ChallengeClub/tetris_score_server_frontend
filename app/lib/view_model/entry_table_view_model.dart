@@ -19,6 +19,7 @@ class EntryTableStateNotifier extends StateNotifier<EntryTable> {
       if (entries.length == 0){ // if no data in DB, use Example Entry
         entries = getExampleEntryModel();
       }
+      entries.sort((b,a)=>a.created_at.compareTo(b.created_at));
       state = EntryTable(
         entries,
         "created_at",
@@ -28,7 +29,7 @@ class EntryTableStateNotifier extends StateNotifier<EntryTable> {
       print(e);
     }
   }
-  
+
   Future<void> writeToFile() async {
     try{
       await _fileRepository.writeToCsv(state.entries);

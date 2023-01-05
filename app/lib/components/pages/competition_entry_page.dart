@@ -26,30 +26,33 @@ class CompetitionEntryPage extends ConsumerWidget {
         body: TabBarView(
           children: [
             Center(
-              child: Container(margin: const EdgeInsets.all(40), child: EntryForm()),
+              child: Container(margin: const EdgeInsets.all(20), child: EntryForm()),
             ),
             Column(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: (){
-                          ref.read(entryTableStateNotifierProvider.notifier).writeToFile();
-                        },
-                        child: const Text("Download")
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      ElevatedButton(
-                        onPressed: (){
-                          ref.read(entryTableStateNotifierProvider.notifier).fetchEntries();
-                        },
-                        child: const Text("Refresh")
-                      )
-                    ]
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: (){
+                            ref.read(entryTableStateNotifierProvider.notifier).writeToFile();
+                          },
+                          child: const Text("Download")
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        ElevatedButton(
+                          onPressed: (){
+                            ref.read(entryTableStateNotifierProvider.notifier).fetchEntries();
+                          },
+                          child: const Text("Refresh")
+                        )
+                      ]
+                    )
                   ),
                 ),
                 Container(
