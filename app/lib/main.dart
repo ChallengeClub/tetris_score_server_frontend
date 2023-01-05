@@ -23,7 +23,7 @@ class TetrisApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tetris HP',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
