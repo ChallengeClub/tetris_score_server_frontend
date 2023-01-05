@@ -13,10 +13,10 @@ class EntryTableStateNotifier extends StateNotifier<EntryTable> {
     fetchEntries();
   }
 
-  Future<String> fetchEntries() async {
+  Future<void> fetchEntries() async {
     try{
       List<EntryModel> entries = await _dbRepository.getEntries();
-      if (entries.length == 0){
+      if (entries.length == 0){ // if no data in DB, use Example Entry
         entries = getExampleEntryModel();
       }
       state = EntryTable(
@@ -24,14 +24,11 @@ class EntryTableStateNotifier extends StateNotifier<EntryTable> {
         "created_at",
         false
       );
-      print("fetched data");
-      return "Succeeded";
     } catch(e){
       print(e);
-      return "Failed";
     }
   }
-
+  
   Future<void> writeToFile() async {
     try{
       await _fileRepository.writeToCsv(state.entries);

@@ -29,10 +29,10 @@ class EntryStatusTable extends HookConsumerWidget{
             showCheckboxColumn: false,
             sortColumnIndex: _columnList.indexOf(_entryTable.sortColumn),
             sortAscending: _entryTable.isSortedAscending,
-            headingRowColor: MaterialStateProperty.all(Colors.amber[200]),
+            headingRowColor: MaterialStateProperty.all(Colors.lime),
             columns: _columnList.map(
               (String column) => DataColumn(
-                label: Text(column),
+                label: Text(column)
               )
             ).toList(),
             rows: _entryTable.entries.map((EntryModel.EntryModel entry) => DataRow(

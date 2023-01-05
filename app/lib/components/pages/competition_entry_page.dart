@@ -31,7 +31,7 @@ class CompetitionEntryPage extends ConsumerWidget {
             Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: <Widget>[
                       ElevatedButton(
@@ -40,10 +40,12 @@ class CompetitionEntryPage extends ConsumerWidget {
                         },
                         child: const Text("Download")
                       ),
+                      SizedBox(
+                        width: 5,
+                      ),
                       ElevatedButton(
                         onPressed: (){
                           ref.read(entryTableStateNotifierProvider.notifier).fetchEntries();
-                          print("button pressed");
                         },
                         child: const Text("Refresh")
                       )
