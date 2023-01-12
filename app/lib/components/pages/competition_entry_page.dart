@@ -55,10 +55,9 @@ class CompetitionEntryPage extends ConsumerWidget {
                     )
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                Expanded(
                   child: EntryStatusTable(),
-                )
+                ),
               ]
             )
           ]

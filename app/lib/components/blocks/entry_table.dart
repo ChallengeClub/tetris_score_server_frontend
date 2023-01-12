@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../model/entry_model.dart' as EntryModel;
 import '../../model/entry_table_model.dart';
@@ -13,80 +14,93 @@ class EntryStatusTable extends HookConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     EntryTable _entryTable = ref.watch(entryTableStateNotifierProvider);
     var _screenSize = MediaQuery.of(context).size;
-    List<String> _columnList = this.getEntryColumns(_screenSize.width);
+    List<PlutoColumn> _columnList = this.getEntryColumns(_screenSize.width);
 
-    return SingleChildScrollView(
-      child: FittedBox(
-        fit: BoxFit.fitWidth,
-        child: (() {
+    return (() {
           if (_entryTable.entries.length == 0) {
           // 初期化後、通信中
             return Center(
               child: CircularProgressIndicator.adaptive(),
             );
           }
-          return DataTable(
-            showCheckboxColumn: false,
-            sortColumnIndex: _columnList.indexOf(_entryTable.sortColumn),
-            sortAscending: _entryTable.isSortedAscending,
-            columnSpacing: 20,
-            headingRowColor: MaterialStateProperty.all(Colors.lime),
-            columns: _columnList.map(
-              (String column) => DataColumn(
-                label: Text(column)
-              )
-            ).toList(),
-            rows: _entryTable.entries.map((EntryModel.EntryModel entry) => DataRow(
-              onSelectChanged: (_) => EntryDialog.showEntryDialog(context,entry),
-              cells: this.mapToDataCells(_screenSize.width, entry)
-            )).toList()
+          return PlutoGrid(
+                columns: _columnList,
+                rows: _entryTable.entries.map((EntryModel.EntryModel entry) => PlutoRow(
+                  cells: this.mapToDataCells(_screenSize.width, entry)
+                )).toList()
           );
-        })()
-      )
-    );
+        }
+        )();
   }
    
-  List<String> getEntryColumns(var width){
-    List<String> res = [ // for mobile size
-        "created_at",
-        "name",
-        "level",
-        "repository_url",
-        "status"
-      ];
-    if (width >= 700){ // for desktop size
-      res = [
-        "created_at",
-        "name",
-        "status",
-        "level",
-        "repository_url",
-        "branch",
-        "game_mode",
-      ];
-    }
+  List<PlutoColumn> getEntryColumns(var width){
+    List<PlutoColumn> res = [ // for mobile size
+      PlutoColumn(
+        title: 'Created at',
+        field: 'created_at',
+        type: PlutoColumnType.text()
+      ),
+      PlutoColumn(
+        title: 'Name',
+        field: 'name',
+        type: PlutoColumnType.text()
+      ),
+      PlutoColumn(
+        title: 'Level',
+        field: 'level',
+        type: PlutoColumnType.number()
+      ),
+      PlutoColumn(
+        title: 'URL',
+        field: 'repository_url',
+        type: PlutoColumnType.text()
+      ),
+      PlutoColumn(
+        title: 'Status',
+        field: 'status',
+        type: PlutoColumnType.text()
+      ),
+    ];
+    // if (width >= 700){ // for desktop size
+    //   res = [
+    //     "created_at",
+    //     "name",
+    //     "status",
+    //     "level",
+    //     "repository_url",
+    //     "branch",
+    //     "game_mode",
+    //   ];
+    // }
     return res;
   }
 
-  List<DataCell> mapToDataCells(var width, EntryModel.EntryModel entry){
-    List<DataCell> cells = [
-        DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
-        DataCell(Text(entry.name)),
-        DataCell(Text(entry.level.toString())),
-        DataCell(Text(entry.repository_url)),
-        DataCell(Text(entry.status)),
-      ];
-    if (width >= 700){ // for desktop size
-      cells = [
-        DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
-        DataCell(Text(entry.name)),
-        DataCell(Text(entry.status)),
-        DataCell(Text(entry.level.toString())),
-        DataCell(Text(entry.repository_url)),
-        DataCell(Text(entry.branch)),
-        DataCell(Text(entry.game_mode)),
-      ];
-    }
+  Map<String, PlutoCell> mapToDataCells(var width, EntryModel.EntryModel entry){
+    Map<String, PlutoCell> cells = {
+      'created_at': PlutoCell(value: EntryModel.datetimeToString(entry.created_at)),
+      'name': PlutoCell(value: entry.name),
+      'level': PlutoCell(value: entry.level),
+      'repository_url': PlutoCell(value: entry.repository_url),
+      'status': PlutoCell(value: entry.status)
+    };
+    // [
+    //     DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
+    //     DataCell(Text(entry.name)),
+    //     DataCell(Text(entry.level.toString())),
+    //     DataCell(Text(entry.repository_url)),
+    //     DataCell(Text(entry.status)),
+    //   ];
+    // if (width >= 700){ // for desktop size
+    //   cells = [
+    //     DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
+    //     DataCell(Text(entry.name)),
+    //     DataCell(Text(entry.status)),
+    //     DataCell(Text(entry.level.toString())),
+    //     DataCell(Text(entry.repository_url)),
+    //     DataCell(Text(entry.branch)),
+    //     DataCell(Text(entry.game_mode)),
+    //   ];
+    // }
     return cells;
   }
 }
