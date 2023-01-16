@@ -27,7 +27,20 @@ class EntryStatusTable extends HookConsumerWidget{
                 columns: _columnList,
                 rows: _entryTable.entries.map((EntryModel.EntryModel entry) => PlutoRow(
                   cells: this.mapToDataCells(_screenSize.width, entry)
-                )).toList()
+                )).toList(),
+                onLoaded: (PlutoGridOnLoadedEvent event) {
+                  event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
+                },
+                rowColorCallback: (PlutoRowColorContext rowColorContext) {
+                  String status = rowColorContext.row.cells['status']?.value;
+                  Color color = Colors.white;
+                  if (status=="succeeded"){
+                    color = Color(0xFFE2F6DF);
+                  } else if (status=="error"){
+                    color = Color(0xFFFADBDF);
+                  }
+                  return color;
+                }
           );
         }
         )();
