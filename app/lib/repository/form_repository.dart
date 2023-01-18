@@ -9,6 +9,7 @@ import '../model/score_evaluation_message.pb.dart';
 abstract class FormRepository {
   Future<bool> checkExistBranch(FormModel msg);
   Future<bool> sendRequestToAPI(FormModel msg);
+  Future<bool> sendRequestToEntryAPI(FormModel msg);
 }
 
 class FormRepositoryImpl implements FormRepository {
@@ -32,6 +33,18 @@ class FormRepositoryImpl implements FormRepository {
       return false;
     }
     final uri = Uri.parse("${_api}/score_evaluation");
+    http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
+    return response.statusCode == 200;
+  }
+
+  @override
+  Future<bool> sendRequestToEntryAPI(FormModel msg) async {
+    ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
+    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
+    if (_api==null){
+      return false;
+    }
+    final uri = Uri.parse("${_api}/entry");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
   }

@@ -50,6 +50,29 @@ class FormStateNotifier extends StateNotifier<FormState> {
     }
   }
 
+  Future<void> submitEntryMessage(FormModel data) async{
+    // check internet connection
+    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      state = FormError("error: internet disconnected");
+      return;
+    }
+    try{
+    bool res;
+    state = FormSubmitting();
+
+    res = await _formRepository.checkExistBranch(data);
+    if (res==false){
+      state = FormError("repository or branch doesn't exists");
+      return;
+    }
+    res = await _formRepository.sendRequestToEntryAPI(data);
+    state = res ? FormSubmitted() : FormError("failed to submit form to api");
+    } catch(e){
+      state = FormError("error occured\n${e}");
+    }
+  }
+
   String? checkRepositoryURLPattern(String? value){
     if (value == null || value.isEmpty) {
       state = FormError("invalid repository URL");

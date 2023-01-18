@@ -49,7 +49,60 @@ class ResultModel{
         max_score = map['MaxScore'],
         min_score = map['MinScore'],
         error_message = map['ErrorMessage'];
+    
+    Map<String, dynamic> toJson() => {
+        'name': name,
+        'repository_url': repository_url,
+        'status': status,
+        'branch': branch,
+        'created_at': created_at,
+        'mean_score': mean_score,
+        'game_time': game_time,
+        'level': level,
+        'game_mode': game_mode,
+        'predict_weight_path': predict_weight_path,
+        'trial_number': trial_number,
+        'stddev_score': stddev_score,
+        'max_score': max_score,
+        'min_score': min_score,
+        'error_message': error_message
+    };
+    List<String> toCsv() => [
+        name,
+        repository_url,
+        status,
+        branch,
+        datetimeToString(created_at),
+        '$mean_score',
+        '$game_time',
+        '$level',
+        game_mode,
+        predict_weight_path,
+        '$trial_number',
+        '$stddev_score',
+        '$max_score',
+        '$min_score',
+        error_message
+      ];    
 }
+
+List<String> getHeader()=>[
+    'name',
+    'repository_url',
+    'status',
+    'branch',
+    'created_at',
+    'mean_score',
+    'game_time',
+    'level',
+    'game_mode',
+    'predict_weight_path',
+    'trial_number',
+    'stddev_score',
+    'max_score',
+    'min_score',
+    'error_message'
+];
 
 String datetimeToString(int datetime){
     String _datetime = DateTime.fromMillisecondsSinceEpoch(datetime
