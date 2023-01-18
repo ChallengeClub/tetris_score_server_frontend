@@ -47,7 +47,7 @@ class EntryStatusTable extends HookConsumerWidget{
   }
    
   List<PlutoColumn> getEntryColumns(var width){
-    List<PlutoColumn> res = [ // for mobile size
+    List<PlutoColumn> res = [
       PlutoColumn(
         title: 'Created at',
         field: 'created_at',
@@ -59,13 +59,13 @@ class EntryStatusTable extends HookConsumerWidget{
         type: PlutoColumnType.text()
       ),
       PlutoColumn(
-        title: 'Level',
-        field: 'level',
-        type: PlutoColumnType.number()
-      ),
-      PlutoColumn(
         title: 'URL',
         field: 'repository_url',
+        type: PlutoColumnType.text()
+      ),
+      PlutoColumn(
+        title: 'Branch',
+        field: 'branch',
         type: PlutoColumnType.text()
       ),
       PlutoColumn(
@@ -73,18 +73,22 @@ class EntryStatusTable extends HookConsumerWidget{
         field: 'status',
         type: PlutoColumnType.text()
       ),
+      PlutoColumn(
+        title: 'Level',
+        field: 'level',
+        type: PlutoColumnType.number()
+      ),
+      PlutoColumn(
+        title: 'GameMode',
+        field: 'game_mode',
+        type: PlutoColumnType.text()
+      ),
+      PlutoColumn(
+        title: 'ErrorMessage',
+        field: 'error_message',
+        type: PlutoColumnType.text()
+      ),
     ];
-    // if (width >= 700){ // for desktop size
-    //   res = [
-    //     "created_at",
-    //     "name",
-    //     "status",
-    //     "level",
-    //     "repository_url",
-    //     "branch",
-    //     "game_mode",
-    //   ];
-    // }
     return res;
   }
 
@@ -94,26 +98,11 @@ class EntryStatusTable extends HookConsumerWidget{
       'name': PlutoCell(value: entry.name),
       'level': PlutoCell(value: entry.level),
       'repository_url': PlutoCell(value: entry.repository_url),
-      'status': PlutoCell(value: entry.status)
+      'branch': PlutoCell(value: entry.branch),
+      'status': PlutoCell(value: entry.status),
+      'game_mode': PlutoCell(value: entry.game_mode),
+      'error_message': PlutoCell(value: entry.error_message),
     };
-    // [
-    //     DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
-    //     DataCell(Text(entry.name)),
-    //     DataCell(Text(entry.level.toString())),
-    //     DataCell(Text(entry.repository_url)),
-    //     DataCell(Text(entry.status)),
-    //   ];
-    // if (width >= 700){ // for desktop size
-    //   cells = [
-    //     DataCell(Text(EntryModel.datetimeToString(entry.created_at))),
-    //     DataCell(Text(entry.name)),
-    //     DataCell(Text(entry.status)),
-    //     DataCell(Text(entry.level.toString())),
-    //     DataCell(Text(entry.repository_url)),
-    //     DataCell(Text(entry.branch)),
-    //     DataCell(Text(entry.game_mode)),
-    //   ];
-    // }
     return cells;
   }
 }
