@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../model/entry_model.dart' as EntryModel;
-import '../parts/entry_dialog.dart' as EntryDialog;
 import '../../view_model/providers.dart';
 
 class EntryStatusTable extends HookConsumerWidget{
