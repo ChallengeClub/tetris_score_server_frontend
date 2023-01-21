@@ -45,8 +45,7 @@ class ScoreServerPage extends ConsumerWidget {
                     child: const Text("Refresh")
                   )
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                Expanded(
                   child: ResultsTable(),
                 )
               ]

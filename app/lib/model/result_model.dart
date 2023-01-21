@@ -4,6 +4,8 @@ class ResultModel{
     final String status;
     final String branch;
     final int created_at; // seconds since epoch
+    final int started_at;
+    final int ended_at;
     final num mean_score;
     final int game_time;
     final int level;
@@ -21,6 +23,8 @@ class ResultModel{
         this.status,
         this.branch,
         this.created_at,
+        this.started_at,
+        this.ended_at,
         this.mean_score,
         this.game_time,
         this.level,
@@ -39,6 +43,8 @@ class ResultModel{
         status = map['Status'],
         branch = map['Branch'],
         created_at = map['CreatedAt']*1000,
+        started_at = map['StartedAt']*1000,
+        ended_at = map['EndedAt']*1000,
         mean_score = map['MeanScore'],
         game_time = map['GameTime'],
         level = map['Level'],
@@ -56,6 +62,8 @@ class ResultModel{
         'status': status,
         'branch': branch,
         'created_at': created_at,
+        'started_at': started_at,
+        'ended_at': ended_at,
         'mean_score': mean_score,
         'game_time': game_time,
         'level': level,
@@ -73,6 +81,8 @@ class ResultModel{
         status,
         branch,
         datetimeToString(created_at),
+        datetimeToString(started_at),
+        datetimeToString(ended_at),
         '$mean_score',
         '$game_time',
         '$level',
@@ -85,24 +95,6 @@ class ResultModel{
         error_message
       ];    
 }
-
-List<String> getHeader()=>[
-    'name',
-    'repository_url',
-    'status',
-    'branch',
-    'created_at',
-    'mean_score',
-    'game_time',
-    'level',
-    'game_mode',
-    'predict_weight_path',
-    'trial_number',
-    'stddev_score',
-    'max_score',
-    'min_score',
-    'error_message'
-];
 
 String datetimeToString(int datetime){
     String _datetime = DateTime.fromMillisecondsSinceEpoch(datetime
