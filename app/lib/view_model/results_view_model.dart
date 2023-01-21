@@ -10,6 +10,7 @@ class ResultsStateNotifier extends StateNotifier<List<ResultModel.ResultModel>> 
     fetchResults();
   }
   Future<void> fetchResults() async {
+    state = [];
     try{
       state = await _dbRepository.getLatestResults();
     } catch(e){
