@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../model/form_model.dart';
 import '../../model/score_evaluation_message.pb.dart';
 import '../../view_model/providers.dart';
-import '../../view_model/form_state_notifier.dart' as form;
+import '../../view_model/form_view_model.dart' as form;
 
 class SubmitForm extends HookConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

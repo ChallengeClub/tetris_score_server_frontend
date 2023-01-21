@@ -35,16 +35,16 @@ class FormStateNotifier extends StateNotifier<FormState> {
       return;
     }
     try{
-    bool res;
-    state = FormSubmitting();
+      bool res;
+      FormState state = FormSubmitting();
 
-    res = await _formRepository.checkExistBranch(data);
-    if (res==false){
-      state = FormError("repository or branch doesn't exists");
-      return;
-    }
-    res = await _formRepository.sendRequestToAPI(data);
-    state = res ? FormSubmitted() : FormError("failed to submit form to api");
+      res = await _formRepository.checkExistBranch(data);
+      if (res==false){
+        state = FormError("repository or branch doesn't exists");
+        return;
+      }
+      res = await _formRepository.sendRequestToAPI(data);
+      state = res ? FormSubmitted() : FormError("failed to submit form to api");
     } catch(e){
       state = FormError("error occured\n${e}");
     }
@@ -58,16 +58,16 @@ class FormStateNotifier extends StateNotifier<FormState> {
       return;
     }
     try{
-    bool res;
-    state = FormSubmitting();
+      bool res;
+      FormState state = FormSubmitting();
 
-    res = await _formRepository.checkExistBranch(data);
-    if (res==false){
-      state = FormError("repository or branch doesn't exists");
-      return;
-    }
-    res = await _formRepository.sendRequestToEntryAPI(data);
-    state = res ? FormSubmitted() : FormError("failed to submit form to api");
+      res = await _formRepository.checkExistBranch(data);
+      if (res==false){
+        state = FormError("repository or branch doesn't exists");
+        return;
+      }
+      res = await _formRepository.sendRequestToEntryAPI(data);
+      state = res ? FormSubmitted() : FormError("failed to submit form to api");
     } catch(e){
       state = FormError("error occured\n${e}");
     }
