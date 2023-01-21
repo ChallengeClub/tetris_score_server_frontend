@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/form_model.dart';
+import '../../model/form_model.dart' as FormModel;
 import '../../model/score_evaluation_message.pb.dart';
 import '../../view_model/providers.dart';
 import '../../view_model/form_view_model.dart' as FormViewModel;
@@ -169,7 +169,7 @@ class EntryForm extends HookConsumerWidget {
                           return;
                         }
                         ref.read(formStateNotifierProvider.notifier).submitEntryMessage(
-                          FormModel(
+                          FormModel.FormModel(
                             _userNameFormController.text,
                             _repositoryURLFormController.text,
                             _branchFormController.text,

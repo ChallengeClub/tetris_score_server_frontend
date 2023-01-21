@@ -12,8 +12,7 @@ class EntryStatusTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<EntryModel.EntryModel> _entries = ref.watch(entryTableStateNotifierProvider);
-    var _screenSize = MediaQuery.of(context).size;
-    List<PlutoColumn> _columnList = this.getEntryColumns(_screenSize.width);
+    List<PlutoColumn> _columnList = this.getEntryColumns();
 
     return (() {
           if (_entries.length == 0) {
@@ -24,8 +23,8 @@ class EntryStatusTable extends HookConsumerWidget{
           }
           return PlutoGrid(
                 columns: _columnList,
-                rows: _entries.map((EntryModel.EntryModel entry) => PlutoRow(
-                  cells: this.mapToDataCells(_screenSize.width, entry)
+                rows: _entries.map((EntryModel.EntryModel _entry) => PlutoRow(
+                  cells: this.mapToDataCells(_entry)
                 )).toList(),
                 onLoaded: (PlutoGridOnLoadedEvent event) {
                   event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
@@ -45,7 +44,7 @@ class EntryStatusTable extends HookConsumerWidget{
         )();
   }
    
-  List<PlutoColumn> getEntryColumns(var width){
+  List<PlutoColumn> getEntryColumns(){
     List<PlutoColumn> res = [
       PlutoColumn(
         title: 'Created at',
@@ -91,7 +90,7 @@ class EntryStatusTable extends HookConsumerWidget{
     return res;
   }
 
-  Map<String, PlutoCell> mapToDataCells(var width, EntryModel.EntryModel entry){
+  Map<String, PlutoCell> mapToDataCells(EntryModel.EntryModel entry){
     Map<String, PlutoCell> cells = {
       'created_at': PlutoCell(value: EntryModel.datetimeToString(entry.created_at)),
       'name': PlutoCell(value: entry.name),
