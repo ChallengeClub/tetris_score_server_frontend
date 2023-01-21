@@ -11,9 +11,10 @@ abstract class DBRepository {
 }
 
 class DBRepositoryImpl implements DBRepository {
+  static const String? _api = const String.fromEnvironment('TETRIS_API');
+
   @override
   Future<List<ResultModel>> getLatestResults() async {
-    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
     if (_api==null){
       return [];
     }
