@@ -5,19 +5,18 @@ import 'package:provider/provider.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../model/entry_model.dart' as EntryModel;
-import '../../model/entry_table_model.dart';
 import '../parts/entry_dialog.dart' as EntryDialog;
 import '../../view_model/providers.dart';
 
 class EntryStatusTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    EntryTable _entryTable = ref.watch(entryTableStateNotifierProvider);
+    List<EntryModel.EntryModel> _entries = ref.watch(entryTableStateNotifierProvider);
     var _screenSize = MediaQuery.of(context).size;
     List<PlutoColumn> _columnList = this.getEntryColumns(_screenSize.width);
 
     return (() {
-          if (_entryTable.entries.length == 0) {
+          if (_entries.length == 0) {
           // 初期化後、通信中
             return Center(
               child: CircularProgressIndicator.adaptive(),
@@ -25,7 +24,7 @@ class EntryStatusTable extends HookConsumerWidget{
           }
           return PlutoGrid(
                 columns: _columnList,
-                rows: _entryTable.entries.map((EntryModel.EntryModel entry) => PlutoRow(
+                rows: _entries.map((EntryModel.EntryModel entry) => PlutoRow(
                   cells: this.mapToDataCells(_screenSize.width, entry)
                 )).toList(),
                 onLoaded: (PlutoGridOnLoadedEvent event) {
