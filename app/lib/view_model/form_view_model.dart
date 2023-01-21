@@ -1,7 +1,8 @@
-import '../repository/form_repository.dart';
-import '../model/form_model.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
+import '../repository/form_repository.dart';
+import '../model/form_model.dart';
 
 abstract class FormState {
   const FormState();

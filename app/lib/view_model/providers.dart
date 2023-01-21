@@ -1,9 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'form_view_model.dart' as FormViewModel;
-import 'results_view_model.dart';
+import 'results_view_model.dart' as ResultsViewModel;
 import 'entries_view_model.dart' as EntriesViewModel;
-import '../model/result_model.dart';
+import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
 import '../repository/form_repository.dart';
 import '../repository/file_repository.dart';
@@ -16,8 +16,8 @@ final fileRepositoryProvider = Provider<FileRepository>((ref) => FileRepositoryI
 final formStateNotifierProvider = StateNotifierProvider(
   (ref) => FormViewModel.FormStateNotifier(ref.watch(formRepositoryProvider)),
 );
-final resultStateNotifierProvider = StateNotifierProvider<ResultNotifier, List<ResultModel>>((ref)
-  => ResultNotifier(
+final resultsStateNotifierProvider = StateNotifierProvider<ResultsViewModel.ResultsStateNotifier, List<ResultModel.ResultModel>>((ref)
+  => ResultsViewModel.ResultsStateNotifier(
     ref.watch(dbRepositoryProvider)
   ),
 );

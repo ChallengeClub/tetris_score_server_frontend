@@ -1,12 +1,12 @@
 import 'package:state_notifier/state_notifier.dart';
 
 import '../repository/db_repository.dart';
-import '../model/result_model.dart';
+import '../model/result_model.dart' as ResultModel;
 
 
-class ResultNotifier extends StateNotifier<List<ResultModel>> {
+class ResultsStateNotifier extends StateNotifier<List<ResultModel.ResultModel>> {
   final DBRepository _dbRepository;  
-  ResultNotifier(this._dbRepository) : super([]){
+  ResultsStateNotifier(this._dbRepository) : super([]){
     fetchResults();
   }
   Future<void> fetchResults() async {
