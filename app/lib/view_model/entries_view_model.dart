@@ -2,29 +2,25 @@ import 'package:state_notifier/state_notifier.dart';
 
 import '../repository/db_repository.dart';
 import '../repository/file_repository.dart';
-import '../model/entry_model.dart';
-import '../model/entry_table_model.dart';
+import '../model/entry_model.dart' as EntryModel;
 
 
-class EntryTableStateNotifier extends StateNotifier<EntryTable> {
+class EntriesStateNotifier extends StateNotifier<List<EntryModel.EntryModel>> {
   final DBRepository _dbRepository;  
   final FileRepository _fileRepository;
-  EntryTableStateNotifier(this._dbRepository, this._fileRepository) : super(EntryTable([], "create_at", false)){
+  EntriesStateNotifier(this._dbRepository, this._fileRepository) : super([]){
     fetchEntries();
   }
 
   Future<void> fetchEntries() async {
     try{
-      List<EntryModel> entries = await _dbRepository.getEntries();
+      state = []; // initialize state and display the circle indicator
+      List<EntryModel.EntryModel> entries = await _dbRepository.getEntries();
       if (entries.length == 0){ // if no data in DB, use Example Entry
-        entries = getExampleEntryModel();
+        entries = EntryModel.getExampleEntryModel();
       }
       entries.sort((b,a)=>a.created_at.compareTo(b.created_at));
-      state = EntryTable(
-        entries,
-        "created_at",
-        false
-      );
+      state = entries;
     } catch(e){
       print(e);
     }
@@ -32,7 +28,7 @@ class EntryTableStateNotifier extends StateNotifier<EntryTable> {
 
   Future<void> writeToFile() async {
     try{
-      await _fileRepository.writeToCsv(state.entries);
+      await _fileRepository.writeToCsv(state);
     } catch(e){
       print(e);
     }

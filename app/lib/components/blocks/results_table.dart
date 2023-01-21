@@ -10,8 +10,8 @@ import '../parts/result_dialog.dart'as ResultDialog;
 class ResultsTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ResultModel.ResultModel> _results = ref.watch(resultStateNotifierProvider);
-    ref.read(resultStateNotifierProvider.notifier).sortResultsByCreatedAt();
+    List<ResultModel.ResultModel> _results = ref.watch(resultsStateNotifierProvider);
+    ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
     var _screenSize = MediaQuery.of(context).size;
     List<String> _columnList = this.getResultColumns(_screenSize.width);
 
