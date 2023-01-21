@@ -5,15 +5,16 @@ import '../repository/file_repository.dart';
 import '../model/entry_model.dart' as EntryModel;
 
 
-class EntryTableStateNotifier extends StateNotifier<List<EntryModel.EntryModel>> {
+class EntriesStateNotifier extends StateNotifier<List<EntryModel.EntryModel>> {
   final DBRepository _dbRepository;  
   final FileRepository _fileRepository;
-  EntryTableStateNotifier(this._dbRepository, this._fileRepository) : super([]){
+  EntriesStateNotifier(this._dbRepository, this._fileRepository) : super([]){
     fetchEntries();
   }
 
   Future<void> fetchEntries() async {
     try{
+      state = []; // initialize state and display the circle indicator
       List<EntryModel.EntryModel> entries = await _dbRepository.getEntries();
       if (entries.length == 0){ // if no data in DB, use Example Entry
         entries = EntryModel.getExampleEntryModel();

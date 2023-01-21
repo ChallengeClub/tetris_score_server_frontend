@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'form_view_model.dart' as FormViewModel;
 import 'results_view_model.dart';
-import 'entry_table_view_model.dart';
+import 'entries_view_model.dart' as EntriesViewModel;
 import '../model/result_model.dart';
 import '../model/entry_model.dart' as EntryModel;
 import '../repository/form_repository.dart';
@@ -21,8 +21,8 @@ final resultStateNotifierProvider = StateNotifierProvider<ResultNotifier, List<R
     ref.watch(dbRepositoryProvider)
   ),
 );
-final entryTableStateNotifierProvider = StateNotifierProvider<EntryTableStateNotifier, List<EntryModel.EntryModel>>((ref)
-  => EntryTableStateNotifier(
+final entriesStateNotifierProvider = StateNotifierProvider<EntriesViewModel.EntriesStateNotifier, List<EntryModel.EntryModel>>((ref)
+  => EntriesViewModel.EntriesStateNotifier(
     ref.watch(dbRepositoryProvider),
     ref.watch(fileRepositoryProvider)
   ),

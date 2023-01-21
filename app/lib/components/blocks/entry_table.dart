@@ -10,7 +10,7 @@ import '../../view_model/providers.dart';
 class EntryStatusTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<EntryModel.EntryModel> _entries = ref.watch(entryTableStateNotifierProvider);
+    List<EntryModel.EntryModel> _entries = ref.watch(entriesStateNotifierProvider);
     List<PlutoColumn> _columnList = this.getEntryColumns();
 
     return (() {
