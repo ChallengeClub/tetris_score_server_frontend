@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'components/pages/score_server_page.dart';
 import 'components/pages/competition_entry_page.dart';
@@ -9,7 +8,6 @@ import 'components/parts/server_button.dart';
 import 'components/parts/competition_button.dart';
 
 Future main() async {
-  await dotenv.load(fileName: ".env");
   runApp(
     ProviderScope(
       child: TetrisApp(),
