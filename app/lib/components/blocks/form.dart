@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../model/form_model.dart';
 import '../../model/score_evaluation_message.pb.dart';
 import '../../view_model/providers.dart';
-import '../../view_model/form_state_notifier.dart' as form;
+import '../../view_model/form_view_model.dart' as FormViewModel;
 
 class SubmitForm extends HookConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -203,7 +203,7 @@ class SubmitForm extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ((){
-                  if (_state is form.FormInitial){
+                  if (_state is FormViewModel.FormInitial){
                     return ElevatedButton(
                       onPressed: () {
                         if (!_formKey.currentState!.validate()) {// validate form data when button pressed
@@ -227,11 +227,11 @@ class SubmitForm extends HookConsumerWidget {
                       },
                       child: const Text("Submit"),
                     );
-                  } else if (_state is form.FormSubmitting){
+                  } else if (_state is FormViewModel.FormSubmitting){
                     return CircularProgressIndicator();
-                  } else if (_state is form.FormSubmitted){
+                  } else if (_state is FormViewModel.FormSubmitted){
                     return Text("form successfully submitted");
-                  } else if (_state is form.FormError){
+                  } else if (_state is FormViewModel.FormError){
                     return Text(_state.message);
                   } else {
                   return Text("unexpected error occured\n${_state}");
@@ -241,7 +241,7 @@ class SubmitForm extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0.0),
                 child: ((){
-                  if (_state is form.FormError || _state is form.FormSubmitted){
+                  if (_state is FormViewModel.FormError || _state is FormViewModel.FormSubmitted){
                     return ElevatedButton(
                       onPressed: (){
                         ref.read(formStateNotifierProvider.notifier).initializeState();

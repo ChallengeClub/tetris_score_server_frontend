@@ -11,8 +11,8 @@ import '../parts/result_dialog.dart'as ResultDialog;
 class ResultsTable extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ResultModel.ResultModel> _results = ref.watch(resultStateNotifierProvider);
-    ref.read(resultStateNotifierProvider.notifier).sortResultsByCreatedAt();
+    List<ResultModel.ResultModel> _results = ref.watch(resultsStateNotifierProvider);
+    ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
     List<PlutoColumn> _columnList = this.getResultColumns();
 
     return (() {

@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../model/form_model.dart';
 import '../model/score_evaluation_message.pb.dart';
@@ -13,6 +12,8 @@ abstract class FormRepository {
 }
 
 class FormRepositoryImpl implements FormRepository {
+  static const String? _api = const String.fromEnvironment('TETRIS_API');
+
   @override
   // this method must be called after formStateNotifier.checkRepositoryURLPattern
   Future<bool> checkExistBranch(FormModel msg) async {
@@ -28,7 +29,6 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> sendRequestToAPI(FormModel msg) async {
     ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
-    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
     if (_api==null){
       return false;
     }
@@ -40,7 +40,6 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> sendRequestToEntryAPI(FormModel msg) async {
     ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
-    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
     if (_api==null){
       return false;
     }

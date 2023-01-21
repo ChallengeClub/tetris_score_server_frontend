@@ -15,6 +15,13 @@ https://github.com/seigot/tetris_battle_server
 
 [docker compoer のインストール](https://docs.docker.jp/compose/install.html#compose)を参照
 
+### 環境変数の設定
+
+`/tetris_score_server_frontend/.env`に環境変数を定義して下さい
+
+- `TETRIS_API`: バックエンド API の URL
+- `WEB_SERVER_PORT`: ローカル開発環境でフロントのホスティングするときのポート番号（例: 8888）
+
 ### docker compose の実行
 
 `/tetris_score_server_frontend`に移動して

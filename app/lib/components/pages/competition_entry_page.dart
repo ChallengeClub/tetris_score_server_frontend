@@ -38,7 +38,7 @@ class CompetitionEntryPage extends ConsumerWidget {
                       children: <Widget>[
                         ElevatedButton(
                           onPressed: (){
-                            ref.read(entryTableStateNotifierProvider.notifier).writeToFile();
+                            ref.read(entriesStateNotifierProvider.notifier).writeToFile();
                           },
                           child: const Text("Download")
                         ),
@@ -47,7 +47,7 @@ class CompetitionEntryPage extends ConsumerWidget {
                         ),
                         ElevatedButton(
                           onPressed: (){
-                            ref.read(entryTableStateNotifierProvider.notifier).fetchEntries();
+                            ref.read(entriesStateNotifierProvider.notifier).fetchEntries();
                           },
                           child: const Text("Refresh")
                         )

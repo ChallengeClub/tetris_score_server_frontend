@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../model/result_model.dart';
 import '../model/entry_model.dart';
@@ -11,9 +10,10 @@ abstract class DBRepository {
 }
 
 class DBRepositoryImpl implements DBRepository {
+  static const String? _api = const String.fromEnvironment('TETRIS_API');
+
   @override
   Future<List<ResultModel>> getLatestResults() async {
-    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
     if (_api==null){
       return [];
     }
@@ -29,7 +29,6 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<List<EntryModel>> getEntries() async {
-    String? _api = dotenv.env['EVALUATION_REQUEST_API'];
     if (_api==null){
       return [];
     }
