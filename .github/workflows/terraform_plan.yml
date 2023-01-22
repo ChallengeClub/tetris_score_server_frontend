@@ -22,4 +22,5 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_DEV_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
           role-session-name: github-actions-dev
           aws-region: ap-northeast-1
+      - name: confirm aws connection
         run: aws iam list-policies --scope AWS
