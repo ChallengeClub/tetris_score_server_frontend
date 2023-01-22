@@ -28,5 +28,3 @@ jobs:
 
       - name: Terraform Init
         run: terraform -chdir=terraform init
-        with: 
-          entrypoint: terraform
