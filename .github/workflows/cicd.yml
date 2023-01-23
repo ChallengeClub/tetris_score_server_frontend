@@ -1,7 +1,7 @@
-name: cicd
+name: cicd-apply
 
 on:
-  pull_request:
+  push:
     branches: [dev]
   workflow_dispatch:
 
@@ -46,5 +46,6 @@ jobs:
         run: make build
         working-directory: ./app
 
-      - name: Terraform plan
-        run: terraform -chdir=terraform plan
+      - name: Terraform apply
+        run: terraform apply
+        working-directory: ./terraform
