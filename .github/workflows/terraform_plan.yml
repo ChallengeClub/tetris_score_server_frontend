@@ -36,9 +36,14 @@ jobs:
 
       - name: Flutter pub get
         run: flutter pub get
+          working-directory: ./app
+
+      - env:
+          TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
 
       - name: Flutter build
-        run: flutter build web
+        run: make build
+          working-directory: ./app
 
       - name: Terraform plan
         run: terraform -chdir=terraform plan
