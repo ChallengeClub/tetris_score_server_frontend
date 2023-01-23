@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  plan:
+  apply:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -47,5 +47,5 @@ jobs:
         working-directory: ./app
 
       - name: Terraform apply
-        run: terraform apply
+        run: terraform apply -auto-approve
         working-directory: ./terraform
