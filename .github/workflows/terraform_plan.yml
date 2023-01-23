@@ -27,8 +27,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-          run: terraform init
-          working-directory: ./terraform
+        run: terraform init
+        working-directory: ./terraform
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -36,15 +36,15 @@ jobs:
           channel: "stable"
 
       - name: Flutter pub get
-          run: flutter pub get
-          working-directory: ./app
+        run: flutter pub get
+        working-directory: ./app
 
       - env:
           TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
 
       - name: Flutter build
-          run: make build
-          working-directory: ./app
+        run: make build
+        working-directory: ./app
 
       - name: Terraform plan
         run: terraform -chdir=terraform plan
