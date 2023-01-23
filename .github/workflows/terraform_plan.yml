@@ -12,6 +12,9 @@ jobs:
       id-token: write
       contents: read
 
+    env:
+      TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
+
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
@@ -38,9 +41,6 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
         working-directory: ./app
-
-      - env:
-          TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
 
       - name: Flutter build
         run: make build
