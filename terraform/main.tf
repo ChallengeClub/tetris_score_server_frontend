@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "tetris-hosting-terraform-state"
+    bucket  = "tetris-hosting-terraform-state-dev"
     region  = "ap-northeast-1"
     key     = "terraform.tfstate"
     encrypt = true
@@ -18,5 +18,5 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "tetris-hosting-terraform-state"
+  bucket = "tetris-hosting-terraform-state-dev"
 }
