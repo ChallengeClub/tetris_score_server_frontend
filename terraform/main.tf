@@ -5,7 +5,7 @@ terraform {
       version = "~> 4.0"
     }
   }
-  backend "s3" {
+  backend "s3" { # created s3 bucket on aws cconsole
     bucket  = "tetris-hosting-terraform-state-dev"
     region  = "ap-northeast-1"
     key     = "terraform.tfstate"
@@ -15,8 +15,4 @@ terraform {
 
 provider "aws" {
   region = "ap-northeast-1"
-}
-
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "tetris-hosting-terraform-state-dev"
 }
