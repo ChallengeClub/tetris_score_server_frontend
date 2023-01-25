@@ -47,4 +47,5 @@ jobs:
         working-directory: ./app
 
       - name: Terraform plan
-        run: terraform -chdir=terraform plan
+        run: terraform plan
+        working-directory: ./terraform
