@@ -4,17 +4,17 @@ class ResultModel{
     final String status;
     final String branch;
     final int created_at; // seconds since epoch
-    final int started_at;
-    final int ended_at;
-    final num mean_score;
+    final int? started_at;
+    final int? ended_at;
+    final num? mean_score;
     final int game_time;
     final int level;
     final String game_mode;
     final String predict_weight_path;
     final int trial_number;
-    final num stddev_score;
-    final int max_score;
-    final int min_score;
+    final num? stddev_score;
+    final int? max_score;
+    final int? min_score;
     final String error_message;
 
     ResultModel(
@@ -42,9 +42,9 @@ class ResultModel{
         repository_url = map['RepositoryURL'],
         status = map['Status'],
         branch = map['Branch'],
-        created_at = map['CreatedAt']*1000,
-        started_at = map['StartedAt']*1000,
-        ended_at = map['EndedAt']*1000,
+        created_at = map['CreatedAt'],
+        started_at = map['StartedAt'],
+        ended_at = map['EndedAt'],
         mean_score = map['MeanScore'],
         game_time = map['GameTime'],
         level = map['Level'],
@@ -54,7 +54,7 @@ class ResultModel{
         stddev_score = map['StdDevScore'],
         max_score = map['MaxScore'],
         min_score = map['MinScore'],
-        error_message = map['ErrorMessage'];
+        error_message = map['ErrorMessage'] ?? "";
     
     Map<String, dynamic> toJson() => {
         'name': name,
@@ -96,8 +96,14 @@ class ResultModel{
       ];    
 }
 
-String datetimeToString(int datetime){
-    String _datetime = DateTime.fromMillisecondsSinceEpoch(datetime
-    ).toString();
-    return _datetime.substring(0, _datetime.length-4);
+String datetimeToString(int? datetime){
+  String _res = "";
+  if (datetime == null){
+    return _res;
+  }
+
+  String _datetime = DateTime.fromMillisecondsSinceEpoch(datetime*1000
+  ).toString();
+  _res = _datetime.substring(0, _datetime.length-4);
+  return _res;
 }
