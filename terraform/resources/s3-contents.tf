@@ -4,10 +4,10 @@ resource "aws_s3_object" "tetris-resources" {
   key          = each.key
   source       = each.value.source_path
   content_type = each.value.content_type
-  etag         = filemd5("../app/build/web/index.html")
+  etag         = filemd5("../../../app/build/web/index.html") # relative path from main.tf
 }
 
 module "distribution_files" {
   source   = "hashicorp/dir/template" # 固定
-  base_dir = "../app/build/web"       # ファイルを読み取るディレクトリ
+  base_dir = "../../../app/build/web"       # ファイルを読み取るディレクトリ
 }
