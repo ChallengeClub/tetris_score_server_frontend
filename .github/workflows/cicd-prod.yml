@@ -31,7 +31,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform
+        working-directory: ./terraform/environments/prod
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -48,4 +48,4 @@ jobs:
 
       - name: Terraform apply
         run: terraform apply -auto-approve
-        working-directory: ./terraform
+        working-directory: ./terraform/environments/prod
