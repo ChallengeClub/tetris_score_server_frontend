@@ -1,12 +1,12 @@
-name: ci
+name: cicd-apply-prod
 
 on:
-  pull_request:
-    branches: [dev]
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  plan:
+  apply:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -31,7 +31,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform/environments/dev
+        working-directory: ./terraform/environments/prod
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -46,6 +46,6 @@ jobs:
         run: make build
         working-directory: ./app
 
-      - name: Terraform plan
-        run: terraform plan
-        working-directory: ./terraform/environments/dev
+      - name: Terraform apply
+        run: terraform apply -auto-approve
+        working-directory: ./terraform/environments/prod

@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" { # created s3 bucket on aws cconsole
-    bucket  = "tetris-hosting-terraform-state-dev"
+    bucket  = "tetris-hosting-terraform-state-prod"
     region  = "ap-northeast-1"
     key     = "terraform.tfstate"
     encrypt = true
