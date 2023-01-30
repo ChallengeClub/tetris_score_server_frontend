@@ -13,7 +13,7 @@ jobs:
       contents: read
 
     env:
-      TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
+      TETRIS_API: ${{ secrets.TETRIS_API_PROD }}
 
     steps:
       - name: Git clone the repository
@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_DEV_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_PROD_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
           role-session-name: github-actions-dev
           aws-region: ap-northeast-1
 
