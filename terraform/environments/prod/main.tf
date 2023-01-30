@@ -16,3 +16,7 @@ terraform {
 provider "aws" {
   region = "ap-northeast-1"
 }
+
+module "resources" {
+  source = "../../resources"
+}
