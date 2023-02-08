@@ -75,9 +75,15 @@ class ResultsTable extends HookConsumerWidget{
         suppressedAutoSize: true,
       ),
       PlutoColumn(
+        title: 'Game Time',
+        field: 'game_time',
+        type: PlutoColumnType.number(),
+        suppressedAutoSize: true,
+      ),
+      PlutoColumn(
         title: 'Trials',
         field: 'trials',
-        type: PlutoColumnType.text(),
+        type: PlutoColumnType.number(),
         suppressedAutoSize: true,
       ),
       PlutoColumn(
@@ -127,6 +133,7 @@ class ResultsTable extends HookConsumerWidget{
       'level': PlutoCell(value: result.level),
       'repository_url': PlutoCell(value: result.repository_url),
       'branch': PlutoCell(value: result.branch),
+      'game_time': PlutoCell(value: result.game_time),
       'trials': PlutoCell(value: result.trial_number),
       'status': PlutoCell(value: result.status),
       'started_at': PlutoCell(value: ResultModel.datetimeToString(result.started_at)),
