@@ -34,6 +34,8 @@ class ResultsTable extends HookConsumerWidget{
                     color = Color(0xFFE2F6DF);
                   } else if (status=="error"){
                     color = Color(0xFFFADBDF);
+                  } else if (status=="evaluating"){
+                    color = Color(0xE6FFF7DF);
                   }
                   return color;
                 }
