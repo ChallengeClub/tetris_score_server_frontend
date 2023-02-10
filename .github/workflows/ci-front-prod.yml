@@ -1,4 +1,4 @@
-name: ci-front
+name: ci-front-prod
 
 on:
   pull_request:
