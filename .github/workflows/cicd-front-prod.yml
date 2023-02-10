@@ -1,0 +1,43 @@
+name: cicd-front-prod
+
+on:
+  push:
+    branches: [main]
+    paths: 'app/lib/**'
+  workflow_dispatch:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    
+    env:
+      TETRIS_API: ${{ secrets.TETRIS_API_PROD }}
+      S3_HOSTING_BUCKET: ${{ secrets.S3_HOSTING_BUCKET_PROD}}
+
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      - name: Flutter pub get
+        run: flutter pub get
+        working-directory: ./app
+
+      - name: Flutter build
+        run: make build
+        working-directory: ./app
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_PROD_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
+          role-session-name: github-actions-dev
+          aws-region: ap-northeast-1
+
+      - name: Front Deploy
+        run: make deploy
+        working-directory: ./app

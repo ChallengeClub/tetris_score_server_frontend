@@ -5,3 +5,6 @@ run:
 
 build:
 	flutter build web --dart-define=TETRIS_API=${TETRIS_API}
+
+deploy:
+	aws s3 sync build/web s3://${S3_HOSTING_BUCKET} --delete

@@ -1,12 +1,13 @@
-name: ci
+name: cicd-infra
 
 on:
-  pull_request:
+  push:
     branches: [dev]
+    paths: 'terraform/**'
   workflow_dispatch:
 
 jobs:
-  plan:
+  apply:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -33,19 +34,6 @@ jobs:
         run: terraform init
         working-directory: ./terraform/environments/dev
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-
-      - name: Flutter pub get
-        run: flutter pub get
-        working-directory: ./app
-
-      - name: Flutter build
-        run: make build
-        working-directory: ./app
-
-      - name: Terraform plan
-        run: terraform plan
+      - name: Terraform apply
+        run: terraform apply -auto-approve
         working-directory: ./terraform/environments/dev
