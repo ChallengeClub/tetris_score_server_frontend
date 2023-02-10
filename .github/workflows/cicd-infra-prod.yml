@@ -1,8 +1,12 @@
-name: cicd-apply-prod
+name: cicd-infra-prod
 
 on:
   push:
     branches: [main]
+    paths: 'terraform/**'
+    paths-ignore: 
+      - 'terraform/README.md'
+      - 'terraform/.gitignore'
   workflow_dispatch:
 
 jobs:
@@ -31,21 +35,8 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform/environments/prod
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-
-      - name: Flutter pub get
-        run: flutter pub get
-        working-directory: ./app
-
-      - name: Flutter build
-        run: make build
-        working-directory: ./app
+        working-directory: ./terraform/environments/dev
 
       - name: Terraform apply
         run: terraform apply -auto-approve
-        working-directory: ./terraform/environments/prod
+        working-directory: ./terraform/environments/dev

@@ -1,19 +1,20 @@
-name: cicd-apply
+name: ci-infra
 
 on:
-  push:
+  pull_request:
     branches: [dev]
+    paths: 'terraform/**'
+    paths-ignore: 
+      - 'terraform/README.md'
+      - 'terraform/.gitignore'
   workflow_dispatch:
 
 jobs:
-  apply:
+  plan:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
-
-    env:
-      TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
 
     steps:
       - name: Git clone the repository
@@ -33,19 +34,6 @@ jobs:
         run: terraform init
         working-directory: ./terraform/environments/dev
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-
-      - name: Flutter pub get
-        run: flutter pub get
-        working-directory: ./app
-
-      - name: Flutter build
-        run: make build
-        working-directory: ./app
-
-      - name: Terraform apply
-        run: terraform apply -auto-approve
+      - name: Terraform plan
+        run: terraform plan
         working-directory: ./terraform/environments/dev

@@ -1,0 +1,31 @@
+name: ci-front
+
+on:
+  pull_request:
+    branches: [main]
+    paths: 'app/lib/**'
+  workflow_dispatch:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    
+    env:
+      TETRIS_API: ${{ secrets.TETRIS_API_PROD }}
+
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      - name: Flutter pub get
+        run: flutter pub get
+        working-directory: ./app
+
+      - name: Flutter build
+        run: make build
+        working-directory: ./app
