@@ -4,9 +4,6 @@ on:
   pull_request:
     branches: [main]
     paths: 'terraform/**'
-    paths-ignore: 
-      - 'terraform/README.md'
-      - 'terraform/.gitignore'
   workflow_dispatch:
 
 jobs:

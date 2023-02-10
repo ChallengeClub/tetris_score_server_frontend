@@ -31,7 +31,7 @@ class CompetitionEntryPage extends ConsumerWidget {
             Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
