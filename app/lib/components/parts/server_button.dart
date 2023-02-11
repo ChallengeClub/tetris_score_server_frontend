@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ServerButton extends ConsumerWidget {
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
