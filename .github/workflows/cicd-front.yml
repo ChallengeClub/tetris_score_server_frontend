@@ -9,6 +9,9 @@ on:
 jobs:
   plan:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     
     env:
       TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
