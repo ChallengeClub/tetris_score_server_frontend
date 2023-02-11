@@ -21,7 +21,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_PROD_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
-          role-session-name: github-actions-dev
+          role-session-name: github-actions-prod
           aws-region: ap-northeast-1
 
       - name: Setup Terraform
