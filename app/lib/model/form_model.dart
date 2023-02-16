@@ -11,7 +11,7 @@ class FormModel {
   final int timeout;
   final String predict_weight_path;
   final int trial_num;
-
+  final List<int> random_seeds;
 
   FormModel(
     this.user_name, 
@@ -23,7 +23,8 @@ class FormModel {
     this.game_time,
     this.timeout,
     this.predict_weight_path,
-    this.trial_num
+    this.trial_num,
+    this.random_seeds,
   );
 
   ScoreEvaluationMessage toProtobufMsg(){
@@ -38,6 +39,7 @@ class FormModel {
     msg.timeout = this.timeout;
     msg.predictWeightPath = this.predict_weight_path;
     msg.trialNum = this.trial_num;
+    msg.randomSeeds = this.random_seeds;
     return msg;
   }
 }
