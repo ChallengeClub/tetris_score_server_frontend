@@ -222,7 +222,7 @@ class SubmitForm extends HookConsumerWidget {
                             185,
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
-                            [0],
+                            [],
                           )
                         );
                       },
