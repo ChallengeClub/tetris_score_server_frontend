@@ -1,8 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:fixnum/fixnum.dart' as $fixnum;
+
 
 import 'form_view_model.dart' as FormViewModel;
 import 'results_view_model.dart' as ResultsViewModel;
 import 'entries_view_model.dart' as EntriesViewModel;
+import 'random_seeds_form_view_model.dart' as RandomSeedsFormViewModel;
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
 import '../repository/form_repository.dart';
@@ -26,4 +29,7 @@ final entriesStateNotifierProvider = StateNotifierProvider<EntriesViewModel.Entr
     ref.watch(dbRepositoryProvider),
     ref.watch(fileRepositoryProvider)
   ),
+);
+final randomSeedsFormStateNotifierProvider = StateNotifierProvider<RandomSeedsFormViewModel.RandomSeedsFormStateNotifier, RandomSeedsFormViewModel.RandomSeedsFormModel>(
+  (ref) => RandomSeedsFormViewModel.RandomSeedsFormStateNotifier()
 );
