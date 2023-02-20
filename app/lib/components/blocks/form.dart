@@ -246,6 +246,10 @@ class SubmitForm extends HookConsumerWidget {
                           ref.read(formStateNotifierProvider.notifier).setFormValidationErrorState();
                           return;
                         }
+                        if (_random_seeds_state.isEnabledSeedConfiguration && (int.parse(_trialNumberController.text)!=_random_seeds_state.seeds.length)){
+                          ref.read(formStateNotifierProvider.notifier).setRandomFormValidationErrorState();
+                          return;
+                        }
                         ref.read(formStateNotifierProvider.notifier).submitMessage(
                           FormModel(
                             _userNameFormController.text,
