@@ -206,7 +206,7 @@ class SubmitForm extends HookConsumerWidget {
                           width: _formCardWidth,
                           child: Row(
                             children: <Widget>[
-                              Text("enable seed configurration"),
+                              Text("seed configuration"),
                               Checkbox(
                                 activeColor: Colors.blue,
                                 value: _random_seeds_state.isEnabledSeedConfiguration,
@@ -229,10 +229,13 @@ class SubmitForm extends HookConsumerWidget {
                           return SizedBox();
                         }
                       })(),
+                      SizedBox(
+                        height: 30
+                      ),
                     ],
                   )
                 )
-              ),   
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ((){
