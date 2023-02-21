@@ -123,6 +123,16 @@ class ResultsTable extends HookConsumerWidget{
         field: 'error_message',
         type: PlutoColumnType.text()
       ),
+      PlutoColumn(
+        title: 'RandomSeeds',
+        field: 'random_seeds',
+        type: PlutoColumnType.text()
+      ),
+      PlutoColumn(
+        title: 'Scores',
+        field: 'scores',
+        type: PlutoColumnType.text()
+      ),
     ];
     return res;
   }
@@ -142,6 +152,8 @@ class ResultsTable extends HookConsumerWidget{
       'ended_at': PlutoCell(value: ResultModel.datetimeToString(result.ended_at)),
       'game_mode': PlutoCell(value: result.game_mode),
       'error_message': PlutoCell(value: result.error_message),
+      'scores': PlutoCell(value: result.scores.join(", ")),
+      'random_seeds': PlutoCell(value: result.random_seeds.join(", ")),
     };
     return cells;
   }
