@@ -15,6 +15,8 @@ class ResultModel{
     final num? stddev_score;
     final int? max_score;
     final int? min_score;
+    final List<int> random_seeds;
+    final List<int> scores;
     final String error_message;
 
     ResultModel(
@@ -34,6 +36,8 @@ class ResultModel{
         this.stddev_score,
         this.max_score,
         this.min_score,
+        this.random_seeds,
+        this.scores,
         this.error_message,
     );
     
@@ -54,6 +58,8 @@ class ResultModel{
         stddev_score = map['StdDevScore'],
         max_score = map['MaxScore'],
         min_score = map['MinScore'],
+        random_seeds = fromStringToListInt(map['RandomSeeds']),
+        scores = fromStringToListInt(map["Scores"]),
         error_message = map['ErrorMessage'] ?? "";
     
     Map<String, dynamic> toJson() => {
@@ -73,6 +79,8 @@ class ResultModel{
         'stddev_score': stddev_score,
         'max_score': max_score,
         'min_score': min_score,
+        'random_seeds': random_seeds,
+        "scores": scores,
         'error_message': error_message
     };
     List<String> toCsv() => [
@@ -92,6 +100,8 @@ class ResultModel{
         '$stddev_score',
         '$max_score',
         '$min_score',
+        random_seeds.join(","),
+        scores.join(","),
         error_message
       ];    
 }
@@ -106,4 +116,14 @@ String datetimeToString(int? datetime){
   ).toString();
   _res = _datetime.substring(0, _datetime.length-4);
   return _res;
+}
+
+List<int> fromStringToListInt(String? string){
+  if ((string == null)||(string == "")){
+    return [];
+  } else {
+    return string.split(',')
+                 .map<int>((String value) => int.parse(value))
+                 .toList();
+  }
 }

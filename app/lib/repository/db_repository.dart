@@ -21,9 +21,11 @@ class DBRepositoryImpl implements DBRepository {
     http.Response result = await http.get(uri);
     var _map = convert.jsonDecode(result.body);
     List<dynamic> items = _map['Items'];
+    print(items);
     List<ResultModel> results = items.map(
         (var item) => ResultModel.fromJson(item)
     ).toList();
+
     return results;
   }
 

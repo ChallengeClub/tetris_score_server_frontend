@@ -24,6 +24,7 @@ const ScoreEvaluationMessage$json = const {
     const {'1': 'timeout', '3': 7, '4': 1, '5': 5, '10': 'timeout'},
     const {'1': 'predict_weight_path', '3': 8, '4': 1, '5': 9, '10': 'predictWeightPath'},
     const {'1': 'trial_num', '3': 9, '4': 1, '5': 5, '10': 'trialNum'},
+    const {'1': 'random_seeds', '3': 13, '4': 3, '5': 4, '10': 'randomSeeds'},
   ],
   '4': const [ScoreEvaluationMessage_GameLevel$json],
   '8': const [
@@ -46,4 +47,4 @@ const ScoreEvaluationMessage_GameLevel$json = const {
 };
 
 /// Descriptor for `ScoreEvaluationMessage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List scoreEvaluationMessageDescriptor = $convert.base64Decode('ChZTY29yZUV2YWx1YXRpb25NZXNzYWdlEhcKBG5hbWUYDCABKAlIAFIEbmFtZYgBARITCgJpZBgKIAEoCUgBUgJpZIgBARIiCgpjcmVhdGVkX2F0GAsgASgFSAJSCWNyZWF0ZWRBdIgBARIlCg5yZXBvc2l0b3J5X3VybBgBIAEoCVINcmVwb3NpdG9yeVVybBIWCgZicmFuY2gYAiABKAlSBmJyYW5jaBIjCg1kcm9wX2ludGVydmFsGAMgASgFUgxkcm9wSW50ZXJ2YWwSQAoFbGV2ZWwYBCABKA4yKi50dXRvcmlhbC5TY29yZUV2YWx1YXRpb25NZXNzYWdlLkdhbWVMZXZlbFIFbGV2ZWwSGwoJZ2FtZV9tb2RlGAUgASgJUghnYW1lTW9kZRIbCglnYW1lX3RpbWUYBiABKAVSCGdhbWVUaW1lEhgKB3RpbWVvdXQYByABKAVSB3RpbWVvdXQSLgoTcHJlZGljdF93ZWlnaHRfcGF0aBgIIAEoCVIRcHJlZGljdFdlaWdodFBhdGgSGwoJdHJpYWxfbnVtGAkgASgFUgh0cmlhbE51bSI8CglHYW1lTGV2ZWwSCAoEWkVSTxAAEgcKA09ORRABEgcKA1RXTxACEgkKBVRIUkVFEAMSCAoERk9VUhAEQgcKBV9uYW1lQgUKA19pZEINCgtfY3JlYXRlZF9hdA==');
+final $typed_data.Uint8List scoreEvaluationMessageDescriptor = $convert.base64Decode('ChZTY29yZUV2YWx1YXRpb25NZXNzYWdlEhcKBG5hbWUYDCABKAlIAFIEbmFtZYgBARITCgJpZBgKIAEoCUgBUgJpZIgBARIiCgpjcmVhdGVkX2F0GAsgASgFSAJSCWNyZWF0ZWRBdIgBARIlCg5yZXBvc2l0b3J5X3VybBgBIAEoCVINcmVwb3NpdG9yeVVybBIWCgZicmFuY2gYAiABKAlSBmJyYW5jaBIjCg1kcm9wX2ludGVydmFsGAMgASgFUgxkcm9wSW50ZXJ2YWwSQAoFbGV2ZWwYBCABKA4yKi50dXRvcmlhbC5TY29yZUV2YWx1YXRpb25NZXNzYWdlLkdhbWVMZXZlbFIFbGV2ZWwSGwoJZ2FtZV9tb2RlGAUgASgJUghnYW1lTW9kZRIbCglnYW1lX3RpbWUYBiABKAVSCGdhbWVUaW1lEhgKB3RpbWVvdXQYByABKAVSB3RpbWVvdXQSLgoTcHJlZGljdF93ZWlnaHRfcGF0aBgIIAEoCVIRcHJlZGljdFdlaWdodFBhdGgSGwoJdHJpYWxfbnVtGAkgASgFUgh0cmlhbE51bRIhCgxyYW5kb21fc2VlZHMYDSADKARSC3JhbmRvbVNlZWRzIjwKCUdhbWVMZXZlbBIICgRaRVJPEAASBwoDT05FEAESBwoDVFdPEAISCQoFVEhSRUUQAxIICgRGT1VSEARCBwoFX25hbWVCBQoDX2lkQg0KC19jcmVhdGVkX2F0');

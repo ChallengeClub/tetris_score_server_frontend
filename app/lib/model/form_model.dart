@@ -1,4 +1,5 @@
 import 'score_evaluation_message.pb.dart';
+import 'package:fixnum/fixnum.dart' as $fixnum;
 
 class FormModel {
   final String user_name;
@@ -11,7 +12,7 @@ class FormModel {
   final int timeout;
   final String predict_weight_path;
   final int trial_num;
-
+  final Iterable<$fixnum.Int64> random_seeds;
 
   FormModel(
     this.user_name, 
@@ -23,7 +24,8 @@ class FormModel {
     this.game_time,
     this.timeout,
     this.predict_weight_path,
-    this.trial_num
+    this.trial_num,
+    this.random_seeds,
   );
 
   ScoreEvaluationMessage toProtobufMsg(){
@@ -38,6 +40,7 @@ class FormModel {
     msg.timeout = this.timeout;
     msg.predictWeightPath = this.predict_weight_path;
     msg.trialNum = this.trial_num;
+    msg.randomSeeds..clear()..addAll(this.random_seeds); // repeated field doesn't have setter
     return msg;
   }
 }

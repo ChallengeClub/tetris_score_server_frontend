@@ -7,6 +7,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'score_evaluation_message.pbenum.dart';
@@ -27,6 +28,7 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', $pb.PbFieldType.O3)
     ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..p<$fixnum.Int64>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'randomSeeds', $pb.PbFieldType.KU6)
     ..hasRequiredFields = false
   ;
 
@@ -44,6 +46,7 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     $core.String? id,
     $core.int? createdAt,
     $core.String? name,
+    $core.Iterable<$fixnum.Int64>? randomSeeds,
   }) {
     final _result = create();
     if (repositoryUrl != null) {
@@ -81,6 +84,9 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     }
     if (name != null) {
       _result.name = name;
+    }
+    if (randomSeeds != null) {
+      _result.randomSeeds.addAll(randomSeeds);
     }
     return _result;
   }
@@ -212,5 +218,8 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(11);
   @$pb.TagNumber(12)
   void clearName() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.List<$fixnum.Int64> get randomSeeds => $_getList(12);
 }
 
