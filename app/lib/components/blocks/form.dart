@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/form_model.dart';
 import '../../model/score_evaluation_message.pb.dart';
+import '../parts/random_seed_form.dart';
 import '../../view_model/providers.dart';
 import '../../view_model/form_view_model.dart' as FormViewModel;
 
@@ -25,6 +26,7 @@ class SubmitForm extends HookConsumerWidget {
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider);
+    final _random_seeds_state = ref.watch(randomSeedsFormStateNotifierProvider);
 
     return Form(
       key: _formKey,
@@ -121,83 +123,117 @@ class SubmitForm extends HookConsumerWidget {
                   ),
                 ),
               ),
-              Card(
-                child: ExpansionTile(
-                title: Text('options'),
-                controlAffinity: ListTileControlAffinity.leading,
-                maintainState: true,
-                children: <Widget>[
-                  Center(
-                    child: SizedBox(
-                      width: _formCardWidth,
-                      height: _formCardHeight,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'game mode ["default", "predict", "predict_sample", "predict_sample2"]',
+              SizedBox(
+                child: Card(
+                  child: ExpansionTile(
+                    title: Text('options'),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    maintainState: true,
+                    children: <Widget>[
+                      Center(
+                        child: SizedBox(
+                          width: _formCardWidth,
+                          height: _formCardHeight,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'game mode ["default", "predict", "predict_sample", "predict_sample2"]',
+                            ),
+                            controller: _gameModeController,
+                            validator: (String? value) {
+                              List game_modes = ["default", "predict", "predict_sample", "predict_sample2"];
+                              if (!game_modes.contains(value)) {
+                                return 'must be in ${game_modes}';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                        controller: _gameModeController,
-                        validator: (String? value) {
-                          List game_modes = ["default", "predict", "predict_sample", "predict_sample2"];
-                          if (!game_modes.contains(value)) {
-                            return 'must be in ${game_modes}';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: _formCardWidth,
-                      height: _formCardHeight,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'predict weight path',
+                      Center(
+                        child: SizedBox(
+                          width: _formCardWidth,
+                          height: _formCardHeight,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'predict weight path',
+                            ),
+                            controller: _predictWeightPathController,
+                          ),
                         ),
-                        controller: _predictWeightPathController,
                       ),
-                    ),
-                  ),Center(
-                    child: SizedBox(
-                      width: _formCardWidth,
-                      height: _formCardHeight,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'game time',
+                      Center(
+                        child: SizedBox(
+                          width: _formCardWidth,
+                          height: _formCardHeight,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'game time',
+                            ),
+                            controller: _gameTimeController,
+                            validator: (String? value) {
+                              if (value==null || int.parse(value, onError: (value) => 0)<=0) {
+                                return 'please input positive integer';
+                              } else if (int.parse(value, onError: (value) => 0)>180){
+                                return 'game time cannot be more than 180 s';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                        controller: _gameTimeController,
-                        validator: (String? value) {
-                          if (value==null || int.parse(value, onError: (value) => 0)<=0) {
-                            return 'please input positive integer';
-                          } else if (int.parse(value, onError: (value) => 0)>180){
-                            return 'game time cannot be more than 180 s';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: _formCardWidth,
-                      height: _formCardHeight,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'trial number',
+                      Center(
+                        child: SizedBox(
+                          width: _formCardWidth,
+                          height: _formCardHeight,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'trial number',
+                            ),
+                            controller: _trialNumberController,
+                            validator: (String? value) {
+                              if (value==null || int.parse(value, onError: (value) => 0)<=0) {
+                                return 'please input positive integer';
+                              } else if (int.parse(value, onError: (value) => 0)>10){
+                                return 'trial number cannot be more than 10 ;;';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                        controller: _trialNumberController,
-                        validator: (String? value) {
-                          if (value==null || int.parse(value, onError: (value) => 0)<=0) {
-                            return 'please input positive integer';
-                          } else if (int.parse(value, onError: (value) => 0)>10){
-                            return 'trial number cannot be more than 10 ;;';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                  ),
-                ],
+                      Center(
+                        child: SizedBox(
+                          width: _formCardWidth,
+                          child: Row(
+                            children: <Widget>[
+                              Text("seed configuration"),
+                              Checkbox(
+                                activeColor: Colors.blue,
+                                value: _random_seeds_state.isEnabledSeedConfiguration,
+                                onChanged: ref.read(randomSeedsFormStateNotifierProvider.notifier).toggleIsEnabled,
+                              ),
+                            ]
+                          ),
+                        )
+                      ),
+                      ((){
+                        if (_random_seeds_state.isEnabledSeedConfiguration){
+                          return Center(
+                            child: SizedBox(
+                              width: _formCardWidth,
+                              child: RanomSeedForm()
+                            )
+                          );
+                        }
+                        else{
+                          return SizedBox();
+                        }
+                      })(),
+                      SizedBox(
+                        height: 30
+                      ),
+                    ],
+                  )
                 )
               ),
               Padding(
@@ -208,6 +244,10 @@ class SubmitForm extends HookConsumerWidget {
                       onPressed: () {
                         if (!_formKey.currentState!.validate()) {// validate form data when button pressed
                           ref.read(formStateNotifierProvider.notifier).setFormValidationErrorState();
+                          return;
+                        }
+                        if (_random_seeds_state.isEnabledSeedConfiguration && (int.parse(_trialNumberController.text)!=_random_seeds_state.seeds.length)){
+                          ref.read(formStateNotifierProvider.notifier).setRandomFormValidationErrorState();
                           return;
                         }
                         ref.read(formStateNotifierProvider.notifier).submitMessage(
@@ -222,6 +262,7 @@ class SubmitForm extends HookConsumerWidget {
                             185,
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
+                            _random_seeds_state.seeds,
                           )
                         );
                       },

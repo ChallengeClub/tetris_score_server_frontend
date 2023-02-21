@@ -95,4 +95,8 @@ class FormStateNotifier extends StateNotifier<FormState> {
   void setFormValidationErrorState(){
     state = FormError("form validation error\nfix invalid forms");
   }
+
+  void setRandomFormValidationErrorState(){
+    state = FormError("random seed form validation error\nnumber of random seeds must equals to trials");
+  }
 }
