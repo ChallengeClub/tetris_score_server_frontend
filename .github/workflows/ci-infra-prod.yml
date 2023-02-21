@@ -1,8 +1,9 @@
-name: ci-prod
+name: ci-infra-prod
 
 on:
   pull_request:
     branches: [main]
+    paths: 'terraform/**'
   workflow_dispatch:
 
 jobs:
@@ -12,9 +13,6 @@ jobs:
       id-token: write
       contents: read
 
-    env:
-      TETRIS_API: ${{ secrets.TETRIS_API_PROD }}
-
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
@@ -23,7 +21,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_PROD_ACCOUNT_ID }}:role/aws-identity-providers-federation-github-actions
-          role-session-name: github-actions-dev
+          role-session-name: github-actions-prod
           aws-region: ap-northeast-1
 
       - name: Setup Terraform
@@ -32,19 +30,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
         working-directory: ./terraform/environments/prod
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-
-      - name: Flutter pub get
-        run: flutter pub get
-        working-directory: ./app
-
-      - name: Flutter build
-        run: make build
-        working-directory: ./app
 
       - name: Terraform plan
         run: terraform plan
