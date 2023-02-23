@@ -37,18 +37,13 @@ class ScoreServerPage extends ConsumerWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: (){
-                            ref.read(resultsStateNotifierProvider.notifier).fetchResults();
-                            ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
-                        },
-                        child: const Text("Refresh")
-                      )
-                    ]
-                  )
+                  child: ElevatedButton(
+                    onPressed: (){
+                        ref.read(resultsStateNotifierProvider.notifier).fetchResults();
+                        ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
+                    },
+                    child: const Text("Refresh")
+                  )                    
                 ),
                 Expanded(
                   child: ResultsTable(),
