@@ -43,7 +43,7 @@ class ScoreServerPage extends ConsumerWidget {
                         ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
                     },
                     child: const Text("Refresh")
-                  )                    
+                  )
                 ),
                 Expanded(
                   child: ResultsTable(),

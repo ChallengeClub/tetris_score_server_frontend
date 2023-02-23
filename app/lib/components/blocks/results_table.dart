@@ -9,7 +9,6 @@ import '../../view_model/providers.dart';
 import '../parts/result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
-  ResultModel.ResultModel? _selectedResult;
   PlutoGridStateManager? stateManager;
 
   @override
@@ -36,13 +35,14 @@ class ResultsTable extends HookConsumerWidget{
               stateManager = event.stateManager; // set stateManager instance when onLoaded
             },
             onSelected: (PlutoGridOnSelectedEvent event){
-              int? selectedIdx = stateManager!.currentRowIdx;
-              if (selectedIdx == null){
+              int? _selectedIdx = stateManager!.currentRowIdx;
+              ResultModel.ResultModel _selectedResult;
+              if (_selectedIdx == null){
                 _selectedResult = ResultModel.getExampleResultModel();
               } else {
-                _selectedResult = _results[selectedIdx];
+                _selectedResult = _results[_selectedIdx];
               }
-              ResultDialog.showResultDialog(context, _selectedResult!); // _selectedResult cannot be nullable
+              ResultDialog.showResultDialog(context, _selectedResult); // _selectedResult cannot be nullable
             },
             rowColorCallback: (PlutoRowColorContext rowColorContext) {
               String status = rowColorContext.row.cells['status']?.value;
