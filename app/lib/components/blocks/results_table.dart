@@ -10,13 +10,13 @@ import '../parts/result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
   ResultModel.ResultModel? _selectedResult;
+  PlutoGridStateManager? stateManager;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<ResultModel.ResultModel> _results = ref.watch(resultsStateNotifierProvider);
     ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
     List<PlutoColumn> _columnList = this.getResultColumns();
-    _selectedResult = ref.watch(selectedResultStateNotifierProvider);
 
     return (() {
           if (_results.length == 0) {
@@ -26,19 +26,23 @@ class ResultsTable extends HookConsumerWidget{
             );
           }
           return PlutoGrid(
+            mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
             columns: _columnList,
             rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
               cells: this.mapToDataCells(_result)
             )).toList(),
             onLoaded: (PlutoGridOnLoadedEvent event) {
               event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
-              int? selectedIdx = event.stateManager!.currentRowIdx;
-              print("selectedIdx: ${selectedIdx}");
-              if (selectedIdx==null){
+              stateManager = event.stateManager; // set stateManager instance when onLoaded
+            },
+            onSelected: (PlutoGridOnSelectedEvent event){
+              int? selectedIdx = stateManager!.currentRowIdx;
+              if (selectedIdx == null){
                 _selectedResult = ResultModel.getExampleResultModel();
-              } else{
+              } else {
                 _selectedResult = _results[selectedIdx];
               }
+              ResultDialog.showResultDialog(context, _selectedResult!); // _selectedResult cannot be nullable
             },
             rowColorCallback: (PlutoRowColorContext rowColorContext) {
               String status = rowColorContext.row.cells['status']?.value;

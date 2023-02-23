@@ -6,7 +6,6 @@ import '../blocks/form.dart';
 import '../blocks/results_table.dart';
 import '../../model/result_model.dart' as ResultModel;
 import '../../view_model/providers.dart';
-import '../parts/result_dialog.dart';
 
 class ScoreServerPage extends ConsumerWidget {
   // This widget is the root of your application.
@@ -14,11 +13,9 @@ class ScoreServerPage extends ConsumerWidget {
     Tab(text: 'Form'),
     Tab(text: 'Results'),
   ];
-  ResultModel.ResultModel? selectedResult;
   
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    selectedResult = ref.watch(selectedResultStateNotifierProvider);
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -49,15 +46,6 @@ class ScoreServerPage extends ConsumerWidget {
                             ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
                         },
                         child: const Text("Refresh")
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: (){
-                            showResultDialog(context, selectedResult ?? ResultModel.getExampleResultModel());
-                        },
-                        child: const Text("Show Selected Row")
                       )
                     ]
                   )
