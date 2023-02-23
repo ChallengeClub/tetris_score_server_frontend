@@ -6,6 +6,7 @@ import 'form_view_model.dart' as FormViewModel;
 import 'results_view_model.dart' as ResultsViewModel;
 import 'entries_view_model.dart' as EntriesViewModel;
 import 'random_seeds_form_view_model.dart' as RandomSeedsFormViewModel;
+import 'result_detail_dialog_view_model.dart' as ResultDetailDialogViewModel;
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
 import '../repository/form_repository.dart';
@@ -32,4 +33,7 @@ final entriesStateNotifierProvider = StateNotifierProvider<EntriesViewModel.Entr
 );
 final randomSeedsFormStateNotifierProvider = StateNotifierProvider<RandomSeedsFormViewModel.RandomSeedsFormStateNotifier, RandomSeedsFormViewModel.RandomSeedsFormModel>(
   (ref) => RandomSeedsFormViewModel.RandomSeedsFormStateNotifier()
+);
+final selectedResultStateNotifierProvider = StateNotifierProvider<ResultDetailDialogViewModel.SelectedResultStateNotifier, ResultModel.ResultModel>((ref)
+  => ResultDetailDialogViewModel.SelectedResultStateNotifier()
 );

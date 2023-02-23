@@ -127,3 +127,27 @@ List<int> fromStringToListInt(String? string){
                  .toList();
   }
 }
+
+ResultModel getExampleResultModel() {
+  return ResultModel(
+      "this is example",
+      "example.com",
+      "waiting",
+      "example",
+      0,
+      1,
+      4,
+      0,
+      0,
+      1,
+      "default",
+      "",
+      1,
+      0,
+      0,
+      0,
+      [0],
+      [0],
+      "",
+  );
+}
