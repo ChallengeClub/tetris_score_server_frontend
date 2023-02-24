@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../blocks/form.dart';
 import '../blocks/results_table.dart';
+import '../../model/result_model.dart' as ResultModel;
 import '../../view_model/providers.dart';
 
 class ScoreServerPage extends ConsumerWidget {
   // This widget is the root of your application.
-
   final List<Tab> tabs = <Tab>[
     Tab(text: 'Form'),
     Tab(text: 'Results'),

@@ -139,3 +139,26 @@ List<int> fromListDynamicToListInt(List<dynamic>? values){
   }
   return values.cast<int>();
 }
+ResultModel getExampleResultModel() {
+  return ResultModel(
+      "this is example",
+      "example.com",
+      "waiting",
+      "example",
+      0,
+      1,
+      4,
+      0,
+      0,
+      1,
+      "default",
+      "",
+      1,
+      0,
+      0,
+      0,
+      [0],
+      [0],
+      "",
+  );
+}

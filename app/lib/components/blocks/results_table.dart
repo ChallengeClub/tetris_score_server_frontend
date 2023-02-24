@@ -9,6 +9,8 @@ import '../../view_model/providers.dart';
 import '../parts/result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
+  PlutoGridStateManager? stateManager;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<ResultModel.ResultModel> _results = ref.watch(resultsStateNotifierProvider);
@@ -23,22 +25,37 @@ class ResultsTable extends HookConsumerWidget{
             );
           }
           return PlutoGrid(
-                columns: _columnList,
-                rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
-                  cells: this.mapToDataCells(_result)
-                )).toList(),
-                rowColorCallback: (PlutoRowColorContext rowColorContext) {
-                  String status = rowColorContext.row.cells['status']?.value;
-                  Color color = Colors.white;
-                  if (status=="succeeded"){
-                    color = Color(0xFFE2F6DF);
-                  } else if (status=="error"){
-                    color = Color(0xFFFADBDF);
-                  } else if (status=="evaluating"){
-                    color = Color(0xE6FFF7DF);
-                  }
-                  return color;
-                }
+            mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
+            columns: _columnList,
+            rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
+              cells: this.mapToDataCells(_result)
+            )).toList(),
+            onLoaded: (PlutoGridOnLoadedEvent event) {
+              event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
+              stateManager = event.stateManager; // set stateManager instance when onLoaded
+            },
+            onSelected: (PlutoGridOnSelectedEvent event){
+              int? _selectedIdx = stateManager!.currentRowIdx;
+              ResultModel.ResultModel _selectedResult;
+              if (_selectedIdx == null){
+                _selectedResult = ResultModel.getExampleResultModel();
+              } else {
+                _selectedResult = _results[_selectedIdx];
+              }
+              ResultDialog.showResultDialog(context, _selectedResult); // _selectedResult cannot be nullable
+            },
+            rowColorCallback: (PlutoRowColorContext rowColorContext) {
+              String status = rowColorContext.row.cells['status']?.value;
+              Color color = Colors.white;
+              if (status=="succeeded"){
+                color = Color(0xFFE2F6DF);
+              } else if (status=="error"){
+                color = Color(0xFFFADBDF);
+              } else if (status=="evaluating"){
+                color = Color(0xE6FFF7DF);
+              }
+              return color;
+            }
           );
         }
         )();
