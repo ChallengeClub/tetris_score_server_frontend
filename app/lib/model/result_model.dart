@@ -18,6 +18,7 @@ class ResultModel{
     final List<int> random_seeds;
     final List<int> scores;
     final String error_message;
+    final List<int> gameover_count;
 
     ResultModel(
         this.name,
@@ -39,6 +40,7 @@ class ResultModel{
         this.random_seeds,
         this.scores,
         this.error_message,
+        this.gameover_count,
     );
     
     ResultModel.fromJson(dynamic map)
@@ -60,7 +62,8 @@ class ResultModel{
         min_score = map['MinScore'],
         random_seeds = fromStringToListInt(map['RandomSeeds']),
         scores = fromStringToListInt(map["Scores"]),
-        error_message = map['ErrorMessage'] ?? "";
+        error_message = map['ErrorMessage'] ?? "",
+        gameover_count = fromListDynamicToListInt(map['GameOverCount']);
     
     Map<String, dynamic> toJson() => {
         'name': name,
@@ -81,7 +84,8 @@ class ResultModel{
         'min_score': min_score,
         'random_seeds': random_seeds,
         "scores": scores,
-        'error_message': error_message
+        'error_message': error_message,
+        'gameover_count': gameover_count
     };
     List<String> toCsv() => [
         name,
@@ -102,7 +106,8 @@ class ResultModel{
         '$min_score',
         random_seeds.join(","),
         scores.join(","),
-        error_message
+        error_message,
+        gameover_count.join(","),
       ];    
 }
 
@@ -126,4 +131,11 @@ List<int> fromStringToListInt(String? string){
                  .map<int>((String value) => int.parse(value))
                  .toList();
   }
+}
+
+List<int> fromListDynamicToListInt(List<dynamic>? values){
+  if (values==null){
+    return [];
+  }
+  return values.cast<int>();
 }
