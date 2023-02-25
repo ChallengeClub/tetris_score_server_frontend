@@ -6,7 +6,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../model/result_model.dart' as ResultModel;
 import '../../view_model/providers.dart';
-import '../parts/result_dialog.dart'as ResultDialog;
+import 'result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;

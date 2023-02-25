@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../model/result_model.dart' as ResultModel;
+import 'result_detail_table.dart' as ResultDetailTable;
 
 Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel result) async {
   var _screenSize = MediaQuery.of(context).size;
@@ -95,10 +96,15 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
                           ),
                         ]
                       ),
+                      SizedBox(height: 10),
                       Container(
+                        height: _screenSize.height*0.5,
                         child: Column(
                           children: [
                             Text("Details"),
+                            Expanded(
+                              child: ResultDetailTable.ResultDetailTable(result)
+                            ),
                           ]
                         )
                       )
@@ -122,29 +128,8 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
             ),
           ),
         )
-        
-        // content: SingleChildScrollView(
-        //   child: ListBody(
-        //     children: <Widget>[
-        //       Text("name: ${result.name}"),
-        //       Text("url: ${result.repository_url}"),
-        //       Text("status: ${result.status}"),
-        //       Text("branch: ${result.branch}"),
-        //       Text("created at: ${ResultModel.datetimeToString(result.created_at)}"),
-        //       Text("level: ${result.level.toString()}"),
-        //       Text("number of trial: ${result.trial_number.toString()}"),
-        //       Text("game mode: ${result.game_mode}"),
-        //       Text("predict_weight_path: ${result.predict_weight_path}"),
-        //       Text("mean_score: ${result.mean_score.toString()}"),
-        //       Text("max_score: ${result.max_score.toString()}"),
-        //       Text("max_score: ${result.min_score.toString()}"),
-        //       Text("stddev_score: ${result.stddev_score.toString()}"),
-        //       Text("error message: ${result.error_message}")
-        //     ],
-        //   ),
-        // ),
-        // ],
       );
     },
   );
 }
+

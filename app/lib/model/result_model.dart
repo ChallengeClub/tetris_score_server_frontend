@@ -18,7 +18,7 @@ class ResultModel{
     final List<int> random_seeds;
     final List<int> scores;
     final String error_message;
-    final List<int> gameover_count;
+    final List<int> gameover_counts;
     
     get github_user_name => repository_url.split("/")[3] ?? "TetrisChallenge";
     get mean_score_string => mean_score!=null ? mean_score!.toStringAsFixed(2) : "";
@@ -44,7 +44,7 @@ class ResultModel{
         this.random_seeds,
         this.scores,
         this.error_message,
-        this.gameover_count,
+        this.gameover_counts,
     );
     
     ResultModel.fromJson(dynamic map)
@@ -67,7 +67,7 @@ class ResultModel{
         random_seeds = fromListDynamicToListInt(map['RandomSeeds']),
         scores = fromListDynamicToListInt(map["Scores"]),
         error_message = map['ErrorMessage'] ?? "",
-        gameover_count = fromListDynamicToListInt(map['GameOverCount']);
+        gameover_counts = fromListDynamicToListInt(map['GameOverCount']);
     
     Map<String, dynamic> toJson() => {
         'name': name,
@@ -89,7 +89,7 @@ class ResultModel{
         'random_seeds': random_seeds,
         "scores": scores,
         'error_message': error_message,
-        'gameover_count': gameover_count
+        'gameover_counts': gameover_counts
     };
     List<String> toCsv() => [
         name,
