@@ -60,8 +60,8 @@ class ResultModel{
         stddev_score = map['StdDevScore'],
         max_score = map['MaxScore'],
         min_score = map['MinScore'],
-        random_seeds = fromStringToListInt(map['RandomSeeds']),
-        scores = fromStringToListInt(map["Scores"]),
+        random_seeds = fromListDynamicToListInt(map['RandomSeeds']),
+        scores = fromListDynamicToListInt(map["Scores"]),
         error_message = map['ErrorMessage'] ?? "",
         gameover_count = fromListDynamicToListInt(map['GameOverCount']);
     
@@ -123,22 +123,13 @@ String datetimeToString(int? datetime){
   return _res;
 }
 
-List<int> fromStringToListInt(String? string){
-  if ((string == null)||(string == "")){
-    return [];
-  } else {
-    return string.split(',')
-                 .map<int>((String value) => int.parse(value))
-                 .toList();
-  }
-}
-
 List<int> fromListDynamicToListInt(List<dynamic>? values){
   if (values==null){
     return [];
   }
   return values.cast<int>();
 }
+
 ResultModel getExampleResultModel() {
   return ResultModel(
       "this is example",
