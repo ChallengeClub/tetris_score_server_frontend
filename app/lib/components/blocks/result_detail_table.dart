@@ -18,6 +18,19 @@ class ResultDetailTable extends HookConsumerWidget{
     return PlutoGrid(
       columns: _columnList,
       rows: _rowList,
+      mode: PlutoGridMode.readOnly,
+      configuration: PlutoGridConfiguration(
+        columnSize: PlutoGridColumnSizeConfig(
+          autoSizeMode: PlutoAutoSizeMode.scale,
+        ),
+        style: PlutoGridStyleConfig(
+          columnHeight: 30.0,
+          rowHeight: 30.0,
+          defaultCellPadding: EdgeInsets.all(5.0),
+          columnTextStyle: const TextStyle(color: Colors.black, decoration: TextDecoration.none, fontSize: 12, fontWeight: FontWeight.w600),
+          cellTextStyle: const TextStyle(color: Colors.black, decoration: TextDecoration.none, fontSize: 12),
+        ),
+      ),
     );
   }
     
