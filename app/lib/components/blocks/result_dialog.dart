@@ -12,7 +12,7 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
     builder: (BuildContext context) {
       return Center(
         child: Container(
-          width: _screenSize.width*0.8>600 ? 600 : _screenSize.width*0.8, // isWebScreenSize? web : mobile
+          width: _screenSize.width*0.8>700 ? 700 : _screenSize.width*0.8, // isWebScreenSize? web : mobile
           height: _screenSize.height*0.9,
           child: Card(
             clipBehavior: Clip.antiAlias,
@@ -98,8 +98,9 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
                       ),
                       SizedBox(height: 10),
                       Container(
-                        height: _screenSize.height*0.5,
+                        height: _screenSize.height*0.45,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Details"),
                             Expanded(
@@ -107,7 +108,14 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
                             ),
                           ]
                         )
-                      )
+                      ),
+                      Text(
+                        "'-1' represents invalid value",
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.6),
+                          fontSize: 12,
+                        )
+                      ),
                     ]
                   )
                 ),
@@ -122,8 +130,6 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
                     ),
                   ],
                 ),
-                // Image.asset('assets/card-sample-image.jpg'),
-                // Image.asset('assets/card-sample-image-2.jpg'),
               ],
             ),
           ),

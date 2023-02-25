@@ -19,6 +19,9 @@ class ResultModel{
     final List<int> scores;
     final String error_message;
     final List<int> gameover_counts;
+    final List<int> block_indices;
+    final List<List<int>> line_score_stats;
+    final List<List<int>> shape_info_stats;
     
     get github_user_name => repository_url.split("/")[3] ?? "TetrisChallenge";
     get mean_score_string => mean_score!=null ? mean_score!.toStringAsFixed(2) : "";
@@ -45,6 +48,9 @@ class ResultModel{
         this.scores,
         this.error_message,
         this.gameover_counts,
+        this.block_indices,
+        this.line_score_stats,
+        this.shape_info_stats,
     );
     
     ResultModel.fromJson(dynamic map)
@@ -67,7 +73,10 @@ class ResultModel{
         random_seeds = fromListDynamicToListInt(map['RandomSeeds']),
         scores = fromListDynamicToListInt(map["Scores"]),
         error_message = map['ErrorMessage'] ?? "",
-        gameover_counts = fromListDynamicToListInt(map['GameOverCount']);
+        gameover_counts = fromListDynamicToListInt(map['GameOverCount']),
+        block_indices = fromListDynamicToListInt(map['BlockIndex']),
+        line_score_stats = fromListListDynamicToListListInt(map['LineScoreStat']),
+        shape_info_stats = fromListListDynamicToListListInt(map['ShapeInfoStat']);
     
     Map<String, dynamic> toJson() => {
         'name': name,
@@ -89,7 +98,10 @@ class ResultModel{
         'random_seeds': random_seeds,
         "scores": scores,
         'error_message': error_message,
-        'gameover_counts': gameover_counts
+        'gameover_counts': gameover_counts,
+        'block_indices': block_indices,
+        'line_score_stat': line_score_stats,
+        'shape_info_stat': shape_info_stats,
     };
     List<String> toCsv() => [
         name,
@@ -110,7 +122,7 @@ class ResultModel{
         '$min_score',
         random_seeds.join(","),
         scores.join(","),
-        error_message
+        error_message,
       ];    
 }
 
@@ -131,6 +143,17 @@ List<int> fromListDynamicToListInt(List<dynamic>? values){
     return [];
   }
   return values.cast<int>();
+}
+
+List<List<int>> fromListListDynamicToListListInt(List<dynamic>? lines){
+  if (lines==null){
+    return [[]];
+  }
+  List<List<int>> _res = []; 
+  for (List<dynamic> _line in lines){
+    _res.add(_line.cast<int>());
+  }
+  return _res;
 }
 
 ResultModel getExampleResultModel() {
@@ -155,5 +178,8 @@ ResultModel getExampleResultModel() {
       [0],
       "",
       [],
+      [0],
+      [[0]],
+      [[0]],
   );
 }
