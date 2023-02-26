@@ -69,6 +69,11 @@ class ResultsTable extends HookConsumerWidget{
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
+        title: 'Status',
+        field: 'status',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
         title: 'Name',
         field: 'name',
         type: PlutoColumnType.text(),
@@ -99,11 +104,6 @@ class ResultsTable extends HookConsumerWidget{
         type: PlutoColumnType.number(),
       ),
       PlutoColumn(
-        title: 'Status',
-        field: 'status',
-        type: PlutoColumnType.text(),
-      ),
-      PlutoColumn(
         title: 'Level',
         field: 'level',
         type: PlutoColumnType.number(),
@@ -112,31 +112,6 @@ class ResultsTable extends HookConsumerWidget{
         title: 'GameMode',
         field: 'game_mode',
         type: PlutoColumnType.text(),
-      ),
-      PlutoColumn(
-        title: 'Started at',
-        field: 'started_at',
-        type: PlutoColumnType.text(),
-      ),
-      PlutoColumn(
-        title: 'Ended at',
-        field: 'ended_at',
-        type: PlutoColumnType.text(),
-      ),
-      PlutoColumn(
-        title: 'ErrorMessage',
-        field: 'error_message',
-        type: PlutoColumnType.text()
-      ),
-      PlutoColumn(
-        title: 'RandomSeeds',
-        field: 'random_seeds',
-        type: PlutoColumnType.text()
-      ),
-      PlutoColumn(
-        title: 'Scores',
-        field: 'scores',
-        type: PlutoColumnType.text()
       ),
     ];
     return res;
@@ -153,12 +128,7 @@ class ResultsTable extends HookConsumerWidget{
       'game_time': PlutoCell(value: result.game_time),
       'trials': PlutoCell(value: result.trial_number),
       'status': PlutoCell(value: result.status),
-      'started_at': PlutoCell(value: ResultModel.datetimeToString(result.started_at)),
-      'ended_at': PlutoCell(value: ResultModel.datetimeToString(result.ended_at)),
       'game_mode': PlutoCell(value: result.game_mode),
-      'error_message': PlutoCell(value: result.error_message),
-      'scores': PlutoCell(value: result.scores.join(", ")),
-      'random_seeds': PlutoCell(value: result.random_seeds.join(", ")),
     };
     return cells;
   }

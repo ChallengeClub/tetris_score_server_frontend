@@ -58,43 +58,61 @@ Future<void> showResultDialog(BuildContext context, ResultModel.ResultModel resu
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Configurations"),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Datetime",
+                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    "created:\n ${result.created_at_string}\nstarted:\n ${result.started_at_string}\nended:\n ${result.ended_at_string}",
+                                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                                  ),
+                                ]
+                              )
+                            ),
+                            SizedBox(width: 20),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Configurations",
+                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
                                     "level: ${result.level}\nmode: ${result.game_mode}\nweight: ${result.predict_weight_path}\ngame_time: ${result.game_time}\ntrials: ${result.trial_number}",
                                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
                                   ),
-                                )
-                              ]
-                            )
-                          ),
-                          SizedBox(
-                            width: 10
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Score Stats"),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
+                                ]
+                              )
+                            ),
+                            SizedBox(width: 20),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Score Stats",
+                                    style: TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
                                     "mean: ${result.mean_score_string}\nstddev: ${result.stddev_score_string}\nmax: ${result.max_score}\nmin: ${result.min_score}",
                                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
                                   ),
-                                )
-                              ]
-                            )
-                          ),
-                        ]
+                                ]
+                              )
+                            ),
+                          ]
+                        )
                       ),
                       SizedBox(height: 10),
                       Container(

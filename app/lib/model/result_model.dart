@@ -26,6 +26,9 @@ class ResultModel{
     get github_user_name => repository_url.split("/")[3] ?? "TetrisChallenge";
     get mean_score_string => mean_score!=null ? mean_score!.toStringAsFixed(2) : "";
     get stddev_score_string => stddev_score!=null ?  stddev_score!.toStringAsFixed(2) : "";
+    get created_at_string => datetimeToString(created_at);
+    get started_at_string => datetimeToString(started_at);
+    get ended_at_string => datetimeToString(ended_at);
 
     ResultModel(
         this.name,
