@@ -72,7 +72,7 @@ class ResultDetailTable extends HookConsumerWidget{
 
   List<PlutoRow> getResultDetailRows(ResultModel.ResultModel _result){
     List<PlutoRow> _rows = [];
-    for (int i = 0; i < _result.scores.length; i++){
+    for (int i = 0; i < _result.random_seeds.length; i++){
       PlutoRow _row = PlutoRow(
         cells: <String, PlutoCell> {
           'score': PlutoCell(value: _result.scores.length>i ? _result.scores[i] : null),
