@@ -111,9 +111,9 @@ class ResultModel{
         repository_url,
         status,
         branch,
-        datetimeToString(created_at),
-        datetimeToString(started_at),
-        datetimeToString(ended_at),
+        created_at_string,
+        started_at_string,
+        ended_at_string,
         '$mean_score',
         '$game_time',
         '$level',
@@ -126,6 +126,10 @@ class ResultModel{
         random_seeds.join(","),
         scores.join(","),
         error_message,
+        gameover_counts.join(","),
+        block_indices.join(","),
+        line_score_stats.join(","),
+        shape_info_stats.join(","),
       ];    
 }
 
