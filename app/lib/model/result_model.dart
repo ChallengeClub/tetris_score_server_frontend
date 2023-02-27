@@ -18,6 +18,17 @@ class ResultModel{
     final List<int> random_seeds;
     final List<int> scores;
     final String error_message;
+    final List<int> gameover_counts;
+    final List<int> block_indices;
+    final List<List<int>> line_score_stats;
+    final List<List<int>> shape_info_stats;
+    
+    get github_user_name => repository_url.split("/")[3] ?? "TetrisChallenge";
+    get mean_score_string => mean_score!=null ? mean_score!.toStringAsFixed(2) : "";
+    get stddev_score_string => stddev_score!=null ?  stddev_score!.toStringAsFixed(2) : "";
+    get created_at_string => datetimeToString(created_at);
+    get started_at_string => datetimeToString(started_at);
+    get ended_at_string => datetimeToString(ended_at);
 
     ResultModel(
         this.name,
@@ -39,6 +50,10 @@ class ResultModel{
         this.random_seeds,
         this.scores,
         this.error_message,
+        this.gameover_counts,
+        this.block_indices,
+        this.line_score_stats,
+        this.shape_info_stats,
     );
     
     ResultModel.fromJson(dynamic map)
@@ -58,9 +73,13 @@ class ResultModel{
         stddev_score = map['StdDevScore'],
         max_score = map['MaxScore'],
         min_score = map['MinScore'],
-        random_seeds = fromStringToListInt(map['RandomSeeds']),
-        scores = fromStringToListInt(map["Scores"]),
-        error_message = map['ErrorMessage'] ?? "";
+        random_seeds = fromListDynamicToListInt(map['RandomSeeds']),
+        scores = fromListDynamicToListInt(map["Scores"]),
+        error_message = map['ErrorMessage'] ?? "",
+        gameover_counts = fromListDynamicToListInt(map['GameOverCount']),
+        block_indices = fromListDynamicToListInt(map['BlockIndex']),
+        line_score_stats = fromListListDynamicToListListInt(map['LineScoreStat']),
+        shape_info_stats = fromListListDynamicToListListInt(map['ShapeInfoStat']);
     
     Map<String, dynamic> toJson() => {
         'name': name,
@@ -81,16 +100,20 @@ class ResultModel{
         'min_score': min_score,
         'random_seeds': random_seeds,
         "scores": scores,
-        'error_message': error_message
+        'error_message': error_message,
+        'gameover_counts': gameover_counts,
+        'block_indices': block_indices,
+        'line_score_stat': line_score_stats,
+        'shape_info_stat': shape_info_stats,
     };
     List<String> toCsv() => [
         name,
         repository_url,
         status,
         branch,
-        datetimeToString(created_at),
-        datetimeToString(started_at),
-        datetimeToString(ended_at),
+        created_at_string,
+        started_at_string,
+        ended_at_string,
         '$mean_score',
         '$game_time',
         '$level',
@@ -102,7 +125,11 @@ class ResultModel{
         '$min_score',
         random_seeds.join(","),
         scores.join(","),
-        error_message
+        error_message,
+        gameover_counts.join(","),
+        block_indices.join(","),
+        line_score_stats.join(","),
+        shape_info_stats.join(","),
       ];    
 }
 
@@ -118,12 +145,48 @@ String datetimeToString(int? datetime){
   return _res;
 }
 
-List<int> fromStringToListInt(String? string){
-  if ((string == null)||(string == "")){
+List<int> fromListDynamicToListInt(List<dynamic>? values){
+  if (values==null){
     return [];
-  } else {
-    return string.split(',')
-                 .map<int>((String value) => int.parse(value))
-                 .toList();
   }
+  return values.cast<int>();
+}
+
+List<List<int>> fromListListDynamicToListListInt(List<dynamic>? lines){
+  if (lines==null){
+    return [[]];
+  }
+  List<List<int>> _res = []; 
+  for (List<dynamic> _line in lines){
+    _res.add(_line.cast<int>());
+  }
+  return _res;
+}
+
+ResultModel getExampleResultModel() {
+  return ResultModel(
+      "this is example",
+      "example.com",
+      "waiting",
+      "example",
+      0,
+      1,
+      4,
+      0,
+      0,
+      1,
+      "default",
+      "",
+      1,
+      0,
+      0,
+      0,
+      [0],
+      [0],
+      "",
+      [],
+      [0],
+      [[0]],
+      [[0]],
+  );
 }
