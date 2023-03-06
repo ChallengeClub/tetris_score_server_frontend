@@ -6,6 +6,7 @@ import '../model/entry_model.dart';
 
 abstract class DBRepository {
   Future<List<ResultModel>> getLatestResults();
+  Future<ResultModel> getResultDetailById(String _id);
   Future<List<EntryModel>> getEntries();
 }
 
@@ -26,6 +27,18 @@ class DBRepositoryImpl implements DBRepository {
     ).toList();
 
     return results;
+  }
+  @override
+  Future<ResultModel> getResultDetailById(String _id) async {
+    if (_api==null){
+      return;
+    }
+    final uri = Uri.parse("${_api}/result/${_id}");
+    http.Response result = await http.get(uri);
+    var _map = convert.jsonDecode(result.body);
+    dynamic item = _map['Item'];
+    ResultModel result = ResultModel.fromJson(item);
+    return result;
   }
 
   @override
