@@ -7,10 +7,12 @@ import '../model/result_model.dart' as ResultModel;
 class ResultDetailStateNotifier extends StateNotifier<ResultModel.ResultModel> {
   final DBRepository _dbRepository;
   
-  ResultDetailStateNotifier(this._dbRepository) : super(){
+  ResultDetailStateNotifier(this._dbRepository) : super(
+    ResultModel.getExampleResultModel()
+  ){
     
   }
-  Future<void> fetchResultById(String _id) async {
+  Future<void> fetchResultDetailById(String _id) async {
     try{
       state = await _dbRepository.getResultDetailById(_id);
     } catch(e){

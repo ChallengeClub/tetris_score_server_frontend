@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../model/result_model.dart' as ResultModel;
 import '../../view_model/providers.dart';
-import 'result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;
