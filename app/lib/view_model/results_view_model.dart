@@ -21,10 +21,4 @@ class ResultsStateNotifier extends StateNotifier<List<ResultModel.ResultModel>> 
   void sortResultsByCreatedAt(){
     state.sort((b, a) => a.created_at.compareTo(b.created_at));
   }
-
-  ResultModel.ResultModel getResultById(String _id){
-     ResultModel.ResultModel _result;
-     _result = state.firstWhere((element) => element.id==_id);
-     return _result;
-  }
 }

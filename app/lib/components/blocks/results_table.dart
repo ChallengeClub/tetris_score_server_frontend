@@ -43,8 +43,6 @@ class ResultsTable extends HookConsumerWidget{
                 _selectedResult = _results[_selectedIdx];
               }
               context.push('/server/results/${_selectedResult.id}');
-              // ResultDialog.showResultDialog(context, _selectedResult); // _selectedResult cannot be nullable
-
             },
             rowColorCallback: (PlutoRowColorContext rowColorContext) {
               String status = rowColorContext.row.cells['status']?.value;
