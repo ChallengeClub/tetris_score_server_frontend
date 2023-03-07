@@ -35,7 +35,7 @@ final randomSeedsFormStateNotifierProvider = StateNotifierProvider<RandomSeedsFo
   (ref) => RandomSeedsFormViewModel.RandomSeedsFormStateNotifier()
 );
 
-final resultDetailStateNotifierProvider = StateNotifierProvider<ResultDetailViewModel.ResultDetailStateNotifier, ResultModel.ResultModel>((ref)
+final resultDetailStateNotifierProvider = StateNotifierProvider.autoDispose<ResultDetailViewModel.ResultDetailStateNotifier, ResultModel.ResultModel?>((ref)
   => ResultDetailViewModel.ResultDetailStateNotifier(
     ref.watch(dbRepositoryProvider)
   ),
