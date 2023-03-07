@@ -128,13 +128,18 @@ class ResultDetailPage extends HookConsumerWidget {
                         ),
                         SizedBox(height: 10),
                         Container(
+                          height: _size.height*0.4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Details"),
-                              // Expanded(
-                              //   child: ResultDetailTable.ResultDetailTable(result)
-                              // ),
+                              Text(
+                                "Details",
+                                style: TextStyle(fontWeight: FontWeight.w600)
+                              ),
+                              SizedBox(height: 5),
+                              Expanded(
+                                child: ResultDetailTable.ResultDetailTable(result)
+                              ),
                             ]
                           )
                         ),
