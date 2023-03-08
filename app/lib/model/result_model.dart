@@ -1,4 +1,5 @@
 class ResultModel{
+    final String id;
     final String name;
     final String repository_url;
     final String status;
@@ -31,6 +32,7 @@ class ResultModel{
     get ended_at_string => datetimeToString(ended_at);
 
     ResultModel(
+        this.id,
         this.name,
         this.repository_url,
         this.status,
@@ -57,7 +59,8 @@ class ResultModel{
     );
     
     ResultModel.fromJson(dynamic map)
-      : name = map['Name'],
+      : id = map['Id'],
+        name = map['Name'],
         repository_url = map['RepositoryURL'],
         status = map['Status'],
         branch = map['Branch'],
@@ -82,6 +85,7 @@ class ResultModel{
         shape_info_stats = fromListListDynamicToListListInt(map['ShapeInfoStat']);
     
     Map<String, dynamic> toJson() => {
+        'id': id,
         'name': name,
         'repository_url': repository_url,
         'status': status,
@@ -107,6 +111,7 @@ class ResultModel{
         'shape_info_stat': shape_info_stats,
     };
     List<String> toCsv() => [
+        id,
         name,
         repository_url,
         status,
@@ -165,6 +170,7 @@ List<List<int>> fromListListDynamicToListListInt(List<dynamic>? lines){
 
 ResultModel getExampleResultModel() {
   return ResultModel(
+      "abcdefg",
       "this is example",
       "example.com",
       "waiting",
