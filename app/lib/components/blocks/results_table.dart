@@ -3,10 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../model/result_model.dart' as ResultModel;
 import '../../view_model/providers.dart';
-import 'result_dialog.dart'as ResultDialog;
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;
@@ -42,7 +42,7 @@ class ResultsTable extends HookConsumerWidget{
               } else {
                 _selectedResult = _results[_selectedIdx];
               }
-              ResultDialog.showResultDialog(context, _selectedResult); // _selectedResult cannot be nullable
+              context.push('/server/results/${_selectedResult.id}');
             },
             rowColorCallback: (PlutoRowColorContext rowColorContext) {
               String status = rowColorContext.row.cells['status']?.value;

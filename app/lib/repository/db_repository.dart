@@ -3,9 +3,11 @@ import 'dart:convert' as convert;
 
 import '../model/result_model.dart';
 import '../model/entry_model.dart';
+import '../error.dart' as Error;
 
 abstract class DBRepository {
   Future<List<ResultModel>> getLatestResults();
+  Future<ResultModel> getResultDetailById(String _id);
   Future<List<EntryModel>> getEntries();
 }
 
@@ -15,7 +17,7 @@ class DBRepositoryImpl implements DBRepository {
   @override
   Future<List<ResultModel>> getLatestResults() async {
     if (_api==null){
-      return [];
+      throw Error.APINotDefinedError();
     }
     final uri = Uri.parse("${_api}/results");
     http.Response result = await http.get(uri);
@@ -27,11 +29,23 @@ class DBRepositoryImpl implements DBRepository {
 
     return results;
   }
+  @override
+  Future<ResultModel> getResultDetailById(String _id) async {
+    if (_api==null){
+      throw Error.APINotDefinedError();
+    }
+    final uri = Uri.parse("${_api}/result/${_id}");
+    http.Response result = await http.get(uri);
+    var _map = convert.jsonDecode(result.body);
+    dynamic item = _map['Item'];
+    ResultModel _result = ResultModel.fromJson(item);
+    return _result;
+  }
 
   @override
   Future<List<EntryModel>> getEntries() async {
     if (_api==null){
-      return [];
+      throw Error.APINotDefinedError();
     }
     final uri = Uri.parse("${_api}/entries");
     http.Response result = await http.get(uri);
