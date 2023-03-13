@@ -35,14 +35,8 @@ class ResultsTable extends HookConsumerWidget{
               stateManager = event.stateManager; // set stateManager instance when onLoaded
             },
             onSelected: (PlutoGridOnSelectedEvent event){
-              int? _selectedIdx = stateManager!.currentRowIdx;
-              ResultModel.ResultModel _selectedResult;
-              if (_selectedIdx == null){
-                _selectedResult = ResultModel.getExampleResultModel();
-              } else {
-                _selectedResult = _results[_selectedIdx];
-              }
-              context.push('/server/results/${_selectedResult.id}');
+              dynamic _selectedResultId = stateManager!.currentRow!.cells["id"]!.value;
+              context.push('/server/results/${_selectedResultId}');
             },
             rowColorCallback: (PlutoRowColorContext rowColorContext) {
               String status = rowColorContext.row.cells['status']?.value;
@@ -63,6 +57,12 @@ class ResultsTable extends HookConsumerWidget{
     
   List<PlutoColumn> getResultColumns(){
     List<PlutoColumn> res = [
+      PlutoColumn(
+        title: 'Id',
+        field: 'id',
+        type: PlutoColumnType.text(),
+        hide: true, // hidden id column for select and filter the row 
+      ),
       PlutoColumn(
         title: 'Created at',
         field: 'created_at',
@@ -119,6 +119,7 @@ class ResultsTable extends HookConsumerWidget{
 
   Map<String, PlutoCell> mapToDataCells(ResultModel.ResultModel result){
     Map<String, PlutoCell> cells = {
+      'id': PlutoCell(value: result.id),
       'created_at': PlutoCell(value: ResultModel.datetimeToString(result.created_at)),
       'name': PlutoCell(value: result.name),
       'mean_score': PlutoCell(value: result.mean_score),
