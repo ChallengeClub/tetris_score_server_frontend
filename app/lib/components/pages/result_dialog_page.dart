@@ -137,17 +137,16 @@ class ResultDetailPage extends HookConsumerWidget {
                                 style: TextStyle(fontWeight: FontWeight.w600)
                               ),
                               SizedBox(height: 5),
-                              Expanded(
-                                child: ResultDetailTable.ResultDetailTable(result)
-                              ),
+                              ((){
+                                if (result.status=="error"){
+                                  return Text(result.error_message ?? "");
+                                } else {
+                                  return Expanded(
+                                    child: ResultDetailTable.ResultDetailTable(result)
+                                  );
+                                }
+                              })(),
                             ]
-                          )
-                        ),
-                        Text(
-                          "'-1' represents invalid value",
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.6),
-                            fontSize: 12,
                           )
                         ),
                       ]
