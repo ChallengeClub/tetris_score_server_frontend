@@ -149,13 +149,6 @@ class ResultDetailPage extends HookConsumerWidget {
                             ]
                           )
                         ),
-                        Text(
-                          "'-1' represents invalid value",
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.6),
-                            fontSize: 12,
-                          )
-                        ),
                       ]
                     )
                   ),
