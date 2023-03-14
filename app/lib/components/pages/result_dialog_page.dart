@@ -18,7 +18,8 @@ class ResultDetailPage extends HookConsumerWidget {
     ref.read(resultDetailStateNotifierProvider.notifier).fetchResultDetailById(_id);
     Size _size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return SelectionArea(
+      child: Scaffold(
         appBar: AppBar(title: const Text('Tetris HP')),
         body: Center(
           child: (() {
@@ -168,6 +169,7 @@ class ResultDetailPage extends HookConsumerWidget {
             );
           }
         )(),
+        )
       )
     );
   }
