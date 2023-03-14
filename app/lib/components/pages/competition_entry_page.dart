@@ -16,7 +16,8 @@ class CompetitionEntryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
       length: tabs.length,
-      child: Scaffold(
+      child: SelectionArea(
+        child: Scaffold(
         appBar: AppBar(
           title: Text("Entry Page for Tetris v4"),
           bottom: TabBar(
@@ -61,6 +62,7 @@ class CompetitionEntryPage extends ConsumerWidget {
               ]
             )
           ]
+        )
         )
       )
     );
