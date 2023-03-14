@@ -111,7 +111,7 @@ class EntryForm extends HookConsumerWidget {
                         if (value == null || value.isEmpty) {
                           return 'Please enter some text';
                         }
-                        List levels = ["1", "2", "3"];
+                        List levels = ["1", "2", "3", "4"];
                         if (!levels.contains(value)) {
                           return 'Value must be in ${levels}';
                         }
