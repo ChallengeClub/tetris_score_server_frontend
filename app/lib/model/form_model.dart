@@ -1,4 +1,5 @@
 import 'score_evaluation_message.pb.dart';
+import '../error.dart' as Errors;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 
 class FormModel {
@@ -13,6 +14,16 @@ class FormModel {
   final String predict_weight_path;
   final int trial_num;
   final Iterable<$fixnum.Int64> random_seeds;
+  RegExpMatch get _reg_exp_match {
+    String _pattern = r'https://github.com/(\S+)/(\S+)$';
+    RegExpMatch? _match = RegExp(_pattern).firstMatch(repository_URL);
+    if (_match==null){
+      throw Errors.RepositoryURLRegexException(repository_URL, _pattern);
+    }
+    return _match;
+  }
+  String get github_user_name => _reg_exp_match.group(1)!; // cannot null because the regex pattern in _reg_exp_match getter
+  String get github_repository_name => _reg_exp_match.group(2)!; // cannot null because the regex pattern in _reg_exp_match getter
 
   FormModel(
     this.user_name, 

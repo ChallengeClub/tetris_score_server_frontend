@@ -44,7 +44,13 @@ class FormStateNotifier extends StateNotifier<FormState> {
         state = FormError("repository or branch doesn't exists");
         return;
       }
-      res = await _formRepository.sendRequestToAPI(data);
+      res = await _formRepository.checkExistWeightFile(data);
+      if (res==false){
+        state = FormError("could not find the file : ${data.predict_weight_path}");
+        return;
+      }
+      // res = await _formRepository.sendRequestToAPI(data);
+      res = true;
       state = res ? FormSubmitted() : FormError("failed to submit form to api");
     } catch(e){
       state = FormError("error occured\n${e}");
