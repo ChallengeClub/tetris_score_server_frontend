@@ -22,8 +22,8 @@ class FormModel {
     }
     return _match;
   }
-  String get github_user_name => _reg_exp_match.group(1)!; // cannot null because the regex pattern in _reg_exp_match getter
-  String get github_repository_name => _reg_exp_match.group(2)!; // cannot null because the regex pattern in _reg_exp_match getter
+  String get github_user_name => _reg_exp_match.group(1)!; // cannot be null because the regex pattern in _reg_exp_match getter
+  String get github_repository_name => _reg_exp_match.group(2)!; // cannot be null because the regex pattern in _reg_exp_match getter
 
   FormModel(
     this.user_name, 
