@@ -7,6 +7,7 @@ import '../model/score_evaluation_message.pb.dart';
 
 abstract class FormRepository {
   Future<bool> checkExistBranch(FormModel msg);
+  Future<bool> checkExistWeightFile(FormModel msg);
   Future<bool> sendRequestToAPI(FormModel msg);
   Future<bool> sendRequestToEntryAPI(FormModel msg);
 }
@@ -17,12 +18,24 @@ class FormRepositoryImpl implements FormRepository {
   @override
   // this method must be called after formStateNotifier.checkRepositoryURLPattern
   Future<bool> checkExistBranch(FormModel msg) async {
-    RegExp exp = new RegExp(r'https://github.com/(.+)/(.+)$');
-    RegExpMatch? match = exp.firstMatch(msg.repository_URL);
-    // becase this method is called after formStateNotifier.checkRepositoryURLPattern,
-    // `match` variable cannot be null
-    var url = Uri.https('api.github.com', 'repos/${match!.group(1)}/${match!.group(2)}/branches/${msg.branch_name}');
-    http.Response response = await http.get(url);
+    var url = Uri.https('api.github.com', 'repos/${msg.github_user_name}/${msg.github_repository_name}/branches/${msg.branch_name}');
+    http.Response response = await http.head(url);
+    return response.statusCode == 200;
+  }
+
+  @override
+  Future<bool> checkExistWeightFile(FormModel msg) async {
+    if (msg.predict_weight_path==""){
+      return true;
+    }
+    var url = Uri.https(
+      'api.github.com',
+      'repos/${msg.github_user_name}/${msg.github_repository_name}/contents/${msg.predict_weight_path}',
+      {
+        'ref': msg.branch_name,
+      },
+    );
+    http.Response response = await http.head(url);
     return response.statusCode == 200;
   }
   
