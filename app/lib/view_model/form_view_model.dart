@@ -44,6 +44,7 @@ class FormStateNotifier extends StateNotifier<FormState> {
         state = FormError("repository or branch doesn't exists");
         return;
       }
+
       res = await _formRepository.checkExistWeightFile(data);
       if (res==false){
         if (data.predict_weight_path.contains('\\')){
@@ -53,6 +54,7 @@ class FormStateNotifier extends StateNotifier<FormState> {
         state = FormError("could not find the file : ${data.predict_weight_path}");
         return;
       }
+
       res = await _formRepository.sendRequestToAPI(data);
       state = res ? FormSubmitted() : FormError("failed to submit form to api");
     } catch(e){
@@ -76,6 +78,17 @@ class FormStateNotifier extends StateNotifier<FormState> {
       state = FormError("repository or branch doesn't exists");
       return;
     }
+
+    res = await _formRepository.checkExistWeightFile(data);
+    if (res==false){
+      if (data.predict_weight_path.contains('\\')){
+        state = FormError("predict weight path cannot contain \\ \n please replace \\ to /");
+        return;
+      }
+      state = FormError("could not find the file : ${data.predict_weight_path}");
+      return;
+    }
+
     res = await _formRepository.sendRequestToEntryAPI(data);
     state = res ? FormSubmitted() : FormError("failed to submit form to api");
     } catch(e){
