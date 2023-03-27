@@ -21,6 +21,7 @@ class EntryStatusTable extends HookConsumerWidget{
             );
           }
           return PlutoGrid(
+            mode: PlutoGridMode.readOnly,
             columns: _columnList,
             rows: _entries.map((EntryModel.EntryModel _entry) => PlutoRow(
               cells: this.mapToDataCells(_entry)
@@ -78,6 +79,11 @@ class EntryStatusTable extends HookConsumerWidget{
         type: PlutoColumnType.text()
       ),
       PlutoColumn(
+        title: 'PredictWeightPath',
+        field: 'predict_weight_path',
+        type: PlutoColumnType.text()
+      ),     
+      PlutoColumn(
         title: 'ErrorMessage',
         field: 'error_message',
         type: PlutoColumnType.text()
@@ -95,6 +101,7 @@ class EntryStatusTable extends HookConsumerWidget{
       'branch': PlutoCell(value: entry.branch),
       'status': PlutoCell(value: entry.status),
       'game_mode': PlutoCell(value: entry.game_mode),
+      'predict_weight_path': PlutoCell(value: entry.predict_weight_path),
       'error_message': PlutoCell(value: entry.error_message),
     };
     return cells;
