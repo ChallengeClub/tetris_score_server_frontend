@@ -21,14 +21,13 @@ class DBRepositoryImpl implements DBRepository {
     }
     final uri = Uri.parse("${_api}/results");
     http.Response result = await http.get(uri);
-    var _map = convert.jsonDecode(result.body);
-    List<dynamic> items = _map['Items'];
-    List<ResultModel> results = items.map(
-        (var item) => ResultModel.fromJson(item)
+    List<dynamic> _map = convert.jsonDecode(result.body);
+    List<ResultModel> results = _map.map(
+        (dynamic item) => ResultModel.fromJson(item)
     ).toList();
-
     return results;
   }
+
   @override
   Future<ResultModel> getResultDetailById(String _id) async {
     if (_api==null){
@@ -36,9 +35,8 @@ class DBRepositoryImpl implements DBRepository {
     }
     final uri = Uri.parse("${_api}/result/${_id}");
     http.Response result = await http.get(uri);
-    var _map = convert.jsonDecode(result.body);
-    dynamic item = _map['Item'];
-    ResultModel _result = ResultModel.fromJson(item);
+    dynamic _map = convert.jsonDecode(result.body);
+    ResultModel _result = ResultModel.fromJson(_map);
     return _result;
   }
 
@@ -49,10 +47,9 @@ class DBRepositoryImpl implements DBRepository {
     }
     final uri = Uri.parse("${_api}/entries");
     http.Response result = await http.get(uri);
-    var _map = convert.jsonDecode(result.body);
-    List<dynamic> items = _map['Items'];    
-    List<EntryModel> results = items.map(
-        (var item) => EntryModel.fromJson(item)
+    List<dynamic> _map = convert.jsonDecode(result.body);
+    List<EntryModel> results = _map.map(
+        (dynamic item) => EntryModel.fromJson(item)
     ).toList();
     return results;
   }
