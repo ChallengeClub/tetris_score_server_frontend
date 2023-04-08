@@ -22,6 +22,7 @@ class DBRepositoryImpl implements DBRepository {
     final uri = Uri.parse("${_api}/results");
     http.Response result = await http.get(uri);
     var _map = convert.jsonDecode(result.body);
+    print(_map);
     List<dynamic> items = _map['Items'];
     List<ResultModel> results = items.map(
         (var item) => ResultModel.fromJson(item)
@@ -49,10 +50,9 @@ class DBRepositoryImpl implements DBRepository {
     }
     final uri = Uri.parse("${_api}/entries");
     http.Response result = await http.get(uri);
-    var _map = convert.jsonDecode(result.body);
-    List<dynamic> items = _map['Items'];    
-    List<EntryModel> results = items.map(
-        (var item) => EntryModel.fromJson(item)
+    List<dynamic> _map = convert.jsonDecode(result.body);
+    List<EntryModel> results = _map.map(
+        (dynamic item) => EntryModel.fromJson(item)
     ).toList();
     return results;
   }
