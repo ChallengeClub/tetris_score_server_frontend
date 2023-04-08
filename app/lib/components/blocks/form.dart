@@ -275,7 +275,7 @@ class SubmitForm extends HookConsumerWidget {
                   } else if (_state is FormViewModel.FormError){
                     return Text(_state.message);
                   } else {
-                  return Text("unexpected error occured\n${_state}");
+                    return Text("unexpected error occured\n${_state}");
                   }
                 })(),
               ),
