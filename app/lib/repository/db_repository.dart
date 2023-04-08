@@ -35,7 +35,7 @@ class DBRepositoryImpl implements DBRepository {
     }
     final uri = Uri.parse("${_api}/result/${_id}");
     http.Response result = await http.get(uri);
-    var _map = convert.jsonDecode(result.body);
+    dynamic _map = convert.jsonDecode(result.body);
     ResultModel _result = ResultModel.fromJson(_map);
     return _result;
   }
