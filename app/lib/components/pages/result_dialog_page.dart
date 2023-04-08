@@ -14,8 +14,7 @@ class ResultDetailPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ResultModel.ResultModel? result = ref.watch(resultDetailStateNotifierProvider);
-    ref.read(resultDetailStateNotifierProvider.notifier).fetchResultDetailById(_id);
+    ResultModel.ResultModel? result = ref.watch(resultDetailStateNotifierProvider(_id));
     Size _size = MediaQuery.of(context).size;
 
     return SelectionArea(
@@ -138,15 +137,22 @@ class ResultDetailPage extends HookConsumerWidget {
                                 style: TextStyle(fontWeight: FontWeight.w600)
                               ),
                               SizedBox(height: 5),
-                              ((){
-                                if (result.status=="error"){
-                                  return Text(result.error_message ?? "");
-                                } else {
-                                  return Expanded(
-                                    child: ResultDetailTable.ResultDetailTable(result)
-                                  );
-                                }
-                              })(),
+                              Expanded(
+                                child: ((){
+                                  if (result.status=="error"){
+                                    return SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Text(
+                                        result.error_message ?? "",
+                                        style: TextStyle(fontSize: 11),
+                                      )
+                                    );
+                                  } else {
+                                    return ResultDetailTable.ResultDetailTable(result);
+                                  }
+                                })(),
+                              )
+                              
                             ]
                           )
                         ),
