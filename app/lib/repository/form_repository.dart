@@ -45,7 +45,7 @@ class FormRepositoryImpl implements FormRepository {
     if (_api==null){
       return false;
     }
-    final uri = Uri.parse("${_api}/score_evaluation");
+    final uri = Uri.parse("${_api}/evaluation");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
   }
