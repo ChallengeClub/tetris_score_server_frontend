@@ -71,7 +71,7 @@ class ResultModel{
         game_time = map['GameTime'],
         level = map['Level'],
         game_mode = map['GameMode'],
-        predict_weight_path = map['ValuePredictWeight'],
+        predict_weight_path = map['ValuePredictWeight'] ?? "",
         trial_number = map['TrialNum'],
         stddev_score = map['StdDevScore'],
         max_score = map['MaxScore'],
