@@ -18,41 +18,70 @@ class ResultsTable extends HookConsumerWidget{
     List<PlutoColumn> _columnList = this.getResultColumns();
 
     return (() {
-          if (_results.length == 0) {
-          // 初期化後、通信中
-            return Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
+      if (_results.length == 0) {
+      // 初期化後、通信中
+        return Center(
+          child: CircularProgressIndicator.adaptive(),
+        );
+      }
+      return PlutoGrid(
+        mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
+        columns: _columnList,
+        rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
+          cells: this.mapToDataCells(_result)
+        )).toList(),
+        onLoaded: (PlutoGridOnLoadedEvent event) {
+          event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
+          stateManager = event.stateManager; // set stateManager instance when onLoaded
+        },
+        onSelected: (PlutoGridOnSelectedEvent event){
+          dynamic _selectedResultId = stateManager!.currentRow!.cells["id"]!.value;
+          context.push('/server/results/${_selectedResultId}');
+        },
+        rowColorCallback: (PlutoRowColorContext rowColorContext) {
+          String status = rowColorContext.row.cells['status']?.value;
+          Color color = Colors.white;
+          if (status=="succeeded"){
+            color = Color(0xFFE2F6DF);
+          } else if (status=="error"){
+            color = Color(0xFFFADBDF);
+          } else if (status=="evaluating"){
+            color = Color(0xE6FFF7DF);
           }
-          return PlutoGrid(
-            mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
-            columns: _columnList,
-            rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
-              cells: this.mapToDataCells(_result)
-            )).toList(),
-            onLoaded: (PlutoGridOnLoadedEvent event) {
-              event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
-              stateManager = event.stateManager; // set stateManager instance when onLoaded
-            },
-            onSelected: (PlutoGridOnSelectedEvent event){
-              dynamic _selectedResultId = stateManager!.currentRow!.cells["id"]!.value;
-              context.push('/server/results/${_selectedResultId}');
-            },
-            rowColorCallback: (PlutoRowColorContext rowColorContext) {
-              String status = rowColorContext.row.cells['status']?.value;
-              Color color = Colors.white;
-              if (status=="succeeded"){
-                color = Color(0xFFE2F6DF);
-              } else if (status=="error"){
-                color = Color(0xFFFADBDF);
-              } else if (status=="evaluating"){
-                color = Color(0xE6FFF7DF);
-              }
-              return color;
-            }
-          );
+          return color;
         }
-        )();
+      );
+      createFooter: (stateManager) {
+        return PlutoLazyPagination(
+          initialPage: 1,
+          initialFetch: true,
+
+          // Decide whether sorting will be handled by the server.
+          // If false, handle sorting on the client side.
+          // Default is true.
+          // fetchWithSorting: true,
+
+          // Decide whether filtering is handled by the server.
+          // If false, handle filtering on the client side.
+          // Default is true.
+          // fetchWithFiltering: true,
+
+          // Determines the page size to move to the previous and next page buttons.
+          // Default value is null. In this case,
+          // it moves as many as the number of page buttons visible on the screen.
+          pageSizeToMove: null,
+          fetch: fetch,
+          stateManager: stateManager,
+        );
+      },
+    }
+    )();
+
+    // Future<PlutoLazyPaginationResponse> fetch(
+    //   PlutoLazyPaginationRequest request,
+    // ) async {
+    //   List<PlutoRow> tempList = fakeFetchedRows;
+    // }
   }
     
   List<PlutoColumn> getResultColumns(){
