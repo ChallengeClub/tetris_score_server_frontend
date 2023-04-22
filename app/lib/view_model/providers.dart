@@ -3,12 +3,13 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 
 
 import 'form_view_model.dart' as FormViewModel;
-import 'results_view_model.dart' as ResultsViewModel;
+import 'results_table_view_model.dart' as ResultsTableViewModel;
 import 'entries_view_model.dart' as EntriesViewModel;
 import 'random_seeds_form_view_model.dart' as RandomSeedsFormViewModel;
 import 'result_detail_view_model.dart' as ResultDetailViewModel;
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
+import '../model/results_table_model.dart' as ResultsTableModel;
 import '../repository/form_repository.dart';
 import '../repository/file_repository.dart';
 import '../repository/db_repository.dart';
@@ -20,8 +21,8 @@ final fileRepositoryProvider = Provider<FileRepository>((ref) => FileRepositoryI
 final formStateNotifierProvider = StateNotifierProvider(
   (ref) => FormViewModel.FormStateNotifier(ref.watch(formRepositoryProvider)),
 );
-final resultsStateNotifierProvider = StateNotifierProvider<ResultsViewModel.ResultsStateNotifier, List<ResultModel.ResultModel>>((ref)
-  => ResultsViewModel.ResultsStateNotifier(
+final resultsTableStateNotifierProvider = StateNotifierProvider<ResultsTableViewModel.ResultsTableStateNotifier, ResultsTableModel.ResultsTableModel>((ref)
+  => ResultsTableViewModel.ResultsTableStateNotifier(
     ref.watch(dbRepositoryProvider)
   ),
 );

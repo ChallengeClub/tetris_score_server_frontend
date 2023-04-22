@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../blocks/form.dart';
 import '../blocks/results_table.dart';
+import '../parts/table_navigator.dart';
 import '../../view_model/providers.dart';
 
 class ScoreServerPage extends ConsumerWidget {
@@ -38,13 +39,7 @@ class ScoreServerPage extends ConsumerWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: ElevatedButton(
-                    onPressed: (){
-                        ref.read(resultsStateNotifierProvider.notifier).fetchResults(1);
-                        ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
-                    },
-                    child: const Text("Refresh")
-                  )
+                  child: TableNavigator()
                 ),
                 Expanded(
                   child: ResultsTable(),

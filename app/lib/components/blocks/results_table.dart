@@ -6,19 +6,101 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../model/result_model.dart' as ResultModel;
+import '../../model/results_table_model.dart' as ResultsTableModel;
 import '../../view_model/providers.dart';
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;
 
+  // Future<PlutoLazyPaginationResponse> fetch(
+  //   PlutoLazyPaginationRequest request,
+  // ) async {
+  //   List<PlutoRow> tempList = fakeFetchedRows;
+
+  //   // If you have a filtering state,
+  //   // you need to implement it so that the user gets data from the server
+  //   // according to the filtering state.
+  //   //
+  //   // request.page is 1 when the filtering state changes.
+  //   // This is because, when the filtering state is changed,
+  //   // the first page must be loaded with the new filtering applied.
+  //   //
+  //   // request.filterRows is a List<PlutoRow> type containing filtering information.
+  //   // To convert to Map type, you can do as follows.
+  //   //
+  //   // FilterHelper.convertRowsToMap(request.filterRows);
+  //   //
+  //   // When the filter of abc is applied as Contains type to column2
+  //   // and 123 as Contains type to column3, for example
+  //   // It is returned as below.
+  //   // {column2: [{Contains: 123}], column3: [{Contains: abc}]}
+  //   //
+  //   // If multiple filtering conditions are set in one column,
+  //   // multiple conditions are included as shown below.
+  //   // {column2: [{Contains: abc}, {Contains: 123}]}
+  //   //
+  //   // The filter type in FilterHelper.defaultFilters is the default,
+  //   // If there is user-defined filtering,
+  //   // the title set by the user is returned as the filtering type.
+  //   // All filtering can change the value returned as a filtering type by changing the name property.
+  //   // In case of PlutoFilterTypeContains filter, if you change the static type name to include
+  //   // PlutoFilterTypeContains.name = 'include';
+  //   // {column2: [{include: abc}, {include: 123}]} will be returned.
+  //   if (request.filterRows.isNotEmpty) {
+  //     final filter = FilterHelper.convertRowsToFilter(
+  //       request.filterRows,
+  //       stateManager.refColumns,
+  //     );
+
+  //     tempList = fakeFetchedRows.where(filter!).toList();
+  //   }
+
+  //   // If there is a sort state,
+  //   // you need to implement it so that the user gets data from the server
+  //   // according to the sort state.
+  //   //
+  //   // request.page is 1 when the sort state changes.
+  //   // This is because when the sort state changes,
+  //   // new data to which the sort state is applied must be loaded.
+  //   if (request.sortColumn != null && !request.sortColumn!.sort.isNone) {
+  //     tempList = [...tempList];
+
+  //     tempList.sort((a, b) {
+  //       final sortA = request.sortColumn!.sort.isAscending ? a : b;
+  //       final sortB = request.sortColumn!.sort.isAscending ? b : a;
+
+  //       return request.sortColumn!.type.compare(
+  //         sortA.cells[request.sortColumn!.field]!.valueForSorting,
+  //         sortB.cells[request.sortColumn!.field]!.valueForSorting,
+  //       );
+  //     });
+  //   }
+
+  //   final page = request.page;
+  //   const pageSize = 100;
+  //   final totalPage = (tempList.length / pageSize).ceil();
+  //   final start = (page - 1) * pageSize;
+  //   final end = start + pageSize;
+
+  //   Iterable<PlutoRow> fetchedRows = tempList.getRange(
+  //     max(0, start),
+  //     min(tempList.length, end),
+  //   );
+
+  //   await Future.delayed(const Duration(milliseconds: 500));
+
+  //   return Future.value(PlutoLazyPaginationResponse(
+  //     totalPage: totalPage,
+  //     rows: fetchedRows.toList(),
+  //   ));
+  // }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ResultModel.ResultModel> _results = ref.watch(resultsStateNotifierProvider);
-    ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
-    List<PlutoColumn> _columnList = this.getResultColumns();
-
+    ResultsTableModel.ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider);
+    
     return (() {
-      if (_results.length == 0) {
+      if (_results_table.results.length == 0) {
       // 初期化後、通信中
         return Center(
           child: CircularProgressIndicator.adaptive(),
@@ -26,8 +108,8 @@ class ResultsTable extends HookConsumerWidget{
       }
       return PlutoGrid(
         mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
-        columns: _columnList,
-        rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
+        columns: this.getResultColumns(),
+        rows: _results_table.results.map((ResultModel.ResultModel _result) => PlutoRow(
           cells: this.mapToDataCells(_result)
         )).toList(),
         onLoaded: (PlutoGridOnLoadedEvent event) {
@@ -49,39 +131,13 @@ class ResultsTable extends HookConsumerWidget{
             color = Color(0xE6FFF7DF);
           }
           return color;
-        }
+        },
+        // createFooter: (stateManager) {
+        //   return Text("This is footer");
+        // },
       );
-      createFooter: (stateManager) {
-        return PlutoLazyPagination(
-          initialPage: 1,
-          initialFetch: true,
-
-          // Decide whether sorting will be handled by the server.
-          // If false, handle sorting on the client side.
-          // Default is true.
-          // fetchWithSorting: true,
-
-          // Decide whether filtering is handled by the server.
-          // If false, handle filtering on the client side.
-          // Default is true.
-          // fetchWithFiltering: true,
-
-          // Determines the page size to move to the previous and next page buttons.
-          // Default value is null. In this case,
-          // it moves as many as the number of page buttons visible on the screen.
-          pageSizeToMove: null,
-          fetch: fetch,
-          stateManager: stateManager,
-        );
-      },
     }
     )();
-
-    // Future<PlutoLazyPaginationResponse> fetch(
-    //   PlutoLazyPaginationRequest request,
-    // ) async {
-    //   List<PlutoRow> tempList = fakeFetchedRows;
-    // }
   }
     
   List<PlutoColumn> getResultColumns(){
