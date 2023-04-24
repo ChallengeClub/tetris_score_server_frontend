@@ -23,7 +23,6 @@ class DBRepositoryImpl implements DBRepository {
     if (_exclusive_start_key!=null){
       uri_string += "&exclusive_start_key=${convert.jsonEncode(_exclusive_start_key)}";
     }
-    print(uri_string);
     final uri = Uri.parse(uri_string);
     http.Response result = await http.get(uri);
     dynamic _map = convert.jsonDecode(result.body);
