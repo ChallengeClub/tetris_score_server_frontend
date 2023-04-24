@@ -7,7 +7,7 @@ import '../model/results_table_model.dart';
 
 class ResultsTableStateNotifier extends StateNotifier<ResultsTableModel> {
   final DBRepository _dbRepository;
-  final int _limit = 5;
+  final int _limit = 20;
   final String _competition = "v4";
   Map<String, dynamic> response = {};
   List<ResultModel> fetchedResults = [];
