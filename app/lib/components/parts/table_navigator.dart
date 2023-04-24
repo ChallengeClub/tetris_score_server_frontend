@@ -19,20 +19,21 @@ class TableNavigator extends HookConsumerWidget{
         children: [
             IconButton(
                 icon: const Icon(Icons.refresh),
-                onPressed: (){
-                    ref.read(resultsTableStateNotifierProvider.notifier).fetchResults(1);
-                }
+                onPressed: _results_table.results.length>0 ? 
+                    () => ref.read(resultsTableStateNotifierProvider.notifier).refresh() : null
             ),
             IconButton(
                 icon: const Icon(Icons.navigate_before),
-                onPressed: (){}
+                onPressed: _results_table.is_before_page_enabled ? 
+                    () => ref.read(resultsTableStateNotifierProvider.notifier).moveToBeforePage() : null
             ),
+            Text(_results_table.page.toString()),
             IconButton(
                 icon: const Icon(Icons.navigate_next),
-                onPressed: (){}
+                onPressed: _results_table.is_next_page_enabled ? 
+                    () => ref.read(resultsTableStateNotifierProvider.notifier).moveToNextPage() : null
             ),
         ]
     );
   }
-
 }

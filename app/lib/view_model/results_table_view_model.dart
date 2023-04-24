@@ -1,29 +1,56 @@
+import 'dart:math';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../repository/db_repository.dart';
-import '../model/result_model.dart' as ResultModel;
-import '../model/results_table_model.dart' as ResultsTableModel;
+import '../model/result_model.dart';
+import '../model/results_table_model.dart';
 
-class ResultsTableStateNotifier extends StateNotifier<ResultsTableModel.ResultsTableModel> {
+class ResultsTableStateNotifier extends StateNotifier<ResultsTableModel> {
   final DBRepository _dbRepository;
   final int _limit = 5;
   final String _competition = "v4";
-  final List<ResultModel.ResultModel> _fetchedResults = [];
+  Map<String, dynamic> response = {};
+  List<ResultModel> fetchedResults = [];
+  List<dynamic> lastEvaluatedKeys = []; // lastExclusiveKeys.length>n represents page n has next page
 
-  ResultsTableStateNotifier(this._dbRepository) : super(ResultsTableModel.ResultsTableModel([], false, true)){
-    fetchResults(1);
+  ResultsTableStateNotifier(this._dbRepository) : super(ResultsTableModel([], false, false, 0)){
+    refresh();
   }
-  Future<void> fetchResults(int page) async {
-    state = ResultsTableModel.ResultsTableModel([], false, false);
-    // if (_results.length < _limit * (page-1) + 1){
-    //   List<ResultModel.ResultModel> _fetchedResults = await _dbRepository.getEvaluationResults(_limit, _competition);
-    // }
-
+  Future<void> refresh() async {
+    fetchedResults = [];
+    state = ResultsTableModel([], false, false, 0);
     try{
-      List<ResultModel.ResultModel> _results = await _dbRepository.getEvaluationResults(_limit, _competition);
-      state = ResultsTableModel.ResultsTableModel(_results, false, false);
-    } catch(e){
+      await moveToPage(1);
+    } catch(e) {
       print(e);
     }
+  }
+
+  Future<void> moveToPage(int page) async {
+    state = ResultsTableModel([], false, false, page);
+    bool is_page_already_fetched = fetchedResults.length > (page-1)*_limit;
+
+    if (!is_page_already_fetched){
+      if (page==1){
+        response = await _dbRepository.getEvaluationResults(_limit, _competition, null);
+      } else {
+        response = await _dbRepository.getEvaluationResults(_limit, _competition, lastEvaluatedKeys[page-2]);
+      }
+      fetchedResults.addAll(response["Results"]);
+      if (response["LastEvaluatedKey"] != ""){
+        lastEvaluatedKeys.add(response["LastEvaluatedKey"]);
+      }
+    }
+    bool is_next_page_available = lastEvaluatedKeys.length >= page;
+    List<ResultModel> results = fetchedResults.sublist(max(0, (page-1)*_limit), min(fetchedResults.length, page*_limit));
+    state = ResultsTableModel(results, page>1, is_next_page_available, page);
+  }
+
+  Future<void> moveToNextPage() async {
+    await moveToPage(state.page+1);
+  }
+
+  Future<void> moveToBeforePage() async {
+    await moveToPage(state.page-1);
   }
 }
