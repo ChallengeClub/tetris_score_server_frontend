@@ -19,4 +19,10 @@ provider "aws" {
 
 module "resources" {
   source = "../../resources"
+  tetris_hostzone_subdomain = var.tetris_hostzone_subdomain
+}
+
+variable "tetris_hostzone_subdomain" {
+  type = string
+  sensitive = true
 }
