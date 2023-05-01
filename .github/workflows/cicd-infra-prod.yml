@@ -35,5 +35,5 @@ jobs:
         working-directory: ./terraform/environments/prod
 
       - name: Terraform apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var tetris_hostzone_subdomain=${{ secrets.TETRIS_FRONT_DOMAIN_PROD }}
         working-directory: ./terraform/environments/prod

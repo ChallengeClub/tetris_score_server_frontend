@@ -32,5 +32,5 @@ jobs:
         working-directory: ./terraform/environments/prod
 
       - name: Terraform plan
-        run: terraform plan
+        run: terraform plan -var tetris_hostzone_subdomain=${{ secrets.TETRIS_FRONT_DOMAIN_PROD }}
         working-directory: ./terraform/environments/prod
