@@ -1,6 +1,11 @@
+provider "aws" {
+  alias = "us-east-1"
+}
+
 resource "aws_acm_certificate" "acm_certification" {
   domain_name       = var.tetris_hostzone_subdomain
   validation_method = "DNS"
+  provider          = aws.us-east-1
 
   lifecycle {
     create_before_destroy = true
