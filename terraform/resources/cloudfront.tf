@@ -6,10 +6,11 @@ resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
       origin_access_identity = aws_cloudfront_origin_access_identity.tetris-hosting.cloudfront_access_identity_path
     }
   }
-
+  price_class = "PriceClass_200"
   enabled = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
+  aliases = [var.tetris_hostzone_subdomain]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
@@ -38,8 +39,8 @@ resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
   }
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.acm_certification.arn
-    cloudfront_default_certificate = true
     ssl_support_method = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
 
