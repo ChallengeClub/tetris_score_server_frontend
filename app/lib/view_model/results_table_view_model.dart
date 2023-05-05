@@ -7,7 +7,7 @@ import '../model/results_table_model.dart';
 
 class ResultsTableStateNotifier extends StateNotifier<ResultsTableModel> {
   final DBRepository _dbRepository;
-  final int _limit = 20;
+  final int _limit = 30;
   final String _competition = "v4";
   Map<String, dynamic> response = {};
   List<ResultModel> fetchedResults = [];
@@ -40,6 +40,8 @@ class ResultsTableStateNotifier extends StateNotifier<ResultsTableModel> {
       if (response["LastEvaluatedKey"] != ""){
         lastEvaluatedKeys.add(response["LastEvaluatedKey"]);
       }
+    } else {
+      await Future.delayed(Duration(seconds: 0));
     }
     bool is_next_page_available = lastEvaluatedKeys.length >= page;
     List<ResultModel> results = fetchedResults.sublist(max(0, (page-1)*_limit), min(fetchedResults.length, page*_limit));
