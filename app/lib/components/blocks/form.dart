@@ -23,6 +23,7 @@ class SubmitForm extends HookConsumerWidget {
     final _trialNumberController = useTextEditingController(text: "1");
     final _gameModeController = useTextEditingController(text: "default");
     final _gameTimeController = useTextEditingController(text: "180");
+    final _competitionController = useTextEditingController(text: "v4");
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider);
@@ -204,6 +205,19 @@ class SubmitForm extends HookConsumerWidget {
                       Center(
                         child: SizedBox(
                           width: _formCardWidth,
+                          height: _formCardHeight,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'competition(fixed)',
+                            ),
+                            controller: _competitionController,
+                            enabled: false,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          width: _formCardWidth,
                           child: Row(
                             children: <Widget>[
                               Text("seed configuration"),
@@ -263,7 +277,7 @@ class SubmitForm extends HookConsumerWidget {
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
                             _random_seeds_state.seeds,
-                            "v4", // competition
+                            _competitionController.text,
                           )
                         );
                       },
