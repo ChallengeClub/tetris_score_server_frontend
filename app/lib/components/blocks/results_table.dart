@@ -11,10 +11,12 @@ import '../../view_model/providers.dart';
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;
+  final String competition;
+  ResultsTable(this.competition);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ResultsTableModel.ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider);
+    ResultsTableModel.ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider(competition));
 
     return (() {
       if (_results_table.results.length == 0) {

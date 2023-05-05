@@ -8,12 +8,12 @@ import '../model/results_table_model.dart';
 class ResultsTableStateNotifier extends StateNotifier<ResultsTableModel> {
   final DBRepository _dbRepository;
   final int _limit = 30;
-  final String _competition = "v4";
+  final String _competition;
   Map<String, dynamic> response = {};
   List<ResultModel> fetchedResults = [];
   List<dynamic> lastEvaluatedKeys = []; // lastExclusiveKeys.length>n represents page n has next page
 
-  ResultsTableStateNotifier(this._dbRepository) : super(ResultsTableModel([], false, false, 0)){
+  ResultsTableStateNotifier(this._dbRepository, this._competition) : super(ResultsTableModel([], false, false, 0)){
     refresh();
   }
   Future<void> refresh() async {

@@ -8,8 +8,7 @@ import '../parts/table_navigator.dart';
 import '../../view_model/providers.dart';
 
 class ScoreServerPage extends ConsumerWidget {
-  // This widget is the root of your application.
-
+  final competition = "v4";
   final List<Tab> tabs = <Tab>[
     Tab(text: 'Form'),
     Tab(text: 'Results'),
@@ -39,10 +38,10 @@ class ScoreServerPage extends ConsumerWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: TableNavigator()
+                  child: TableNavigator(competition),
                 ),
                 Expanded(
-                  child: ResultsTable(),
+                  child: ResultsTable(competition),
                 )
               ]
             )

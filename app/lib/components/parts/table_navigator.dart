@@ -10,28 +10,50 @@ import '../../model/results_table_model.dart';
 import '../../view_model/providers.dart';
 
 class TableNavigator extends HookConsumerWidget{
+  final String competition;
+  TableNavigator(this.competition);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider);
+    ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider(competition));
 
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+    return 
+    Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-            IconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: _results_table.results.length>0 ? 
-                    () => ref.read(resultsTableStateNotifierProvider.notifier).refresh() : null
+            Row(
+                children: [
+                    SizedBox(width: 15.0),
+                    OutlinedButton(
+                      onPressed: null, // disable button 
+                      child: Text("Competition ${competition}"),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                          (_) => Color(0x80717BDF)
+                        ),
+                      )
+                    ),
+                ]
             ),
-            IconButton(
-                icon: const Icon(Icons.navigate_before),
-                onPressed: _results_table.is_before_page_enabled ? 
-                    () => ref.read(resultsTableStateNotifierProvider.notifier).moveToBeforePage() : null
-            ),
-            Text(_results_table.page.toString()),
-            IconButton(
-                icon: const Icon(Icons.navigate_next),
-                onPressed: _results_table.is_next_page_enabled ? 
-                    () => ref.read(resultsTableStateNotifierProvider.notifier).moveToNextPage() : null
+            Row(
+                children: [
+                    IconButton(
+                        icon: const Icon(Icons.refresh),
+                        onPressed: _results_table.results.length>0 ? 
+                            () => ref.read(resultsTableStateNotifierProvider(competition).notifier).refresh() : null
+                    ),
+                    IconButton(
+                        icon: const Icon(Icons.navigate_before),
+                        onPressed: _results_table.is_before_page_enabled ? 
+                            () => ref.read(resultsTableStateNotifierProvider(competition).notifier).moveToBeforePage() : null
+                    ),
+                    Text(_results_table.page.toString()),
+                    IconButton(
+                        icon: const Icon(Icons.navigate_next),
+                        onPressed: _results_table.is_next_page_enabled ? 
+                            () => ref.read(resultsTableStateNotifierProvider(competition).notifier).moveToNextPage() : null
+                    ),
+                ]
             ),
         ]
     );

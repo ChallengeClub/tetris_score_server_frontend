@@ -21,10 +21,8 @@ final fileRepositoryProvider = Provider<FileRepository>((ref) => FileRepositoryI
 final formStateNotifierProvider = StateNotifierProvider(
   (ref) => FormViewModel.FormStateNotifier(ref.watch(formRepositoryProvider)),
 );
-final resultsTableStateNotifierProvider = StateNotifierProvider<ResultsTableViewModel.ResultsTableStateNotifier, ResultsTableModel.ResultsTableModel>((ref)
-  => ResultsTableViewModel.ResultsTableStateNotifier(
-    ref.watch(dbRepositoryProvider)
-  ),
+final resultsTableStateNotifierProvider = StateNotifierProvider.family<ResultsTableViewModel.ResultsTableStateNotifier, ResultsTableModel.ResultsTableModel, String>(
+  (ref, competition) => ResultsTableViewModel.ResultsTableStateNotifier(ref.watch(dbRepositoryProvider), competition),
 );
 final entriesStateNotifierProvider = StateNotifierProvider<EntriesViewModel.EntriesStateNotifier, List<EntryModel.EntryModel>>((ref)
   => EntriesViewModel.EntriesStateNotifier(
