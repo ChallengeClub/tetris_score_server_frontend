@@ -13,6 +13,7 @@ class FormModel {
   final int timeout;
   final String predict_weight_path;
   final int trial_num;
+  final String competition;
   final Iterable<$fixnum.Int64> random_seeds;
   RegExpMatch get _reg_exp_match {
     String _pattern = r'https://github.com/(\S+)/(\S+)$';
@@ -37,6 +38,7 @@ class FormModel {
     this.predict_weight_path,
     this.trial_num,
     this.random_seeds,
+    this.competition
   );
 
   ScoreEvaluationMessage toProtobufMsg(){
@@ -51,6 +53,7 @@ class FormModel {
     msg.timeout = this.timeout;
     msg.predictWeightPath = this.predict_weight_path;
     msg.trialNum = this.trial_num;
+    msg.competition = this.competition;
     msg.randomSeeds..clear()..addAll(this.random_seeds); // repeated field doesn't have setter
     return msg;
   }

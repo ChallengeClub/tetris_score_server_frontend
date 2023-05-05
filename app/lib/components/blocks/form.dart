@@ -263,6 +263,7 @@ class SubmitForm extends HookConsumerWidget {
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
                             _random_seeds_state.seeds,
+                            "v4", // competition
                           )
                         );
                       },

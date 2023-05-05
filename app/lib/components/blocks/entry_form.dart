@@ -181,6 +181,7 @@ class EntryForm extends HookConsumerWidget {
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
                             [], // invalid random_seed field
+                            "v4", // competition
                           )
                         );
                       },
