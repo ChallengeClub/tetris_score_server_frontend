@@ -7,6 +7,7 @@ class EntryModel{
     final int level;
     final String game_mode;
     final String predict_weight_path;
+    final String competition;
     final String error_message;
 
     const EntryModel(
@@ -18,6 +19,7 @@ class EntryModel{
         this.level,
         this.game_mode,
         this.predict_weight_path,
+        this.competition,
         this.error_message,
     );
 
@@ -30,6 +32,7 @@ class EntryModel{
         level = map['Level'],
         game_mode = map['GameMode'],
         predict_weight_path = map['ValuePredictWeight'] ?? "",
+        competition = map['Competition'] ?? "",
         error_message = map['ErrorMessage'] ?? "";
     
      List<String> toCsv() => [
@@ -40,6 +43,7 @@ class EntryModel{
         datetimeToString(created_at),
         '$level',
         game_mode,
+        competition,
         predict_weight_path,
         error_message
       ];
@@ -99,6 +103,7 @@ List<EntryModel> getExampleEntryModel() {
       "",
       0,
       1,
+      "",
       "",
       "",
       "",
