@@ -22,6 +22,7 @@ class EntryForm extends HookConsumerWidget {
     final _trialNumberController = useTextEditingController(text: "1");
     final _gameModeController = useTextEditingController(text: "default");
     final _gameTimeController = useTextEditingController(text: "2");
+    final _competitionController = useTextEditingController(text: "v4");
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider);
@@ -156,7 +157,23 @@ class EntryForm extends HookConsumerWidget {
                       controller: _predictWeightPathController,
                     ),
                   ),
-                )
+                ),
+              ),
+              Card(
+                color: Theme.of(context).colorScheme.surfaceVariant,
+                child: Center(
+                  child: SizedBox(
+                    width: _formCardWidth,
+                    height: _formCardHeight,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'competition(fixed)',
+                      ),
+                      controller: _competitionController,
+                      enabled: false,
+                    ),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -181,6 +198,7 @@ class EntryForm extends HookConsumerWidget {
                             _predictWeightPathController.text,
                             int.parse(_trialNumberController.text),
                             [], // invalid random_seed field
+                            _competitionController.text,
                           )
                         );
                       },

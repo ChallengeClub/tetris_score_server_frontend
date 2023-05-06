@@ -6,53 +6,54 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../model/result_model.dart' as ResultModel;
+import '../../model/results_table_model.dart' as ResultsTableModel;
 import '../../view_model/providers.dart';
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;
+  final String competition;
+  ResultsTable(this.competition);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ResultModel.ResultModel> _results = ref.watch(resultsStateNotifierProvider);
-    ref.read(resultsStateNotifierProvider.notifier).sortResultsByCreatedAt();
-    List<PlutoColumn> _columnList = this.getResultColumns();
+    ResultsTableModel.ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider(competition));
 
     return (() {
-          if (_results.length == 0) {
-          // 初期化後、通信中
-            return Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
+      if (_results_table.results.length == 0) {
+      // 初期化後、通信中
+        return Center(
+          child: CircularProgressIndicator.adaptive(),
+        );
+      }
+      return PlutoGrid(
+        mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
+        columns: this.getResultColumns(),
+        rows: _results_table.results.map((ResultModel.ResultModel _result) => PlutoRow(
+          cells: this.mapToDataCells(_result)
+        )).toList(),
+        onLoaded: (PlutoGridOnLoadedEvent event) {
+          event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
+          stateManager = event.stateManager; // set stateManager instance when onLoaded
+        },
+        onSelected: (PlutoGridOnSelectedEvent event){
+          dynamic _selectedResultId = stateManager!.currentRow!.cells["id"]!.value;
+          context.push('/server/results/${_selectedResultId}');
+        },
+        rowColorCallback: (PlutoRowColorContext rowColorContext) {
+          String status = rowColorContext.row.cells['status']?.value;
+          Color color = Colors.white;
+          if (status=="succeeded"){
+            color = Color(0xFFE2F6DF);
+          } else if (status=="error"){
+            color = Color(0xFFFADBDF);
+          } else if (status=="evaluating"){
+            color = Color(0xE6FFF7DF);
           }
-          return PlutoGrid(
-            mode: PlutoGridMode.selectWithOneTap,// select row with one tap and call onSelect callback
-            columns: _columnList,
-            rows: _results.map((ResultModel.ResultModel _result) => PlutoRow(
-              cells: this.mapToDataCells(_result)
-            )).toList(),
-            onLoaded: (PlutoGridOnLoadedEvent event) {
-              event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
-              stateManager = event.stateManager; // set stateManager instance when onLoaded
-            },
-            onSelected: (PlutoGridOnSelectedEvent event){
-              dynamic _selectedResultId = stateManager!.currentRow!.cells["id"]!.value;
-              context.push('/server/results/${_selectedResultId}');
-            },
-            rowColorCallback: (PlutoRowColorContext rowColorContext) {
-              String status = rowColorContext.row.cells['status']?.value;
-              Color color = Colors.white;
-              if (status=="succeeded"){
-                color = Color(0xFFE2F6DF);
-              } else if (status=="error"){
-                color = Color(0xFFFADBDF);
-              } else if (status=="evaluating"){
-                color = Color(0xE6FFF7DF);
-              }
-              return color;
-            }
-          );
-        }
-        )();
+          return color;
+        },
+      );
+    }
+    )();
   }
     
   List<PlutoColumn> getResultColumns(){

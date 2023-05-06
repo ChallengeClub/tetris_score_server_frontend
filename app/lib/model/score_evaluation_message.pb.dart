@@ -29,6 +29,7 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', $pb.PbFieldType.O3)
     ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..p<$fixnum.Int64>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'randomSeeds', $pb.PbFieldType.KU6)
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'competition')
     ..hasRequiredFields = false
   ;
 
@@ -47,6 +48,7 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     $core.int? createdAt,
     $core.String? name,
     $core.Iterable<$fixnum.Int64>? randomSeeds,
+    $core.String? competition,
   }) {
     final _result = create();
     if (repositoryUrl != null) {
@@ -87,6 +89,9 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
     }
     if (randomSeeds != null) {
       _result.randomSeeds.addAll(randomSeeds);
+    }
+    if (competition != null) {
+      _result.competition = competition;
     }
     return _result;
   }
@@ -221,5 +226,14 @@ class ScoreEvaluationMessage extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(13)
   $core.List<$fixnum.Int64> get randomSeeds => $_getList(12);
+
+  @$pb.TagNumber(14)
+  $core.String get competition => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set competition($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasCompetition() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearCompetition() => clearField(14);
 }
 
