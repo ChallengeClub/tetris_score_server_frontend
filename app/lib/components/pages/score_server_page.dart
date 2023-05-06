@@ -29,10 +29,10 @@ class ScoreServerPage extends ConsumerWidget {
         body: TabBarView(
           children: [
             Center(
-                child: Container(
-                    margin: const EdgeInsets.all(40), 
-                    child: SubmitForm()
-                ),
+              child: Container(
+                margin: const EdgeInsets.all(40), 
+                child: SubmitForm()
+              ),
             ),
             Column(
               children: <Widget>[
