@@ -20,33 +20,33 @@ class ScoreServerPage extends ConsumerWidget {
       length: tabs.length,
       child: SelectionArea(
         child: Scaffold(
-        appBar: AppBar(
-          title: Text("Tetris Score Server"),
-          bottom: TabBar(
-            tabs: tabs,
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            Center(
-              child: Container(
-                margin: const EdgeInsets.all(40), 
-                child: SubmitForm()
-              ),
+          appBar: AppBar(
+            title: Text("Tetris Score Server"),
+            bottom: TabBar(
+              tabs: tabs,
             ),
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: TableNavigator(competition),
+          ),
+          body: TabBarView(
+            children: [
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.all(40), 
+                  child: SubmitForm()
                 ),
-                Expanded(
-                  child: ResultsTable(competition),
-                )
-              ]
-            )
-          ],
-        ),
+              ),
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: TableNavigator(competition),
+                  ),
+                  Expanded(
+                    child: ResultsTable(competition),
+                  )
+                ]
+              )
+            ],
+          ),
         )
       )
     );
