@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/result_model.dart' as ResultModel;
 import '../blocks/result_detail_table.dart' as ResultDetailTable;
+import '../parts/evaluation_interruption_button.dart';
 import '../../view_model/providers.dart';
 
 class ResultDetailPage extends HookConsumerWidget {
@@ -168,6 +169,7 @@ class ResultDetailPage extends HookConsumerWidget {
                           Navigator.of(context).pop();
                         },
                       ),
+                      EvaluationInterruptionButton(result),
                     ],
                   ),
                 ],
