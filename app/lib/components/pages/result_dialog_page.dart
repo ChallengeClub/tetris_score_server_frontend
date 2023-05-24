@@ -169,7 +169,7 @@ class ResultDetailPage extends HookConsumerWidget {
                           Navigator.of(context).pop();
                         },
                       ),
-                      EvaluationInterruptionButton(result),
+                      EvaluationInterruptionButton(result!),
                     ],
                   ),
                 ],

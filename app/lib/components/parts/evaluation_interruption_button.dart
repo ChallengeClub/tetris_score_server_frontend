@@ -8,14 +8,13 @@ import '../../view_model/providers.dart';
 import '../../view_model/interrupt_evaluation_view_model.dart' as InterruptButtonViewModel;
 
 class EvaluationInterruptionButton extends ConsumerWidget {
-  final ResultModel.ResultModel? _result;
+  final ResultModel.ResultModel _result;
   EvaluationInterruptionButton(this._result);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _state = ref.watch(evaluationInterruptionStateNotifierProvider(_result!));
+    final _state = ref.watch(evaluationInterruptionStateNotifierProvider(_result));
     return  ((){
-      print("${_state}");
       if (_state is InterruptButtonViewModel.Enabled){
         return ElevatedButton(
           onPressed: () {
@@ -32,7 +31,7 @@ class EvaluationInterruptionButton extends ConsumerWidget {
                     TextButton(
                       child: Text("OK"),
                       onPressed: () {
-                        ref.read(evaluationInterruptionStateNotifierProvider.call(_result!).notifier).requestInterruption();
+                        ref.read(evaluationInterruptionStateNotifierProvider.call(_result).notifier).requestInterruption();
                         Navigator.pop(context);
                       },
                     ),
