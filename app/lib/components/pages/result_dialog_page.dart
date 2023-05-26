@@ -144,7 +144,7 @@ class ResultDetailPage extends HookConsumerWidget {
                                     return SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
                                       child: Text(
-                                        result.error_message,
+                                        result.error_message ?? "",
                                         style: TextStyle(fontSize: 11),
                                       )
                                     );
