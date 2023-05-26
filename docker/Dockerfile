@@ -1,4 +1,4 @@
-FROM cirrusci/flutter:latest
+FROM ghcr.io/cirruslabs/flutter:3.10.2
 ARG PROTOBUF_VERSION=v21.7
 ARG PROTOBUF_ARCH=protoc-21.7-linux-x86_64.zip
 ADD "https://github.com/protocolbuffers/protobuf/releases/download/${PROTOBUF_VERSION}/${PROTOBUF_ARCH}" ./  

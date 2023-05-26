@@ -172,9 +172,13 @@ class SubmitForm extends HookConsumerWidget {
                             ),
                             controller: _gameTimeController,
                             validator: (String? value) {
-                              if (value==null || int.parse(value, onError: (value) => 0)<=0) {
+                              if (value==null){
                                 return 'please input positive integer';
-                              } else if (int.parse(value, onError: (value) => 0)>180){
+                              }
+                              int game_time = int.tryParse(value) ?? 0;
+                              if (game_time<=0) {
+                                return 'please input positive integer';
+                              } else if (game_time>180){
                                 return 'game time cannot be more than 180 s';
                               }
                               return null;
@@ -192,9 +196,13 @@ class SubmitForm extends HookConsumerWidget {
                             ),
                             controller: _trialNumberController,
                             validator: (String? value) {
-                              if (value==null || int.parse(value, onError: (value) => 0)<=0) {
-                                return 'please input positive integer';
-                              } else if (int.parse(value, onError: (value) => 0)>10){
+                              if (value==null){
+                                return 'please input positive integer, 1<=N<=10';
+                              }
+                              int trials = int.tryParse(value) ?? 0;
+                              if (trials<=0) {
+                                return 'please input positive integer, 1<=N<=10';
+                              } else if (trials>10){
                                 return 'trial number cannot be more than 10 ;;';
                               }
                               return null;

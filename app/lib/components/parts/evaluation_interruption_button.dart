@@ -22,7 +22,7 @@ class EvaluationInterruptionButton extends ConsumerWidget {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  content: Text("評価を中断しますか？"),
+                  content: Text("Are you sure to stop this evaluation?"),
                   actions: [
                     TextButton(
                       child: Text("Cancel"),
