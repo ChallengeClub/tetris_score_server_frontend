@@ -71,7 +71,7 @@ class DBRepositoryImpl implements DBRepository {
     // http.Response result = await http.put(uri);
     
     final uri = Uri.parse("${_api}/stop-evaluation/${_id}");
-    http.Response result = await http.post(uri);
+    http.Response result = await http.put(uri);
     String res = "";
     if (result.statusCode!=200){
       res = result.body;
