@@ -67,8 +67,11 @@ class DBRepositoryImpl implements DBRepository {
     if (_api==null){
       throw Error.APINotDefinedError();
     }
-    final uri = Uri.parse("${_api}/evaluation/cancel/${_id}");
-    http.Response result = await http.put(uri);
+    // final uri = Uri.parse("${_api}/evaluation/cancel/${_id}");
+    // http.Response result = await http.put(uri);
+    
+    final uri = Uri.parse("${_api}/stop-evaluation/${_id}");
+    http.Response result = await http.post(uri);
     String res = "";
     if (result.statusCode!=200){
       res = result.body;
