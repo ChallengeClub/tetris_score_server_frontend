@@ -140,7 +140,7 @@ class ResultModel{
 
 String datetimeToString(int? datetime){
   String _res = "";
-  if (datetime == null){
+  if (datetime == null || datetime==0){
     return _res;
   }
 
