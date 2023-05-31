@@ -9,6 +9,7 @@ abstract class DBRepository {
   Future<Map<String, dynamic>> getEvaluationResults(int _limit, String _competition, dynamic? _exclusive_start_key);
   Future<ResultModel> getResultDetailById(String _id);
   Future<List<EntryModel>> getEntries();
+  Future<String> interruptEvaluation(String _id);
 }
 
 class DBRepositoryImpl implements DBRepository {
@@ -59,5 +60,19 @@ class DBRepositoryImpl implements DBRepository {
         (dynamic item) => EntryModel.fromJson(item)
     ).toList();
     return results;
+  }
+
+  @override
+  Future<String> interruptEvaluation(String _id) async {
+    if (_api==null){
+      throw Error.APINotDefinedError();
+    }
+    final uri = Uri.parse("${_api}/evaluation/cancel/${_id}");
+    http.Response result = await http.put(uri);
+    String res = "";
+    if (result.statusCode!=200){
+      res = result.body;
+    }
+    return res;
   }
 }

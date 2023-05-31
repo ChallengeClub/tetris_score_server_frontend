@@ -7,6 +7,7 @@ import 'results_table_view_model.dart' as ResultsTableViewModel;
 import 'entries_view_model.dart' as EntriesViewModel;
 import 'random_seeds_form_view_model.dart' as RandomSeedsFormViewModel;
 import 'result_detail_view_model.dart' as ResultDetailViewModel;
+import 'interrupt_evaluation_view_model.dart' as InterruptionEvaluationViewModel;
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
 import '../model/results_table_model.dart' as ResultsTableModel;
@@ -36,4 +37,8 @@ final randomSeedsFormStateNotifierProvider = StateNotifierProvider<RandomSeedsFo
 
 final resultDetailStateNotifierProvider = StateNotifierProvider.autoDispose.family<ResultDetailViewModel.ResultDetailStateNotifier, ResultModel.ResultModel?, String>(
   (ref, id) => ResultDetailViewModel.ResultDetailStateNotifier(ref.watch(dbRepositoryProvider), id),
+);
+
+final evaluationInterruptionStateNotifierProvider = StateNotifierProvider.autoDispose.family<InterruptionEvaluationViewModel.InterruptionButtonStateNotifier, InterruptionEvaluationViewModel.InterruptionButtonState, ResultModel.ResultModel>(
+  (ref, result) => InterruptionEvaluationViewModel.InterruptionButtonStateNotifier(ref.watch(dbRepositoryProvider), result),
 );
