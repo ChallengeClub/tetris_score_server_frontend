@@ -11,7 +11,7 @@ class ServerButton extends ConsumerWidget {
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           splashColor: Colors.blue.withAlpha(60),
-          onTap: () => context.push('/server/v4'),
+          onTap: () => context.push('/server/v5'),
           child: const SizedBox(
             width: 300,
             height: 100,

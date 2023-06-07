@@ -22,7 +22,7 @@ class ScoreServerPage extends ConsumerWidget {
       child: SelectionArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Tetris Score Server"),
+            title: Text("Tetris Score Server ${_competition}"),
             bottom: TabBar(
               tabs: tabs,
             ),

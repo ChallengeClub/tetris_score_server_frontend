@@ -17,7 +17,7 @@ class CompetitionButton extends ConsumerWidget {
             width: 300,
             height: 100,
             child: Center(
-              child:Text('Competition v4'),
+              child:Text('Competition v5'),
             )
           ),
         ),

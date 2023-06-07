@@ -20,7 +20,7 @@ class TetrisApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Tetris HP',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.indigo,
       ),
       routerConfig: Router.Router,
     );
