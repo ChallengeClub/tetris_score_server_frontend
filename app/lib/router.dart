@@ -21,18 +21,21 @@ final GoRouter Router = GoRouter(
           },
         ),
         GoRoute(
-          path: 'server',
+          path: 'server/:Competition',
           builder: (BuildContext context, GoRouterState state) {
-            return ScoreServerPage();
+            String _competition = state.params['Competition'] ?? "";
+            if (["v4", "v5"].contains(_competition)){
+              return ScoreServerPage(_competition);
+            } else {
+              return Text("coming soon......");
+            }            
           },
-          routes: <RouteBase> [
-            GoRoute(
-              path: 'results/:Id',
-              builder: (BuildContext context, GoRouterState state) {
-                  return ResultDetailPage(state.params['Id'] ?? "");
-              },
-            )
-          ]
+        ),
+        GoRoute(
+          path: 'results/:Id',
+          builder: (BuildContext context, GoRouterState state) {
+            return ResultDetailPage(state.params['Id'] ?? "");
+          },
         ),
       ],
     ),
