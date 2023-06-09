@@ -19,11 +19,10 @@ final GoRouter Router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             String _competition = state.params['Competition'] ?? "";
             if (["v4", "v5"].contains(_competition)){
-              return ScoreServerPage(_competition);
+              return CompetitionEntryPage(_competition);
             } else {
               return Text("coming soon......");
-            } 
-            return CompetitionEntryPage(_competition);
+            }
           },
         ),
         GoRoute(
