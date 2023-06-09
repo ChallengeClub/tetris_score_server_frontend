@@ -15,9 +15,15 @@ final GoRouter Router = GoRouter(
       },
       routes: <RouteBase>[
         GoRoute(
-          path: 'entry',
+          path: 'entry/:Competition',
           builder: (BuildContext context, GoRouterState state) {
-            return CompetitionEntryPage();
+            String _competition = state.params['Competition'] ?? "";
+            if (["v4", "v5"].contains(_competition)){
+              return ScoreServerPage(_competition);
+            } else {
+              return Text("coming soon......");
+            } 
+            return CompetitionEntryPage(_competition);
           },
         ),
         GoRoute(
@@ -28,7 +34,7 @@ final GoRouter Router = GoRouter(
               return ScoreServerPage(_competition);
             } else {
               return Text("coming soon......");
-            }            
+            }          
           },
         ),
         GoRoute(
