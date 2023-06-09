@@ -7,6 +7,8 @@ import '../blocks/entry_table.dart';
 import '../../view_model/providers.dart';
 
 class CompetitionEntryPage extends ConsumerWidget {
+  final String _competition;
+  CompetitionEntryPage(this._competition);
   final List<Tab> tabs = <Tab>[
     Tab(text: 'Form'),
     Tab(text: 'Entries'),
@@ -19,7 +21,7 @@ class CompetitionEntryPage extends ConsumerWidget {
       child: SelectionArea(
         child: Scaffold(
         appBar: AppBar(
-          title: Text("Entry Page for Tetris v4"),
+          title: Text("Entry Page for Tetris ${_competition}"),
           bottom: TabBar(
             tabs: tabs,
           ),
@@ -27,7 +29,7 @@ class CompetitionEntryPage extends ConsumerWidget {
         body: TabBarView(
           children: [
             Center(
-              child: Container(margin: const EdgeInsets.all(20), child: EntryForm()),
+              child: Container(margin: const EdgeInsets.all(20), child: EntryForm(_competition)),
             ),
             Column(
               children: <Widget>[

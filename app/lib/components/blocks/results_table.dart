@@ -11,12 +11,12 @@ import '../../view_model/providers.dart';
 
 class ResultsTable extends HookConsumerWidget{
   PlutoGridStateManager? stateManager;
-  final String competition;
-  ResultsTable(this.competition);
+  final String _competition;
+  ResultsTable(this._competition);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ResultsTableModel.ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider(competition));
+    ResultsTableModel.ResultsTableModel _results_table = ref.watch(resultsTableStateNotifierProvider(_competition));
 
     return (() {
       if (_results_table.results.length == 0) {
@@ -37,7 +37,7 @@ class ResultsTable extends HookConsumerWidget{
         },
         onSelected: (PlutoGridOnSelectedEvent event){
           dynamic _selectedResultId = stateManager!.currentRow!.cells["id"]!.value;
-          context.push('/server/results/${_selectedResultId}');
+          context.push('/results/${_selectedResultId}');
         },
         rowColorCallback: (PlutoRowColorContext rowColorContext) {
           String status = rowColorContext.row.cells['status']?.value;

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class CompetitionButton extends ConsumerWidget {
+  final String _competition = "v5";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -12,12 +13,12 @@ class CompetitionButton extends ConsumerWidget {
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           splashColor: Colors.blue.withAlpha(60),
-          onTap: () => context.push('/entry'),
-          child: const SizedBox(
+          onTap: () => context.push('/entry/${_competition}'),
+          child: SizedBox(
             width: 300,
             height: 100,
             child: Center(
-              child:Text('Competition v4'),
+              child:Text('Entry'),
             )
           ),
         ),

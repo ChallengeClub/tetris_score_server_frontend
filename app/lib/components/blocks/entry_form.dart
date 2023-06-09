@@ -9,6 +9,8 @@ import '../../view_model/providers.dart';
 import '../../view_model/form_view_model.dart' as FormViewModel;
 
 class EntryForm extends HookConsumerWidget {
+  final String _competition;
+  EntryForm(this._competition);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -22,7 +24,7 @@ class EntryForm extends HookConsumerWidget {
     final _trialNumberController = useTextEditingController(text: "1");
     final _gameModeController = useTextEditingController(text: "default");
     final _gameTimeController = useTextEditingController(text: "2");
-    final _competitionController = useTextEditingController(text: "v4");
+    final _competitionController = useTextEditingController(text: _competition);
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider);
