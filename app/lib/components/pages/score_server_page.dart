@@ -8,7 +8,8 @@ import '../parts/table_navigator.dart';
 import '../../view_model/providers.dart';
 
 class ScoreServerPage extends ConsumerWidget {
-  final competition = "v4";
+  final String _competition;
+  ScoreServerPage(this._competition);
   final List<Tab> tabs = <Tab>[
     Tab(text: 'Form'),
     Tab(text: 'Results'),
@@ -21,7 +22,7 @@ class ScoreServerPage extends ConsumerWidget {
       child: SelectionArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Tetris Score Server"),
+            title: Text("Tetris Score Server ${_competition}"),
             bottom: TabBar(
               tabs: tabs,
             ),
@@ -31,17 +32,17 @@ class ScoreServerPage extends ConsumerWidget {
               Center(
                 child: Container(
                   margin: const EdgeInsets.all(40), 
-                  child: SubmitForm()
+                  child: SubmitForm(_competition)
                 ),
               ),
               Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: TableNavigator(competition),
+                    child: TableNavigator(_competition),
                   ),
                   Expanded(
-                    child: ResultsTable(competition),
+                    child: ResultsTable(_competition),
                   )
                 ]
               )
