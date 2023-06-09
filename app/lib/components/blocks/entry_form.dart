@@ -22,7 +22,7 @@ class EntryForm extends HookConsumerWidget {
     final _trialNumberController = useTextEditingController(text: "1");
     final _gameModeController = useTextEditingController(text: "default");
     final _gameTimeController = useTextEditingController(text: "2");
-    final _competitionController = useTextEditingController(text: "v4");
+    final _competitionController = useTextEditingController(text: "v5");
     final _formCardHeight = _screenSize.height * 0.11;
     final _formCardWidth = _screenSize.width * 0.5;
     final _state = ref.watch(formStateNotifierProvider);
