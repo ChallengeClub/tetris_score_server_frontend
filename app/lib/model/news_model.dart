@@ -1,3 +1,5 @@
+import 'utils.dart' as Utils;
+
 class NewsModel{
     final String id;
     final String title;
@@ -12,4 +14,7 @@ class NewsModel{
         this.link_url,
         this.body
     );
+
+    get created_at_string => Utils.datetimeToDateString(created_at);
 }
+

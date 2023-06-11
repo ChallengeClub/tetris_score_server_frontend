@@ -16,8 +16,9 @@ class HomeNewsField extends HookConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Size _size = MediaQuery.of(context).size;
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: _size.height*0.01, horizontal: _size.width*0.05),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,13 +31,34 @@ class HomeNewsField extends HookConsumerWidget{
                     ),
                 ),
                 Container(
-                    height: 110,
+                    height: _news.length*30+10,
                     child: ListView.separated(
                         itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                                height: 26,
-                                child: Text(_news[index].title, style: TextStyle(fontSize: 10,)),
-                            );
+                          return Container(
+                            padding: EdgeInsets.symmetric(horizontal: _size.width*0.08),
+                            height: 30,
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: _size.width*0.25,
+                                    alignment: Alignment.topLeft,
+                                    child: Text(_news[index].created_at_string, style: TextStyle(fontSize: 10,)),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(_news[index].title, style: TextStyle(fontSize: 15,))
+                                ]
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey, //枠線の色
+                                    width: 0.5, //枠線の太さ
+                                  ),
+                                ),
+                              ),
+                            )
+                          );
                         },
                         itemCount: _news.length > 3? 3 : _news.length,
                         separatorBuilder: (BuildContext context, int index) {
