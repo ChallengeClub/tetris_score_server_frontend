@@ -7,6 +7,7 @@ import 'competition_entry_page.dart';
 import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
 import '../blocks/home_news.dart';
+import '../blocks/home_contents.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -18,8 +19,7 @@ class HomePage extends ConsumerWidget {
         crossAxisCount: _size.width > 300 ? (_size.width/300).floor() : 1,
         children: <Widget>[
           HomeNewsField(),
-          CompetitionButton(),
-          ServerButton()
+          HomeContentsField(),
         ],
       )
       // body: Container(
