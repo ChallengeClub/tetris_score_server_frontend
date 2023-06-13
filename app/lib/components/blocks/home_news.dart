@@ -18,7 +18,6 @@ class HomeNewsField extends HookConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     Size _size = MediaQuery.of(context).size;
     return Container(
-      color: Colors.yellow,
       padding: EdgeInsets.symmetric(vertical: _size.height*0.02, horizontal: _size.width*0.05),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,23 +15,26 @@ class HomePage extends ConsumerWidget {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: const Text('Tetris HP')),
-      body: GridView.count(
-        crossAxisCount: _size.width > 300 ? (_size.width/300).floor() : 1,
-        children: <Widget>[
-          HomeNewsField(),
-          HomeContentsField(),
-        ],
-      )
-      // body: Container(
-      //   child: ListView(
-      //     scrollDirection: Axis.horizontal,
-      //     padding: const EdgeInsets.all(8),
-      //     children: <Widget>[
-      //       CompetitionButton(),
-      //       ServerButton()
-      //     ],
-      //   ),
-      // )
+      body: ((){
+        if (_size.width < 700){
+          return SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                HomeNewsField(),
+                HomeContentsField(),
+              ],
+            ),
+          );
+        }
+        else {
+          return Row(
+            children: <Widget>[
+              HomeNewsField(),
+              HomeContentsField(),
+            ],
+          );
+        }
+      })(),
     );
   }
 }
