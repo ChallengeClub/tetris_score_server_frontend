@@ -4,14 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../parts/server_button.dart';
-import '../parts/competition_button.dart';
-
-
-class HomeContentsField extends HookConsumerWidget{
+class HomeTutrialField extends HookConsumerWidget{
   double _width;
   double _height;
-  HomeContentsField(this._width, this._height);
+  HomeTutrialField(this._width, this._height);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,20 +19,12 @@ class HomeContentsField extends HookConsumerWidget{
         children: [
           Container(
             child: Text(
-              "Contents", 
+              "Tutrials", 
               style: TextStyle(fontSize: 20,),
             ),
             padding: EdgeInsets.only(bottom: _width*0.05)
-          ),
-          Container(
-              height: 2*150,
-              child: Column(
-                children: [
-                  ServerButton(),
-                  CompetitionButton(),
-                ]
-              )
-          )         
+          ),  
+          Text("under construction,,,"),
         ]
       )
     );

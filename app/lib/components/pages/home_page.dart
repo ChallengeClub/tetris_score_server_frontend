@@ -8,6 +8,7 @@ import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
 import '../blocks/home_news.dart';
 import '../blocks/home_contents.dart';
+import '../blocks/home_tutrial.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -20,17 +21,20 @@ class HomePage extends ConsumerWidget {
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                HomeNewsField(),
-                HomeContentsField(),
+                HomeNewsField(_size.width, _size.height),
+                HomeContentsField(_size.width, _size.height),
+                HomeTutrialField(_size.width, _size.height),
               ],
             ),
           );
         }
         else {
           return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              HomeNewsField(),
-              HomeContentsField(),
+              HomeNewsField(_size.width/4, _size.height),
+              HomeContentsField(_size.width*0.45, _size.height),
+              HomeTutrialField(_size.width/4, _size.height),
             ],
           );
         }

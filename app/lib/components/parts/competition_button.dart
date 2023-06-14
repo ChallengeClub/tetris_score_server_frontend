@@ -16,7 +16,7 @@ class CompetitionButton extends ConsumerWidget {
           onTap: () => context.push('/entry/${_competition}'),
           child: SizedBox(
             width: 300,
-            height: 100,
+            height: 130,
             child: Center(
               child:Text('Entry'),
             )

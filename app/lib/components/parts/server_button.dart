@@ -14,7 +14,7 @@ class ServerButton extends ConsumerWidget {
           onTap: () => context.push('/server/v5'),
           child: const SizedBox(
             width: 300,
-            height: 100,
+            height: 130,
             child: Center(
               child:Text('Server'),)
           ),

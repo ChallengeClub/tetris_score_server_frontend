@@ -12,13 +12,16 @@ class HomeNewsField extends HookConsumerWidget{
         NewsModel("a", "hello news 1", 1, "https://tetris-server.challenge-club.org", "こんにちは"),
         NewsModel("b", "hello news 2", 2, "https://tetris-server.challenge-club.org", "こんにちは"),
         NewsModel("c", "hello news 3", 4, "https://tetris-server.challenge-club.org", "こんにちは"),
-  ];  
+  ];
+  double _width;
+  double _height;
+  HomeNewsField(this._width, this._height);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Size _size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: _size.height*0.02, horizontal: _size.width*0.05),
+      padding: EdgeInsets.symmetric(vertical: _height*0.02, horizontal: _width*0.05),
+      width: _width,
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,20 +32,20 @@ class HomeNewsField extends HookConsumerWidget{
                         fontSize: 20,
                     ),
                 ),
-                padding: EdgeInsets.only(bottom: _size.width*0.05)
+                padding: EdgeInsets.only(bottom: _width*0.05)
             ),
             Container(
                 height: _news.length*30+10,
                 child: ListView.separated(
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        padding: EdgeInsets.symmetric(horizontal: _size.width*0.08),
+                        padding: EdgeInsets.symmetric(horizontal: _width*0.08),
                         height: 30,
                         child: Container(
                           child: Row(
                             children: [
                               Container(
-                                width: _size.width*0.25,
+                                width: _width*0.25,
                                 alignment: Alignment.topLeft,
                                 child: Text(_news[index].created_at_string, style: TextStyle(fontSize: 10,)),
                               ),
