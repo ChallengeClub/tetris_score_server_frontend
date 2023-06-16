@@ -41,7 +41,7 @@ class CompetitionButton extends ConsumerWidget {
                 ],
               ),
             ),
-            child: Text("Competition Entry", style: const TextStyle(color: Colors.white70, fontSize: 18)),
+            child: Text("Competition v5 Entry", style: const TextStyle(color: Colors.white70, fontSize: 15)),
           ),
         )
       ),

@@ -32,9 +32,8 @@ class HomePage extends ConsumerWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              HomeNewsField(_size.width/4, _size.height),
+              HomeNewsField(_size.width/3, _size.height),
               HomeContentsField(_size.width*0.45, _size.height),
-              HomeTutrialField(_size.width/4, _size.height),
             ],
           );
         }
