@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:provider/provider.dart';
-import 'package:pluto_grid/pluto_grid.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../model/news_model.dart';
+import '../../view_model/providers.dart';
 
-
-class HomeNewsField extends HookConsumerWidget{
-  List<NewsModel> _news = [
-        NewsModel("a", "hello news 1", 1, "https://tetris-server.challenge-club.org", "こんにちは"),
-        NewsModel("b", "hello news 2", 2, "https://tetris-server.challenge-club.org", "こんにちは"),
-        NewsModel("c", "hello news 3", 4, "https://tetris-server.challenge-club.org", "こんにちは"),
-  ];
+class HomeNewsField extends ConsumerWidget{
   double _width;
   double _height;
   HomeNewsField(this._width, this._height);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    List<NewsModel> _news = ref.watch(newsStateNotifierProvider);
     return Container(
       padding: EdgeInsets.symmetric(vertical: _height*0.02, horizontal: _width*0.05),
       width: _width,
@@ -35,7 +30,7 @@ class HomeNewsField extends HookConsumerWidget{
                 padding: EdgeInsets.only(bottom: _width*0.05)
             ),
             Container(
-                height: _news.length*30+10,
+                height: 100,
                 child: ListView.separated(
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
@@ -75,7 +70,7 @@ class HomeNewsField extends HookConsumerWidget{
             Container(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => context.go('/news'),
                 child: const Text('News list→'),
                 style: TextButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 10, color: Colors.grey),

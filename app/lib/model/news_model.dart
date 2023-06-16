@@ -16,5 +16,13 @@ class NewsModel{
     );
 
     get created_at_string => Utils.datetimeToDateString(created_at);
+
+    
+    NewsModel.fromJson(dynamic map)
+      : id = map['Id'],
+        title = map['Title'] ?? "",
+        link_url = map['LinkURL'] ?? "",
+        created_at = map['CreatedAt']*1000,
+        body = map['body'] ?? "";    
 }
 

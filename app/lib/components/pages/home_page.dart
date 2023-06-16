@@ -8,7 +8,6 @@ import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
 import '../blocks/home_news.dart';
 import '../blocks/home_contents.dart';
-import '../blocks/home_tutrial.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -23,7 +22,6 @@ class HomePage extends ConsumerWidget {
               children: <Widget>[
                 HomeNewsField(_size.width, _size.height),
                 HomeContentsField(_size.width, _size.height),
-                HomeTutrialField(_size.width, _size.height),
               ],
             ),
           );

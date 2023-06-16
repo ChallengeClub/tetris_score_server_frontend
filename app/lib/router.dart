@@ -5,6 +5,7 @@ import 'components/pages/home_page.dart';
 import 'components/pages/competition_entry_page.dart';
 import 'components/pages/score_server_page.dart';
 import 'components/pages/result_dialog_page.dart';
+import 'components/pages/news_page.dart';
 
 final GoRouter Router = GoRouter(
   routes: <RouteBase>[
@@ -14,6 +15,12 @@ final GoRouter Router = GoRouter(
         return HomePage();
       },
       routes: <RouteBase>[
+        GoRoute(
+          path: 'news',
+          builder: (BuildContext context, GoRouterState state) {
+            return NewsPage();
+          }
+        ),
         GoRoute(
           path: 'entry/:Competition',
           builder: (BuildContext context, GoRouterState state) {
