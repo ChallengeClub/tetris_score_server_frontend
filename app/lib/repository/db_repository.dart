@@ -12,6 +12,7 @@ abstract class DBRepository {
   Future<List<EntryModel>> getEntries();
   Future<String> interruptEvaluation(String _id);
   Future<List<NewsModel>> getNews();
+  Future<NewsModel> getNewsDetailById(String _id);
 }
 
 class DBRepositoryImpl implements DBRepository {
@@ -92,4 +93,15 @@ class DBRepositoryImpl implements DBRepository {
     return results;
   }
 
+  @override
+  Future<NewsModel> getNewsDetailById(String _id) async {
+    if (_api==null){
+      throw Error.APINotDefinedError();
+    }
+    final uri = Uri.parse("${_api}/news/${_id}");
+    http.Response result = await http.get(uri);
+    dynamic _map = convert.jsonDecode(result.body);
+    NewsModel _result = NewsModel.fromJson(_map);
+    return _result;
+  }
 }

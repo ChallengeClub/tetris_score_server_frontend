@@ -9,6 +9,7 @@ import 'random_seeds_form_view_model.dart' as RandomSeedsFormViewModel;
 import 'result_detail_view_model.dart' as ResultDetailViewModel;
 import 'interrupt_evaluation_view_model.dart' as InterruptionEvaluationViewModel;
 import 'news_view_model.dart' as NewsViewModel;
+import 'news_detail_view_model.dart' as NewsDetailViewModel;
 
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
@@ -48,4 +49,8 @@ final evaluationInterruptionStateNotifierProvider = StateNotifierProvider.autoDi
 
 final newsStateNotifierProvider = StateNotifierProvider<NewsViewModel.NewsStateNotifier, List<NewsModel.NewsModel>>(
   (ref) => NewsViewModel.NewsStateNotifier(ref.watch(dbRepositoryProvider)),
+);
+
+final newsDetailStateNotifierProvider = StateNotifierProvider.autoDispose.family<NewsDetailViewModel.NewsDetailStateNotifier, NewsModel.NewsModel?, String>(
+  (ref, id) => NewsDetailViewModel.NewsDetailStateNotifier(ref.watch(dbRepositoryProvider), id),
 );

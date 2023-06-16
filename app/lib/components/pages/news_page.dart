@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../model/news_model.dart';
 import '../../view_model/providers.dart';
@@ -12,8 +13,8 @@ class NewsPage extends ConsumerWidget {
     Size _size = MediaQuery.of(context).size;
     double _width = _size.width;
     double _height = _size.height;
-    double _news_line_height = _height*0.1;
-    double _news_line_width = _width*0.6;
+    double _news_line_height = _height*0.07;
+    double _news_line_width = _width;
     return Scaffold(
       appBar: AppBar(title: const Text('Tetris News Page')),
       body: SingleChildScrollView(
@@ -37,7 +38,9 @@ class NewsPage extends ConsumerWidget {
                 child: ListView.builder(
                   itemCount: _news.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
+                    return InkWell(
+                      onTap: () => context.push('/news/${_news[index].id}'),
+                      child: Container(
                       padding: EdgeInsets.symmetric(horizontal: _news_line_width*0.08),
                       height: _news_line_height,
                       child: Container(
@@ -63,6 +66,7 @@ class NewsPage extends ConsumerWidget {
                               ),
                               ),
                           ),
+                      )
                       )
                     );
                   },
