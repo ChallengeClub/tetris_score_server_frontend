@@ -29,10 +29,11 @@ class HomeContentsField extends HookConsumerWidget{
             padding: EdgeInsets.only(bottom: _width*0.05)
           ),
           Container(
-              height: 2*150,
+              height: 400,
               child: Column(
                 children: [
                   ServerButton(),
+                  SizedBox(height: _height*0.02),
                   CompetitionButton(),
                 ]
               )
