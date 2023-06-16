@@ -30,32 +30,35 @@ class HomeNewsField extends ConsumerWidget{
                 padding: EdgeInsets.only(bottom: _width*0.05)
             ),
             Container(
-                height: 100,
+                height: 140,
                 child: ListView.separated(
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: _width*0.08),
-                        height: 30,
+                        height: 40,
                         child: Container(
-                          child: Row(
-                            children: [
-                              Container(
-                                width: _width*0.25,
-                                alignment: Alignment.topLeft,
-                                child: Text(_news[index].created_at_string, style: TextStyle(fontSize: 10,)),
-                              ),
-                              SizedBox(width: 5),
-                              Text(_news[index].title, style: TextStyle(fontSize: 15,))
-                            ]
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Colors.grey, //枠線の色
-                                width: 0.5, //枠線の太さ
-                              ),
+                            child: Column(
+                                children: [
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(_news[index].created_at_string, style: TextStyle(fontSize: 10,)),
+                                ),
+                                SizedBox(height: 3),
+                                Container(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text(_news[index].title, style: TextStyle(fontSize: 12,), overflow: TextOverflow.ellipsis)
+                                )
+                                ]
                             ),
-                          ),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                bottom: BorderSide(
+                                    color: Colors.grey, //枠線の色
+                                    width: 0.5, //枠線の太さ
+                                ),
+                                ),
+                            ),
                         )
                       );
                     },
