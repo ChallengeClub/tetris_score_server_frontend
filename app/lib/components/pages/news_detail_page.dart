@@ -27,10 +27,13 @@ class NewsDetailPage extends HookConsumerWidget {
             } 
             return Container(
               width: _size.width > 700 ? 700 : _size.width,
+              padding: EdgeInsets.symmetric(vertical: _size.height*0.05, horizontal: _size.width*0.05),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(_news.title),
+                  Text(_news.title, style: TextStyle(fontSize: 20),),
+                  SizedBox(height: _size.height*0.02),
+                  Text(_news.body, style: TextStyle(fontSize: 12),),
                   ButtonBar(
                     alignment: MainAxisAlignment.start,
                     children: [
