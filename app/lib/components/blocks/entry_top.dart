@@ -74,7 +74,7 @@ class EntryTop extends ConsumerWidget {
                     Text("確認事項", style: TextStyle(fontSize: 18)),
                     Container(
                         padding: EdgeInsets.symmetric(horizontal: _size.width > 700 ? _size.width*0.05 : 20),
-                        height: 250,
+                        height: 150,
                         child: ListView(
                         children: [
                             ListTile(
