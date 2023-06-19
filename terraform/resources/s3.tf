@@ -2,9 +2,6 @@ resource "aws_s3_bucket" "tetris-hosting-bucket" {
   bucket_prefix = "tetris-hosting"
 }
 
-resource "aws_s3_bucket" "tetris-news-image-bucket" {
-  bucket_prefix = "tetris-news"
-}
 
 # access control list
 resource "aws_s3_bucket_acl" "tetris-hosting-bucket-acl" {
