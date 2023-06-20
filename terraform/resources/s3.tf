@@ -2,6 +2,7 @@ resource "aws_s3_bucket" "tetris-hosting-bucket" {
   bucket_prefix = "tetris-hosting"
 }
 
+
 # access control list
 resource "aws_s3_bucket_acl" "tetris-hosting-bucket-acl" {
   bucket = aws_s3_bucket.tetris-hosting-bucket.id

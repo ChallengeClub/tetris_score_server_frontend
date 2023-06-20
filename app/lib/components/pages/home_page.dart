@@ -6,23 +6,36 @@ import 'score_server_page.dart';
 import 'competition_entry_page.dart';
 import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
+import '../blocks/home_news.dart';
+import '../blocks/home_contents.dart';
 
 class HomePage extends ConsumerWidget {
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: const Text('Tetris HP')),
-      body: Container(
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            CompetitionButton(),
-            ServerButton()
-          ],
-        ),
-      )
+      body: ((){
+        if (_size.width < 700){
+          return SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                HomeNewsField(_size.width, _size.height),
+                HomeContentsField(_size.width, _size.height),
+              ],
+            ),
+          );
+        }
+        else {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              HomeNewsField(_size.width/3, _size.height),
+              HomeContentsField(_size.width*0.45, _size.height),
+            ],
+          );
+        }
+      })(),
     );
   }
 }
