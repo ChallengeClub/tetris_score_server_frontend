@@ -12,7 +12,7 @@ class ServerButton extends ConsumerWidget {
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/competition.jpg'),
+            image: AssetImage('images/results_table.jpg'),
             fit: BoxFit.fitWidth,
           ),
           boxShadow: [
