@@ -3,6 +3,7 @@ import 'dart:convert' as convert;
 
 import '../model/result_model.dart';
 import '../model/entry_model.dart';
+import '../model/news_model.dart';
 import '../error.dart' as Error;
 
 abstract class DBRepository {
@@ -10,6 +11,8 @@ abstract class DBRepository {
   Future<ResultModel> getResultDetailById(String _id);
   Future<List<EntryModel>> getEntries();
   Future<String> interruptEvaluation(String _id);
+  Future<List<NewsModel>> getNews();
+  Future<NewsModel> getNewsDetailById(String _id);
 }
 
 class DBRepositoryImpl implements DBRepository {
@@ -74,5 +77,31 @@ class DBRepositoryImpl implements DBRepository {
       res = result.body;
     }
     return res;
+  }
+
+    @override
+  Future<List<NewsModel>> getNews() async {
+    if (_api==null){
+      throw Error.APINotDefinedError();
+    }
+    final uri = Uri.parse("${_api}/news");
+    http.Response result = await http.get(uri);
+    List<dynamic> _map = convert.jsonDecode(result.body);
+    List<NewsModel> results = _map.map(
+        (dynamic item) => NewsModel.fromJson(item)
+    ).toList();
+    return results;
+  }
+
+  @override
+  Future<NewsModel> getNewsDetailById(String _id) async {
+    if (_api==null){
+      throw Error.APINotDefinedError();
+    }
+    final uri = Uri.parse("${_api}/news/${_id}");
+    http.Response result = await http.get(uri);
+    dynamic _map = convert.jsonDecode(result.body);
+    NewsModel _result = NewsModel.fromJson(_map);
+    return _result;
   }
 }

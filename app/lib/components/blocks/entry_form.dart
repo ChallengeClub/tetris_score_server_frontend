@@ -65,7 +65,6 @@ class EntryForm extends HookConsumerWidget {
                     width: _formCardWidth,
                     height: _formCardHeight,
                     child: TextFormField(
-                      autofocus: true,
                       decoration: const InputDecoration(
                         labelText: 'github repository URL',
                       ),

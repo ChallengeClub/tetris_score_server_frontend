@@ -9,20 +9,42 @@ class CompetitionButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
-      child: Card(
-        clipBehavior: Clip.hardEdge,
-        child: InkWell(
-          splashColor: Colors.blue.withAlpha(60),
-          onTap: () => context.push('/entry/${_competition}'),
-          child: SizedBox(
-            width: 300,
-            height: 100,
-            child: Center(
-              child:Text('Entry'),
-            )
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/competition.jpg'),
+            fit: BoxFit.fitWidth,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey, //色
+              spreadRadius: 1, 
+              blurRadius: 5, 
+              offset: Offset(2, 2),
+            ),
+          ],
         ),
-      )
+        width: 300,
+        height: 150,
+        child: InkWell( // required for onTap action
+          onTap: () => context.push('/entry/${_competition}'),
+          child: Container(
+            alignment: Alignment.bottomLeft,
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  Colors.black,
+                ],
+              ),
+            ),
+            child: Text("Competition v5 Entry", style: const TextStyle(color: Colors.white70, fontSize: 15)),
+          ),
+        )
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../blocks/form.dart';
 import '../blocks/results_table.dart';
+import '../blocks/score_server_top.dart';
 import '../parts/table_navigator.dart';
 import '../../view_model/providers.dart';
 
@@ -11,12 +12,14 @@ class ScoreServerPage extends ConsumerWidget {
   final String _competition;
   ScoreServerPage(this._competition);
   final List<Tab> tabs = <Tab>[
+    Tab(text: 'Top'),
     Tab(text: 'Form'),
     Tab(text: 'Results'),
   ];
   
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Size _size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: tabs.length,
       child: SelectionArea(
@@ -29,11 +32,13 @@ class ScoreServerPage extends ConsumerWidget {
           ),
           body: TabBarView(
             children: [
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.all(40), 
-                  child: SubmitForm(_competition)
-                ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: _size.width > 700 ? _size.width*0.2 : _size.width*0.05), 
+                child: ScoreServerTop(),
+              ),              
+              Container(
+                margin: const EdgeInsets.symmetric(vertical:10, horizontal: 40), 
+                child: SubmitForm(_competition)
               ),
               Column(
                 children: <Widget>[
