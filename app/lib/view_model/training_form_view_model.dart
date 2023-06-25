@@ -15,8 +15,9 @@ class TrainingFormSubmitting extends TrainingFormState {
   const TrainingFormSubmitting();
 }
 
-class TrainingFormSubmitted extends TrainingFormState {
-  const TrainingFormSubmitted();
+class TrainingEvaluationFinished extends TrainingFormState {
+  final List<String> results;
+  const TrainingEvaluationFinished(this.results);
 }
 
 class TrainingFormError extends TrainingFormState {
@@ -40,7 +41,7 @@ class TrainingFormStateNotifier extends StateNotifier<TrainingFormState> {
       Map<String, dynamic> res;
       state = TrainingFormSubmitting();
       res = await _formRepository.postTrainingCode(data);
-      state = res["status"] ? TrainingFormSubmitted() : TrainingFormError("failed to submit code to api");
+      state = res["status"] ? TrainingEvaluationFinished(res["results"].cast<String>()) : TrainingFormError("failed to submit code to api");
     } catch(e){
       state = TrainingFormError("error occured\n${e}");
     }

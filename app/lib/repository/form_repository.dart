@@ -68,7 +68,7 @@ class FormRepositoryImpl implements FormRepository {
     if (_api==null){
       Map<String, dynamic> result = {
         "status": false,
-        "results": "_api is not defined",
+        "results": ["_api is not defined"],
       };
       return result;
     }
@@ -76,7 +76,7 @@ class FormRepositoryImpl implements FormRepository {
     http.Response response = await http.post(uri, body: msg.code);
     Map<String, dynamic> result = {
       "status": response.statusCode == 200,
-      "results": response.body,
+      "results": jsonDecode(response.body),
     };
     return result;
   }
