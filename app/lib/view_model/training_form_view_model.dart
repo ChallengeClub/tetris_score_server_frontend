@@ -41,7 +41,6 @@ class TrainingFormStateNotifier extends StateNotifier<TrainingFormState> {
       state = TrainingFormSubmitting();
       res = await _formRepository.postTrainingCode(data);
       state = res["status"] ? TrainingFormSubmitted() : TrainingFormError("failed to submit code to api");
-      state = TrainingFormSubmitted();
     } catch(e){
       state = TrainingFormError("error occured\n${e}");
     }

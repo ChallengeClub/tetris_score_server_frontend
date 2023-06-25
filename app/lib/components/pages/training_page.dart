@@ -29,7 +29,7 @@ class TrainingPage extends HookConsumerWidget {
               children: [
                 Container(
                   width: _size.width > 700 ? 700 : _size.width,
-                  padding: EdgeInsets.symmetric(vertical: _size.height*0.05, horizontal: _size.width*0.05),
+                  padding: EdgeInsets.symmetric(vertical: _size.height*0.02, horizontal: _size.width*0.05),
                   child:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -110,15 +110,36 @@ class TrainingPage extends HookConsumerWidget {
                         onPressed: () {
                           if (_codeEditingController.text==""){
                             ref.read(trainingFormStateNotifierProvider.call(_training).notifier).setFormValidationErrorState();
-                            return;
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text("Are you sure to submit code?"),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Cancel"),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                    TextButton(
+                                      child: Text("OK"),
+                                      onPressed: () {
+                                        ref.read(trainingFormStateNotifierProvider.call(_training).notifier).submitCode(
+                                          TrainingFormModel(
+                                            "test_user",
+                                            _training,
+                                            _codeEditingController.text,
+                                          )
+                                        );
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
-                          ref.read(trainingFormStateNotifierProvider.call(_training).notifier).submitCode(
-                            TrainingFormModel(
-                              "test_user",
-                              _training,
-                              _codeEditingController.text,
-                            )
-                          );
+                          
                         },
                         child: const Text("Submit"),
                       );

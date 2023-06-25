@@ -9,6 +9,13 @@ class TrainingModel{
     this.title,
     this.discription
   );
+
+  @override
+  bool operator == (Object other) =>
+    identical(other, this) || other is TrainingModel && id == other.id && section == other.section;
+    
+  @override
+  int get hashCode => Object.hashAll([section, id]);
 }
 
 class TrainingFormModel {
