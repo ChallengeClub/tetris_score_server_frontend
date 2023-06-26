@@ -11,6 +11,7 @@ import 'interrupt_evaluation_view_model.dart' as InterruptionEvaluationViewModel
 import 'news_view_model.dart' as NewsViewModel;
 import 'news_detail_view_model.dart' as NewsDetailViewModel;
 import 'training_form_view_model.dart' as TrainingFormViewModel;
+import 'training_detail_view_model.dart' as TrainingDetailViewModel;
 
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
@@ -59,4 +60,8 @@ final newsDetailStateNotifierProvider = StateNotifierProvider.autoDispose.family
 
 final trainingFormStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingFormViewModel.TrainingFormStateNotifier, TrainingFormViewModel.TrainingFormState, TrainingFormModel.TrainingModel>(
   (ref, training) => TrainingFormViewModel.TrainingFormStateNotifier(ref.watch(formRepositoryProvider), training),
+);
+
+final trainingDetailStateNotifierProvider = StateNotifierProvider<TrainingDetailViewModel.TrainingDetailStateNotifier, TrainingFormModel.TrainingModel?>(
+  (ref) => TrainingDetailViewModel.TrainingDetailStateNotifier(ref.watch(dbRepositoryProvider)),
 );
