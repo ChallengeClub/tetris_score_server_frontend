@@ -58,10 +58,10 @@ final newsDetailStateNotifierProvider = StateNotifierProvider.autoDispose.family
   (ref, id) => NewsDetailViewModel.NewsDetailStateNotifier(ref.watch(dbRepositoryProvider), id),
 );
 
-final trainingFormStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingFormViewModel.TrainingFormStateNotifier, TrainingFormViewModel.TrainingFormState, TrainingFormModel.TrainingModel>(
-  (ref, training) => TrainingFormViewModel.TrainingFormStateNotifier(ref.watch(formRepositoryProvider), training),
+final trainingFormStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingFormViewModel.TrainingFormStateNotifier, TrainingFormModel.TrainingFormModel, TrainingFormModel.TrainingModel>(
+  (ref, training) => TrainingFormViewModel.TrainingFormStateNotifier(ref.watch(formRepositoryProvider), ref.watch(dbRepositoryProvider), training),
 );
 
-final trainingDetailStateNotifierProvider = StateNotifierProvider<TrainingDetailViewModel.TrainingDetailStateNotifier, TrainingFormModel.TrainingModel?>(
-  (ref) => TrainingDetailViewModel.TrainingDetailStateNotifier(ref.watch(dbRepositoryProvider)),
-);
+// final trainingDetailStateNotifierProvider = StateNotifierProvider<TrainingDetailViewModel.TrainingDetailStateNotifier, TrainingFormModel.TrainingModel?>(
+//   (ref) => TrainingDetailViewModel.TrainingDetailStateNotifier(ref.watch(dbRepositoryProvider)),
+// );

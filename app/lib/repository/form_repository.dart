@@ -11,7 +11,7 @@ abstract class FormRepository {
   Future<bool> checkExistWeightFile(FormModel msg);
   Future<bool> sendRequestToAPI(FormModel msg);
   Future<bool> sendRequestToEntryAPI(FormModel msg);
-  Future<Map<String, dynamic>> postTrainingCode(TrainingFormModel msg);
+  Future<Map<String, dynamic>> postTrainingCode(TrainingModel msg, String code);
 }
 
 class FormRepositoryImpl implements FormRepository {
@@ -64,7 +64,7 @@ class FormRepositoryImpl implements FormRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> postTrainingCode(TrainingFormModel msg) async {
+  Future<Map<String, dynamic>> postTrainingCode(TrainingModel training, String code) async {
     if (_api==null){
       Map<String, dynamic> result = {
         "status": false,
@@ -72,8 +72,8 @@ class FormRepositoryImpl implements FormRepository {
       };
       return result;
     }
-    final uri = Uri.parse("${_api}/training/${msg.training.section}/${msg.training.id}");
-    http.Response response = await http.post(uri, body: msg.code);
+    final uri = Uri.parse("${_api}/training/${training.section}/${training.id}");
+    http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
       "status": response.statusCode == 200,
       "results": jsonDecode(response.body),

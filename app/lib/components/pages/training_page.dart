@@ -9,7 +9,7 @@ import '../../view_model/training_form_view_model.dart';
 import '../../view_model/providers.dart';
 import '../parts/training_sample_field.dart';
 
-class TrainingPage extends HookConsumerWidget {
+class TrainingPage extends ConsumerWidget {
   final String _section;
   final String _id;
   TrainingPage(this._section, this._id);
@@ -17,9 +17,7 @@ class TrainingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingModel? _training = ref.watch(trainingDetailStateNotifierProvider);
-    ref.read(trainingDetailStateNotifierProvider.notifier).fetchTrainingDetail(_section, _id);
-    TrainingFormState _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, "", "", "", "")));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
 
     return SelectionArea(
@@ -27,7 +25,7 @@ class TrainingPage extends HookConsumerWidget {
         appBar: AppBar(title: const Text('Tetris Training Page')),
         body: SingleChildScrollView(
           child: ((){
-            if (_training==null){
+            if (_state.training!=null){
               return Column(
                 children: [
                   Container(
@@ -105,13 +103,13 @@ class TrainingPage extends HookConsumerWidget {
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: ((){
-                            if (_state is TrainingFormInitial){
+                            if (_state.status=="initialized"){
                               return Container(
                                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                                 child: ElevatedButton(
                                   onPressed: () {
                                     if (_codeEditingController.text==""){
-                                      ref.read(trainingFormStateNotifierProvider.call(_training!).notifier).setFormValidationErrorState();
+                                      ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).setFormValidationErrorState();
                                     } else {
                                       showDialog(
                                         context: context,
@@ -126,12 +124,8 @@ class TrainingPage extends HookConsumerWidget {
                                               TextButton(
                                                 child: Text("OK"),
                                                 onPressed: () {
-                                                  ref.read(trainingFormStateNotifierProvider.call(_training!).notifier).submitCode(
-                                                    TrainingFormModel(
-                                                      "test_user",
-                                                      _training!,
+                                                  ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).submitCode(
                                                       _codeEditingController.text,
-                                                    )
                                                   );
                                                   Navigator.pop(context);
                                                 },
@@ -145,9 +139,9 @@ class TrainingPage extends HookConsumerWidget {
                                   child: const Text("Submit"),
                                 )
                               );
-                            } else if (_state is TrainingFormSubmitting){
+                            } else if (_state.status=="submitting"){
                               return CircularProgressIndicator();
-                            } else if (_state is TrainingEvaluationFinished){
+                            } else if (_state.status=="finished"){
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -156,9 +150,9 @@ class TrainingPage extends HookConsumerWidget {
                                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                                     height: 200,
                                     child: ListView.builder(
-                                      itemCount: _state.results.length,
+                                      itemCount: _state.results!.length,
                                       itemBuilder: (BuildContext context, int index) {
-                                        String result = _state.results[index];
+                                        String result = _state.results![index];
                                         return Container(
                                           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                                           child: Row(
@@ -186,8 +180,8 @@ class TrainingPage extends HookConsumerWidget {
                                   )
                                 ]
                               );
-                            } else if (_state is TrainingFormError){
-                              return Text(_state.message);
+                            } else if (_state.status=="error"){
+                              return Text(_state.error_message ?? "");
                             } else {
                               return Text("unexpected error occured\n${_state}");
                             }
@@ -195,10 +189,10 @@ class TrainingPage extends HookConsumerWidget {
                         ),
                         Container(
                           child: ((){
-                            if (_state is TrainingFormError || _state is TrainingEvaluationFinished){
+                            if (_state.status=="error" || _state.status=="finished"){
                               return ElevatedButton(
                                 onPressed: (){
-                                  ref.read(trainingFormStateNotifierProvider.call(_training!).notifier).initializeState();
+                                  ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).initializeState();
                                 },
                                 child: const Text("OK"),
                               );

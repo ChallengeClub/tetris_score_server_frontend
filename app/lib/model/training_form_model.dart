@@ -32,13 +32,24 @@ class TrainingModel{
 }
 
 class TrainingFormModel {
-  final String user_id;
   final TrainingModel training;
-  final String code;
-
+  final String status;
+  final String? error_message;
+  final List<String>? results;
+  
   TrainingFormModel(
-    this.user_id,
     this.training,
-    this.code,
+    this.status,
+    this.error_message,
+    this.results,
   );
+
+  TrainingFormModel copyWith({TrainingModel? training, String? status, String? error_message, List<String>? results}){
+    return TrainingFormModel(
+      training ?? this.training,
+      status ?? this.status,
+      error_message ?? this.error_message,
+      results ?? this.results,
+    );
+  }
 }
