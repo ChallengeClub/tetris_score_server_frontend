@@ -17,7 +17,7 @@ class TrainingModel{
 
   TrainingModel.fromJson(dynamic map)
   : section = map['Section'],
-    id = map['Id'],
+    id = map["Id"].toString(),
     title = map['Title'],
     description = map['Description'],
     inputDescription = map['InputDescription'],

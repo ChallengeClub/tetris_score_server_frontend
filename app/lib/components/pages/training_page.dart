@@ -18,6 +18,8 @@ class TrainingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null)));
+    print("build");
+    print(_state.training.title);
     Size _size = MediaQuery.of(context).size;
 
     return SelectionArea(
@@ -36,7 +38,7 @@ class TrainingPage extends ConsumerWidget {
                       children: [
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("倍返しだ！", style: TextStyle(fontSize: 24)),
+                          child: Text(_state.training.title ?? "", style: TextStyle(fontSize: 24)),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -44,7 +46,7 @@ class TrainingPage extends ConsumerWidget {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                          child: Text("与えられた数字Xに2をかけた数字を出力してください。", style: TextStyle(fontSize: 10)),
+                          child: Text(_state.training.description ?? "", style: TextStyle(fontSize: 10)),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -54,7 +56,7 @@ class TrainingPage extends ConsumerWidget {
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text("入力は以下の形式で標準入力から与えられる。", style: TextStyle(fontSize: 10)),
+                            child: Text(_state.training.inputDescription ?? "", style: TextStyle(fontSize: 10)),
                           ),
                         ),
                         TrainingSampleField("X", false),
@@ -66,7 +68,7 @@ class TrainingPage extends ConsumerWidget {
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
                             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                            child: Text("Xに2をかけた値をprintしてください。", style: TextStyle(fontSize: 10)),
+                            child: Text(_state.training.outputDescription ?? "", style: TextStyle(fontSize: 10)),
                           ),
                         ),
                         Container(
