@@ -6,6 +6,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 
 import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
+import '../parts/training_button.dart';
 
 
 class HomeContentsField extends HookConsumerWidget{
@@ -18,27 +19,31 @@ class HomeContentsField extends HookConsumerWidget{
     return Container(
       padding: EdgeInsets.symmetric(vertical: _height*0.02, horizontal: _width*0.05),
       width: _width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            child: Text(
-              "Contents", 
-              style: TextStyle(fontSize: 20,),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Text(
+                "Contents", 
+                style: TextStyle(fontSize: 20,),
+              ),
+              padding: EdgeInsets.only(bottom: _width*0.05)
             ),
-            padding: EdgeInsets.only(bottom: _width*0.05)
-          ),
-          Container(
-            height: 350,
-            child: Column(
-              children: [
-                ServerButton(),
-                SizedBox(height: _height*0.02),
-                CompetitionButton(),
-              ]
-            )
-          )         
-        ]
+            Container(
+              height: 500,
+              child: Column(
+                children: [
+                  ServerButton(),
+                  SizedBox(height: _height*0.02),
+                  CompetitionButton(),
+                  SizedBox(height: _height*0.02),
+                  TrainingButton(),
+                ]
+              )
+            )         
+          ]
+        )
       )
     );
   }

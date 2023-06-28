@@ -12,6 +12,7 @@ import 'news_view_model.dart' as NewsViewModel;
 import 'news_detail_view_model.dart' as NewsDetailViewModel;
 import 'training_form_view_model.dart' as TrainingFormViewModel;
 import 'training_detail_view_model.dart' as TrainingDetailViewModel;
+import 'training_list_view_model.dart' as TrainingListViewModel;
 
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
@@ -62,6 +63,6 @@ final trainingFormStateNotifierProvider = StateNotifierProvider.autoDispose.fami
   (ref, training) => TrainingFormViewModel.TrainingFormStateNotifier(ref.watch(formRepositoryProvider), ref.watch(dbRepositoryProvider), training),
 );
 
-// final trainingDetailStateNotifierProvider = StateNotifierProvider<TrainingDetailViewModel.TrainingDetailStateNotifier, TrainingFormModel.TrainingModel?>(
-//   (ref) => TrainingDetailViewModel.TrainingDetailStateNotifier(ref.watch(dbRepositoryProvider)),
-// );
+final trainingListStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingListViewModel.TrainingListStateNotifier, List<TrainingFormModel.TrainingModel>, String>(
+  (ref, section) => TrainingListViewModel.TrainingListStateNotifier(ref.watch(dbRepositoryProvider), section),
+);

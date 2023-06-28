@@ -41,6 +41,8 @@ class TrainingModel{
     
   @override
   int get hashCode => Object.hashAll([section, id]);
+
+  String get section_id => "${section}-${id}";
 }
 
 class TrainingFormModel {

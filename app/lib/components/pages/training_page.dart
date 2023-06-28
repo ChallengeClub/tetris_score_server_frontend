@@ -26,7 +26,9 @@ class TrainingPage extends ConsumerWidget {
         body: SingleChildScrollView(
           child: ((){
             if (_state.status=="initializing"){
-              return CircularProgressIndicator.adaptive();              
+              return Center(
+                child: CircularProgressIndicator.adaptive()
+              );              
             } else {
               return Column(
                 children: [

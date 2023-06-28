@@ -14,6 +14,7 @@ abstract class DBRepository {
   Future<String> interruptEvaluation(String _id);
   Future<List<NewsModel>> getNews();
   Future<NewsModel> getNewsDetailById(String _id);
+  Future<List<TrainingModel>> getTrainingList(String _section);
   Future<TrainingModel> getTrainingDetail(String _section, String _id);
 }
 
@@ -117,6 +118,22 @@ class DBRepositoryImpl implements DBRepository {
     dynamic _map = convert.jsonDecode(result.body);
     TrainingModel _result = TrainingModel.fromJson(_map);
     return _result;
+  }
+
+  @override
+  Future<List<TrainingModel>> getTrainingList(String _section) async {
+    if (_api==null){
+      throw Error.APINotDefinedError();
+    }
+    final uri = Uri.parse("${_api}/trainings/${_section}");
+    http.Response result = await http.get(uri);
+    print(result);
+    dynamic _map = convert.jsonDecode(result.body);
+    print(_map);
+    List<TrainingModel> results = _map["Items"].map<TrainingModel>(
+        (dynamic item) => TrainingModel.fromJson(item)
+    ).toList();
+    return results;
   }
 
 }
