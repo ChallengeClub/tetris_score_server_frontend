@@ -3,16 +3,24 @@ class TrainingModel{
   final String id;
   final String? title;
   final String? description;
+  final String? inputTemplate;
   final String? inputDescription;
+  final String? inputSample;
+  final String? outputTemplate;
   final String? outputDescription;
+  final String? outputSample;
 
   TrainingModel(
     this.section,
     this.id,
     this.title,
     this.description,
+    this.inputTemplate,
     this.inputDescription,
-    this.outputDescription
+    this.inputSample,
+    this.outputTemplate,
+    this.outputDescription,
+    this.outputSample,
   );
 
   TrainingModel.fromJson(dynamic map)
@@ -20,8 +28,12 @@ class TrainingModel{
     id = map["Id"].toString(),
     title = map['Title'],
     description = map['Description'],
+    inputTemplate = map['InputTemplate'],
     inputDescription = map['InputDescription'],
-    outputDescription = map['OutputDescription'];    
+    inputSample = map['InputSample'],
+    outputTemplate = map['OutputTemplate'],
+    outputDescription = map['OutputDescription'],
+    outputSample = map['OutputSample'];    
 
   @override
   bool operator == (Object other) =>

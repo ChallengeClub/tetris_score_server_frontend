@@ -9,14 +9,14 @@ class TrainingFormStateNotifier extends StateNotifier<TrainingFormModel> {
   final FormRepository _formRepository;
   final DBRepository _dbRepository;
   final TrainingModel _training;
-  TrainingFormStateNotifier(this._formRepository, this._dbRepository, this._training): super(TrainingFormModel(_training,"initialized", null, null)){
+  TrainingFormStateNotifier(this._formRepository, this._dbRepository, this._training): super(TrainingFormModel(_training,"initializing", null, null)){
     fetchTrainingDetail(_training.section, _training.id);
   }
 
   Future<void> fetchTrainingDetail(String section, String id) async {
     try {
       TrainingModel training = await _dbRepository.getTrainingDetail(section, id);
-      state = state.copyWith(training: training);
+      state = state.copyWith(status: "initialized", training: training);
     } catch(e){
       state = state.copyWith(status: "error", error_message: e.toString());
     }

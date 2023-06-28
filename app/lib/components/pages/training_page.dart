@@ -17,9 +17,7 @@ class TrainingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null)));
-    print("build");
-    print(_state.training.title);
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
 
     return SelectionArea(
@@ -27,7 +25,9 @@ class TrainingPage extends ConsumerWidget {
         appBar: AppBar(title: const Text('Tetris Training Page')),
         body: SingleChildScrollView(
           child: ((){
-            if (_state.training!=null){
+            if (_state.status=="initializing"){
+              return CircularProgressIndicator.adaptive();              
+            } else {
               return Column(
                 children: [
                   Container(
@@ -59,11 +59,12 @@ class TrainingPage extends ConsumerWidget {
                             child: Text(_state.training.inputDescription ?? "", style: TextStyle(fontSize: 10)),
                           ),
                         ),
-                        TrainingSampleField("X", false),
+                        TrainingSampleField(_state.training.inputTemplate, false),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: Text("Output", style: TextStyle(fontSize: 15)),
-                        ),
+                        ),                        
+                        TrainingSampleField(_state.training.outputTemplate, false),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
@@ -75,12 +76,12 @@ class TrainingPage extends ConsumerWidget {
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: Text("Input Sample", style: TextStyle(fontSize: 15)),
                         ),
-                        TrainingSampleField("2", true),
+                        TrainingSampleField(_state.training.inputSample, true),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: Text("Output Sample", style: TextStyle(fontSize: 15)),
                         ),
-                        TrainingSampleField("4", true),
+                        TrainingSampleField(_state.training.outputSample, true),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: Text("Source Code", style: TextStyle(fontSize: 15)),
@@ -141,7 +142,7 @@ class TrainingPage extends ConsumerWidget {
                                   child: const Text("Submit"),
                                 )
                               );
-                            } else if (_state.status=="submitting"){
+                            } else if (_state.status=="submitting" || _state.status=="initializing"){
                               return CircularProgressIndicator();
                             } else if (_state.status=="finished"){
                               return Column(
@@ -206,8 +207,6 @@ class TrainingPage extends ConsumerWidget {
                   ),
                 ]
               );
-            } else {
-              return CircularProgressIndicator.adaptive();
             }
           })(),
         )
