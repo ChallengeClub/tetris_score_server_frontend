@@ -27,7 +27,7 @@ class TrainingSampleField extends HookConsumerWidget {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                            Text(_text!, style: TextStyle(fontSize: 10)),
+                            Text(_text!, style: TextStyle(fontSize: 10), overflow: TextOverflow.clip,),
                             (() {
                                 if (_is_copybutton_enabled) {
                                     return InkWell(
