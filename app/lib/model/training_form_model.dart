@@ -9,6 +9,7 @@ class TrainingModel{
   final String? outputTemplate;
   final String? outputDescription;
   final String? outputSample;
+  final String? initialFormValue;
 
   TrainingModel(
     this.section,
@@ -21,6 +22,7 @@ class TrainingModel{
     this.outputTemplate,
     this.outputDescription,
     this.outputSample,
+    this.initialFormValue,
   );
 
   TrainingModel.fromJson(dynamic map)
@@ -33,7 +35,8 @@ class TrainingModel{
     inputSample = map['InputSample'],
     outputTemplate = map['OutputTemplate'],
     outputDescription = map['OutputDescription'],
-    outputSample = map['OutputSample'];    
+    outputSample = map['OutputSample'],
+    initialFormValue = map['InitialFormValue'];  
 
   @override
   bool operator == (Object other) =>

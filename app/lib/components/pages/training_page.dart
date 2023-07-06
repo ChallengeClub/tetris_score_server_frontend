@@ -9,7 +9,7 @@ import '../../view_model/training_form_view_model.dart';
 import '../../view_model/providers.dart';
 import '../parts/training_sample_field.dart';
 
-class TrainingPage extends ConsumerWidget {
+class TrainingPage extends HookConsumerWidget {
   final String _section;
   final String _id;
   TrainingPage(this._section, this._id);
@@ -17,8 +17,15 @@ class TrainingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
+    
+    // 初期値を設定
+    useEffect(() {
+      if (_state.training.initialFormValue != null) {
+        _codeEditingController.text = _state.training.initialFormValue!;
+      }
+    }, [_state.training.initialFormValue]);
 
     return SelectionArea(
       child: Scaffold(
