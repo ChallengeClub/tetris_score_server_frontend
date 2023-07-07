@@ -7,6 +7,8 @@ import 'components/pages/score_server_page.dart';
 import 'components/pages/result_dialog_page.dart';
 import 'components/pages/news_page.dart';
 import 'components/pages/news_detail_page.dart';
+import 'components/pages/training_page.dart';
+import 'components/pages/training_lists_page.dart';
 
 final GoRouter Router = GoRouter(
   routes: <RouteBase>[
@@ -57,6 +59,20 @@ final GoRouter Router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             return ResultDetailPage(state.params['Id'] ?? "");
           },
+        ),
+        GoRoute(
+          path: 'training/:Section/:Id',
+          builder: (BuildContext context, GoRouterState state) {
+            String _section = state.params['Section'] ?? "";
+            String _id = state.params['Id'] ?? "";
+            return TrainingPage(_section, _id);
+          },
+        ),
+        GoRoute(
+          path: 'trainings',
+          builder: (BuildContext context, GoRouterState state) {
+            return TrainingListsPage();
+          }
         ),
       ],
     ),

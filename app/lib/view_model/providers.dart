@@ -10,11 +10,15 @@ import 'result_detail_view_model.dart' as ResultDetailViewModel;
 import 'interrupt_evaluation_view_model.dart' as InterruptionEvaluationViewModel;
 import 'news_view_model.dart' as NewsViewModel;
 import 'news_detail_view_model.dart' as NewsDetailViewModel;
+import 'training_form_view_model.dart' as TrainingFormViewModel;
+import 'training_detail_view_model.dart' as TrainingDetailViewModel;
+import 'training_list_view_model.dart' as TrainingListViewModel;
 
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
 import '../model/results_table_model.dart' as ResultsTableModel;
 import '../model/news_model.dart' as NewsModel;
+import '../model/training_form_model.dart' as TrainingFormModel;
 import '../repository/form_repository.dart';
 import '../repository/file_repository.dart';
 import '../repository/db_repository.dart';
@@ -53,4 +57,12 @@ final newsStateNotifierProvider = StateNotifierProvider<NewsViewModel.NewsStateN
 
 final newsDetailStateNotifierProvider = StateNotifierProvider.autoDispose.family<NewsDetailViewModel.NewsDetailStateNotifier, NewsModel.NewsModel?, String>(
   (ref, id) => NewsDetailViewModel.NewsDetailStateNotifier(ref.watch(dbRepositoryProvider), id),
+);
+
+final trainingFormStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingFormViewModel.TrainingFormStateNotifier, TrainingFormModel.TrainingFormModel, TrainingFormModel.TrainingModel>(
+  (ref, training) => TrainingFormViewModel.TrainingFormStateNotifier(ref.watch(formRepositoryProvider), ref.watch(dbRepositoryProvider), training),
+);
+
+final trainingListStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingListViewModel.TrainingListStateNotifier, List<TrainingFormModel.TrainingModel>, String>(
+  (ref, section) => TrainingListViewModel.TrainingListStateNotifier(ref.watch(dbRepositoryProvider), section),
 );
