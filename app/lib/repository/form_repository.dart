@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../model/form_model.dart';
+import '../model/training_form_model.dart';
 import '../model/score_evaluation_message.pb.dart';
 
 abstract class FormRepository {
@@ -10,6 +11,7 @@ abstract class FormRepository {
   Future<bool> checkExistWeightFile(FormModel msg);
   Future<bool> sendRequestToAPI(FormModel msg);
   Future<bool> sendRequestToEntryAPI(FormModel msg);
+  Future<Map<String, dynamic>> postTrainingCode(TrainingModel msg, String code);
 }
 
 class FormRepositoryImpl implements FormRepository {
@@ -59,5 +61,23 @@ class FormRepositoryImpl implements FormRepository {
     final uri = Uri.parse("${_api}/entry");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
+  }
+
+  @override
+  Future<Map<String, dynamic>> postTrainingCode(TrainingModel training, String code) async {
+    if (_api==null){
+      Map<String, dynamic> result = {
+        "status": false,
+        "results": ["_api is not defined"],
+      };
+      return result;
+    }
+    final uri = Uri.parse("${_api}/training/${training.section}/${training.id}");
+    http.Response response = await http.post(uri, body: code);
+    Map<String, dynamic> result = {
+      "status": response.statusCode == 200,
+      "results": jsonDecode(response.body),
+    };
+    return result;
   }
 }
