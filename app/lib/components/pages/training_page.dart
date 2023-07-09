@@ -8,6 +8,7 @@ import '../../model/training_form_model.dart';
 import '../../view_model/training_form_view_model.dart';
 import '../../view_model/providers.dart';
 import '../parts/training_sample_field.dart';
+import '../parts/training_input_output_sample.dart';
 
 class TrainingPage extends HookConsumerWidget {
   final String _section;
@@ -17,7 +18,7 @@ class TrainingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
     
     // 初期値を設定
@@ -55,7 +56,7 @@ class TrainingPage extends HookConsumerWidget {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                          child: Text(_state.training.description ?? "", style: TextStyle(fontSize: 10)),
+                          child: Text(_state.training.description ?? "", style: TextStyle(fontSize: 12)),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -65,7 +66,7 @@ class TrainingPage extends HookConsumerWidget {
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(_state.training.inputDescription ?? "", style: TextStyle(fontSize: 10)),
+                            child: Text(_state.training.inputDescription ?? "", style: TextStyle(fontSize: 12)),
                           ),
                         ),
                         TrainingSampleField(_state.training.inputTemplate, false),
@@ -78,19 +79,50 @@ class TrainingPage extends HookConsumerWidget {
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
                             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                            child: Text(_state.training.outputDescription ?? "", style: TextStyle(fontSize: 10)),
+                            child: Text(_state.training.outputDescription ?? "", style: TextStyle(fontSize: 12)),
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("Input Sample", style: TextStyle(fontSize: 15)),
+                          child: Text("Constraints", style: TextStyle(fontSize: 15)),
                         ),
-                        TrainingSampleField(_state.training.inputSample, true),
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("Output Sample", style: TextStyle(fontSize: 15)),
+                          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                            child: Text(_state.training.constraints ?? "", style: TextStyle(fontSize: 12)),
+                          ),
                         ),
-                        TrainingSampleField(_state.training.outputSample, true),
+                        TrainingInputOutputSample("InputSample", _state.training.inputSample, true),
+                        TrainingInputOutputSample("OutputSample", _state.training.outputSample, true),
+                        (() {
+                          if (_state.training.sampleDescription==null){
+                            return SizedBox(height: 0);
+                          } else {
+                            return Container(
+                              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                child: Text(_state.training.sampleDescription!, style: TextStyle(fontSize: 12)),
+                              ),
+                            );
+                          }
+                        })(),
+                        TrainingInputOutputSample("InputSample2", _state.training.inputSample2, true),
+                        TrainingInputOutputSample("OutputSample2", _state.training.outputSample2, true),
+                        (() {
+                          if (_state.training.sampleDescription2==null){
+                            return SizedBox(height: 0);
+                          } else {
+                            return Container(
+                              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                child: Text(_state.training.sampleDescription2!, style: TextStyle(fontSize: 12)),
+                              ),
+                            );
+                          }
+                        })(),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: Text("Source Code", style: TextStyle(fontSize: 15)),
@@ -104,7 +136,7 @@ class TrainingPage extends HookConsumerWidget {
                             maxLines: null,
                             expands: true,
                             controller: _codeEditingController,
-                            style: TextStyle(fontSize: 12)
+                            style: TextStyle(fontSize: 10)
                           ),
                           height: _size.height*0.4,
                           decoration: BoxDecoration(
