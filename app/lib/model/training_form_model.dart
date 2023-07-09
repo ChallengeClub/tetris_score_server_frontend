@@ -3,12 +3,17 @@ class TrainingModel{
   final String id;
   final String? title;
   final String? description;
+  final String? constraints;
   final String? inputTemplate;
   final String? inputDescription;
   final String? inputSample;
   final String? outputTemplate;
   final String? outputDescription;
   final String? outputSample;
+  final String? sampleDescription;
+  final String? inputSample2;
+  final String? outputSample2;
+  final String? sampleDescription2;
   final String? initialFormValue;
 
   TrainingModel(
@@ -16,12 +21,17 @@ class TrainingModel{
     this.id,
     this.title,
     this.description,
+    this.constraints,
     this.inputTemplate,
     this.inputDescription,
     this.inputSample,
     this.outputTemplate,
     this.outputDescription,
     this.outputSample,
+    this.sampleDescription,
+    this.inputSample2,
+    this.outputSample2,
+    this.sampleDescription2,
     this.initialFormValue,
   );
 
@@ -30,12 +40,17 @@ class TrainingModel{
     id = map["Id"].toString(),
     title = map['Title'],
     description = map['Description'],
+    constraints = map['Constraints'],
     inputTemplate = map['InputTemplate'],
     inputDescription = map['InputDescription'],
     inputSample = map['InputSample'],
     outputTemplate = map['OutputTemplate'],
     outputDescription = map['OutputDescription'],
     outputSample = map['OutputSample'],
+    sampleDescription = map['SampleDescription'],
+    inputSample2 = map['InputSample2'],
+    outputSample2 = map['OutputSample2'],
+    sampleDescription2 = map['SampleDescription2'],
     initialFormValue = map['InitialFormValue'];  
 
   @override
