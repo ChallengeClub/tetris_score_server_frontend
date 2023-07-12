@@ -12,7 +12,7 @@ class TrainingDetailStateNotifier extends StateNotifier<TrainingModel?> {
     try {
       state = await _dbRepository.getTrainingDetail(section, id);
     } catch(e){
-      state = TrainingModel(section, id, "Error occured", e.toString(),null,null,null, null, null, null, null, null, null, null, null, null);
+      state = TrainingModel(section, id, "Error occured", e.toString(),null,null,null,null, null, null, null, null, null, null, null, null, null);
     }
   }
 }

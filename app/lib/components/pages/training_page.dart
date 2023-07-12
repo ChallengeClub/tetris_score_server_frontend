@@ -18,7 +18,7 @@ class TrainingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
     
     // 初期値を設定
@@ -241,6 +241,30 @@ class TrainingPage extends HookConsumerWidget {
                                 child: const Text("OK"),
                               );
                             } 
+                          })(),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                          child: ((){
+                            if (_state.status=="initialized"){
+                              return ElevatedButton(
+                                onPressed: null,
+                                child: const Text("Answer Example"),
+                              );
+                            } else if (_state.status=="finished"){
+                              return ExpansionPanelList(
+                                children: [
+                                  ExpansionPanel(
+                                    headerBuilder: (BuildContext context, bool isExpanded) {
+                                      return ListTile(
+                                        title: Text("Answer Example"),
+                                      );
+                                    },
+                                    body: Text(_state.training.answerExample!),
+                                  )
+                                ]
+                              );
+                            }
                           })(),
                         ),
                       ]
