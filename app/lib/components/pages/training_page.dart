@@ -236,7 +236,7 @@ class TrainingPage extends HookConsumerWidget {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: TrainingAnswerExample(_state.status!, _state.training.answerExample!),
+                          child: TrainingAnswerExample(_state.status!, _state.training.answerExample ?? ""),
                         ),
                       ]
                     )
