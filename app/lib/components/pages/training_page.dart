@@ -221,22 +221,23 @@ class TrainingPage extends HookConsumerWidget {
                             }
                           })()
                         ),
+                        TrainingSubhead("Answer Example"),
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: TrainingAnswerExample(_state.status!, _state.training.answerExample ?? ""),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           child: ((){
                             if (_state.status=="error" || _state.status=="finished"){
                               return ElevatedButton(
                                 onPressed: (){
                                   ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).initializeState();
                                 },
-                                child: const Text("OK"),
+                                child: const Text("Reset"),
                               );
                             } 
                           })(),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: TrainingAnswerExample(_state.status!, _state.training.answerExample ?? ""),
                         ),
                       ]
                     )

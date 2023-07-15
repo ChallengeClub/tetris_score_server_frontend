@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class TrainingAnswerExample extends HookConsumerWidget {
   final String _answer;
@@ -18,22 +19,33 @@ class TrainingAnswerExample extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children:[
             Container(
+                alignment: Alignment.topLeft,
                 child: ((){
                     if (_status == "initialized"){
-                        return ElevatedButton(
-                            onPressed: null,
-                            child: const Text("Answer Example"),
+                        return Row(
+                            children: [
+                                FlutterSwitch(
+                                    height: 30,
+                                    width: 60,
+                                    onToggle: (_){},
+                                    value: false,
+                                ),
+                                SizedBox(width: 5),
+                                Text("available only after submit"),
+                            ]
                         );
                     } else if (_status == "finished"){
                         return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                                ElevatedButton(
-                                    onPressed: () {
+                                FlutterSwitch(
+                                    height: 30,
+                                    width: 60,
+                                    onToggle: (_){
                                         isOpened.value = !isOpened.value;
                                     },
-                                    child: const Text("Answer Example"),
+                                    value: isOpened.value,
                                 ),
-                                SizedBox(width: 5),
                                 OutlinedButton(
                                     child: const Text('copy', style: TextStyle(fontSize: 10)),
                                     style: OutlinedButton.styleFrom(
@@ -58,7 +70,7 @@ class TrainingAnswerExample extends HookConsumerWidget {
             ),            
             Container(
                 child: ((){
-                    if (isOpened.value==true){
+                    if (isOpened.value==true && _status=="finished"){
                         return Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             padding: EdgeInsets.symmetric(horizontal: 5),

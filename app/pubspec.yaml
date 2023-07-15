@@ -45,6 +45,7 @@ dependencies:
   json_annotation: ^4.7.0
   pluto_grid: ^7.0.2
   go_router: ^6.2.0
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:
