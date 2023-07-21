@@ -14,6 +14,7 @@ class TrainingModel{
   final String? inputSample2;
   final String? outputSample2;
   final String? sampleDescription2;
+  final String? answerExample;
   final String? initialFormValue;
 
   TrainingModel(
@@ -32,6 +33,7 @@ class TrainingModel{
     this.inputSample2,
     this.outputSample2,
     this.sampleDescription2,
+    this.answerExample,
     this.initialFormValue,
   );
 
@@ -51,6 +53,7 @@ class TrainingModel{
     inputSample2 = map['InputSample2'],
     outputSample2 = map['OutputSample2'],
     sampleDescription2 = map['SampleDescription2'],
+    answerExample = map['AnswerExample'],
     initialFormValue = map['InitialFormValue'];  
 
   @override

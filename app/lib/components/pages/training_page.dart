@@ -9,6 +9,8 @@ import '../../view_model/training_form_view_model.dart';
 import '../../view_model/providers.dart';
 import '../parts/training_sample_field.dart';
 import '../parts/training_input_output_sample.dart';
+import '../parts/training_subhead.dart';
+import '../parts/training_answer_example.dart';
 
 class TrainingPage extends HookConsumerWidget {
   final String _section;
@@ -18,7 +20,7 @@ class TrainingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
     
     // 初期値を設定
@@ -50,18 +52,12 @@ class TrainingPage extends HookConsumerWidget {
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           child: Text(_state.training.title ?? "", style: TextStyle(fontSize: 24)),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("Problem Statement", style: TextStyle(fontSize: 15)),
-                        ),
+                        TrainingSubhead("Problem Statement"),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Text(_state.training.description ?? "", style: TextStyle(fontSize: 12)),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("Input", style: TextStyle(fontSize: 15)),
-                        ),
+                        TrainingSubhead("Input"),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
@@ -70,10 +66,7 @@ class TrainingPage extends HookConsumerWidget {
                           ),
                         ),
                         TrainingSampleField(_state.training.inputTemplate, false),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("Output", style: TextStyle(fontSize: 15)),
-                        ),                        
+                        TrainingSubhead("Output"),
                         TrainingSampleField(_state.training.outputTemplate, false),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
@@ -82,10 +75,7 @@ class TrainingPage extends HookConsumerWidget {
                             child: Text(_state.training.outputDescription ?? "", style: TextStyle(fontSize: 12)),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text("Constraints", style: TextStyle(fontSize: 15)),
-                        ),
+                        TrainingSubhead("Constraints"),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                           child: Container(
@@ -231,14 +221,20 @@ class TrainingPage extends HookConsumerWidget {
                             }
                           })()
                         ),
+                        TrainingSubhead("Answer Example"),
                         Container(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: TrainingAnswerExample(_state.status!, _state.training.answerExample ?? ""),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           child: ((){
                             if (_state.status=="error" || _state.status=="finished"){
                               return ElevatedButton(
                                 onPressed: (){
                                   ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).initializeState();
                                 },
-                                child: const Text("OK"),
+                                child: const Text("Reset"),
                               );
                             } 
                           })(),
