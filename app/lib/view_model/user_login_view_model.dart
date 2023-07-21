@@ -1,19 +1,17 @@
 import 'package:state_notifier/state_notifier.dart';
 
-import '../repository/db_repository.dart';
-import '../model/result_model.dart' as ResultModel;
+import '../repository/auth_repository.dart';
+import '../model/user_model.dart';
 
 
-class ResultDetailStateNotifier extends StateNotifier<ResultModel.ResultModel?> {
-  final DBRepository _dbRepository;
-  final String _id;
+class UserLoginStateNotifier extends StateNotifier<UserModel?> {
+  final AuthRepository _authRepository;
   
-  ResultDetailStateNotifier(this._dbRepository, this._id) : super(null){
-    fetchResultDetailById(_id);
-  }
-  Future<void> fetchResultDetailById(String _id) async {
+  UserLoginStateNotifier(this._authRepository) : super(null){}
+
+  Future<void> loginById() async {
     try{
-      state = await _dbRepository.getResultDetailById(_id);
+      state = await _authRepository.siginIn();
     } catch(e){
       print(e);
     }
