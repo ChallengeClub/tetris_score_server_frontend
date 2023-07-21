@@ -127,13 +127,10 @@ class DBRepositoryImpl implements DBRepository {
     }
     final uri = Uri.parse("${_api}/trainings/${_section}");
     http.Response result = await http.get(uri);
-    print(result);
     dynamic _map = convert.jsonDecode(result.body);
-    print(_map);
     List<TrainingModel> results = _map["Items"].map<TrainingModel>(
         (dynamic item) => TrainingModel.fromJson(item)
     ).toList();
     return results;
   }
-
 }

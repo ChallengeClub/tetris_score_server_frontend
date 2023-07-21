@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'training_sample_field.dart';
+import 'training_subhead.dart';
 
 class TrainingInputOutputSample extends ConsumerWidget {
   final String title;
@@ -22,10 +23,7 @@ class TrainingInputOutputSample extends ConsumerWidget {
           child:  Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                child: Text(title, style: TextStyle(fontSize: 15)),
-              ),
+              TrainingSubhead(title),
               TrainingSampleField(sample, is_copy_enabled),
             ]
           )
