@@ -3,9 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../model/news_model.dart';
 import '../../view_model/providers.dart';
+import '../blocks/custom_appbar.dart';
 
 class NewsDetailPage extends HookConsumerWidget {
   final String _id;
@@ -18,7 +18,7 @@ class NewsDetailPage extends HookConsumerWidget {
 
     return SelectionArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text('Tetris HP')),
+        appBar: CustomAppbar(title: const Text('Tetris HP')),
         body: Center(
           child: (() {
             if (_news == null) {
