@@ -16,6 +16,8 @@ jobs:
     env:
       TETRIS_API: ${{ secrets.TETRIS_API_PROD }}
       S3_HOSTING_BUCKET: ${{ secrets.S3_HOSTING_BUCKET_PROD}}
+      TETRIS_AUTH_URL: ${{ secrets.TETRIS_AUTH_URL_PROD }}
+      TETRIS_AUTH_CLIENT_ID: ${{ secrets.TETRIS_AUTH_CLIENT_ID_PROD }}
 
     steps:
       - name: Git clone the repository
