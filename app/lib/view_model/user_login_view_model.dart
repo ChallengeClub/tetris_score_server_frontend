@@ -11,7 +11,7 @@ class UserLoginStateNotifier extends StateNotifier<UserModel?> {
 
   Future<void> loginById() async {
     try{
-      state = await _authRepository.siginIn();
+      state = await _authRepository.signIn();
     } catch(e){
       print(e);
     }

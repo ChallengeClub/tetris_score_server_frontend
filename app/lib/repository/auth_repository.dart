@@ -5,7 +5,7 @@ import '../model/user_model.dart';
 import '../error.dart' as Error;
 
 abstract class AuthRepository {
-  Future<UserModel?> siginIn();
+  Future<UserModel?> signIn();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -13,12 +13,16 @@ class AuthRepositoryImpl implements AuthRepository {
   static const String? _client_id = const String.fromEnvironment('TETRIS_AUTH_CLIENT_ID');
 
   @override
-  Future<UserModel?> signIn(){
+  Future<UserModel?> signIn() async {
+    if (_url==null){
+      throw Error.APINotDefinedError();
+    }
     try {
-      var url = Uri.https(_url, 'login', {'response_type':'code', 'client_id': _client_id, 'redirect_uri'=Uri.base.toString()});
-      http.Response response = await http.get(url);
-      print(response);
-      print(res)
+      String uri_string = "${_url}/login?response_type=code&client_id=${_client_id}&redirect_uri=${Uri.base.toString()}";
+      final uri = Uri.parse(uri_string);
+      http.Response response = await http.get(uri);
+      print(response.body);
+      print(response.statusCode);
       // ログイン成功時の処理を追加
     } catch (e) {
       print('Authentication failed: $e');
