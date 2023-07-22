@@ -9,6 +9,7 @@ import '../blocks/result_detail_table.dart' as ResultDetailTable;
 import '../parts/evaluation_interruption_button.dart';
 import '../../view_model/providers.dart';
 import '../blocks/custom_appbar.dart';
+import '../blocks/user_menu_drawer.dart';
 
 class ResultDetailPage extends HookConsumerWidget {
   final String _id;
@@ -22,6 +23,7 @@ class ResultDetailPage extends HookConsumerWidget {
     return SelectionArea(
       child: Scaffold(
         appBar: CustomAppbar(title: const Text('Tetris HP')),
+        endDrawer: UserMenuDrawer(),
         body: Center(
           child: (() {
             if (result == null) {

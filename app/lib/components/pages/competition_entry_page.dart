@@ -7,6 +7,7 @@ import '../blocks/entry_table.dart';
 import '../blocks/entry_top.dart';
 import '../../view_model/providers.dart';
 import '../blocks/custom_appbar.dart';
+import '../blocks/user_menu_drawer.dart';
 
 class CompetitionEntryPage extends ConsumerWidget {
   final String _competition;
@@ -30,6 +31,7 @@ class CompetitionEntryPage extends ConsumerWidget {
             tabs: tabs,
           ),
         ),
+        endDrawer: UserMenuDrawer(),
         body: TabBarView(
           children: [
             Container(

@@ -8,6 +8,7 @@ import '../blocks/score_server_top.dart';
 import '../parts/table_navigator.dart';
 import '../../view_model/providers.dart';
 import '../blocks/custom_appbar.dart';
+import '../blocks/user_menu_drawer.dart';
 
 class ScoreServerPage extends ConsumerWidget {
   final String _competition;
@@ -31,6 +32,7 @@ class ScoreServerPage extends ConsumerWidget {
               tabs: tabs,
             ),
           ),
+          endDrawer: UserMenuDrawer(),
           body: TabBarView(
             children: [
               Container(

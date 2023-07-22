@@ -12,6 +12,7 @@ import '../parts/training_input_output_sample.dart';
 import '../parts/training_subhead.dart';
 import '../parts/training_answer_example.dart';
 import '../blocks/custom_appbar.dart';
+import '../blocks/user_menu_drawer.dart';
 
 class TrainingPage extends HookConsumerWidget {
   final String _section;
@@ -34,6 +35,7 @@ class TrainingPage extends HookConsumerWidget {
     return SelectionArea(
       child: Scaffold(
         appBar: CustomAppbar(title: const Text('Tetris Training Page')),
+        endDrawer: UserMenuDrawer(),
         body: SingleChildScrollView(
           child: ((){
             if (_state.status=="initializing"){
