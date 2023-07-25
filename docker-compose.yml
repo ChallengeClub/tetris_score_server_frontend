@@ -1,9 +1,12 @@
-version: '0'
+version: '2'
 services:
   frontend:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
+      args:
+        BAZEL_VERSION: "${BAZEL_VERSION}"
+    image: "${OCI_REPOSITORY}:${BAZEL_VERSION}"
     volumes:
       - type: bind
         source: ./app
