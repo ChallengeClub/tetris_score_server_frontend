@@ -1,7 +1,7 @@
 #!/bin/bash
 
 readonly OCI_REPOSITORY=$1
-readonly BAZEL_VERSION=$2
+readonly BAZEL_VERSION=6.3.0
 
 set -o errexit -o nounset -o pipefail
 

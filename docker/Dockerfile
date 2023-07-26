@@ -1,5 +1,5 @@
 # ATTENTION: use the build.sh script to build this image.
-# ./build.sh <OCI_REPOSITORY> <BAZEL_VERSION>
+# ./build.sh <OCI_REPOSITORY> 
 
 FROM ubuntu:20.04 AS base_image
 

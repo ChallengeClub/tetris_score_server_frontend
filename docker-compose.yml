@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
       args:
-        BAZEL_VERSION: "${BAZEL_VERSION}"
-    image: "${OCI_REPOSITORY}:${BAZEL_VERSION}"
+        - BAZEL_VERSION=6.3.0
+    image: "${OCI_REPOSITORY}"
     volumes:
       - type: bind
         source: ./app
