@@ -4,9 +4,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-      args:
-        - BAZEL_VERSION=6.3.0
-    image: "${OCI_REPOSITORY}"
     volumes:
       - type: bind
         source: ./app

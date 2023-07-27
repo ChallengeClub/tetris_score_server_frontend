@@ -1,7 +1,7 @@
 # ATTENTION: use the build.sh script to build this image.
 # ./build.sh <OCI_REPOSITORY> 
 
-FROM ubuntu:20.04 AS base_image
+FROM ubuntu:22.04 AS base_image
 
 # ▼▼▼▼▼download and install bazel▼▼▼▼▼
 # Set up environment variables
@@ -10,26 +10,25 @@ COPY ./app /app
 WORKDIR /app
 # Update the package list
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y git wget g++ cmake unzip zip curl
+RUN apt-get install -y git wget g++ cmake unzip zip unzip curl
 
-# ▼▼▼▼▼ download and install bazel ▼▼▼▼▼
-RUN --mount=source=./docker/install_packages.sh,target=/mnt/install_packages.sh,type=bind \
-    /mnt/install_packages.sh
-
+# ▼▼▼▼▼ マルチステージビルドによりbazelをインストールする ▼▼▼▼▼
 FROM base_image AS downloader
-
-ARG BAZEL_VERSION
+ARG BAZEL_VERSION=6.3.0
 
 WORKDIR /var/bazel
-RUN --mount=source=./docker/install_bazel.sh,target=/mnt/install_bazel.sh,type=bind \
-    /mnt/install_bazel.sh
+RUN curl --remote-name "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-darwin-x86_64"
 
+# ダウンロードした Bazel バイナリの名前を "bazel" に変更し、実行権限を付与
+RUN mv "bazel-${BAZEL_VERSION}-darwin-x86_64" /usr/local/bin/bazel && \
+    chmod +x /usr/local/bin/bazel
+
+# 新しいユーザー 'ubuntu' を作成し、ダウンロードしたBazelのバイナリを現在のステージにコピー
 FROM base_image
-
 RUN useradd --system --create-home --home-dir=/home/ubuntu --shell=/bin/bash --gid=root --groups=sudo --uid=1000 ubuntu
 USER ubuntu
 WORKDIR /home/ubuntu
-COPY --from=downloader /var/bazel/bazel /usr/local/bin/bazel
+COPY --from=downloader /usr/local/bin/bazel /usr/local/bin/bazel
 
 # ▼▼▼▼▼ download and install protobuf ▼▼▼▼▼
 USER root
