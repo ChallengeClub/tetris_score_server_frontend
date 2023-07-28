@@ -1,9 +1,5 @@
-# ATTENTION: use the build.sh script to build this image.
-# ./build.sh <OCI_REPOSITORY> 
-
 FROM ubuntu:22.04 AS base_image
 
-# ▼▼▼▼▼download and install bazel▼▼▼▼▼
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 COPY ./app /app
@@ -12,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y git wget g++ cmake unzip zip unzip curl
 
-# ▼▼▼▼▼ マルチステージビルドによりbazelをインストールする ▼▼▼▼▼
+# ▼▼▼▼▼ download and install bazel ▼▼▼▼▼
 FROM base_image AS downloader
 ARG BAZEL_VERSION=6.3.0
 
