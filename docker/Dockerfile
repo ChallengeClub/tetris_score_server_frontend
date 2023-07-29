@@ -2,7 +2,7 @@ FROM ubuntu:22.04 AS base_image
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
-COPY ./app /app
+COPY . .
 WORKDIR /app
 # Update the package list
 RUN apt-get update && apt-get upgrade -y
