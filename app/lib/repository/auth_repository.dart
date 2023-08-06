@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/user_model.dart';
 import '../error.dart' as Error;
@@ -20,9 +21,9 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       String uri_string = "${_url}/login?response_type=code&client_id=${_client_id}&redirect_uri=${Uri.base.toString()}";
       final uri = Uri.parse(uri_string);
-      http.Response response = await http.get(uri);
-      print(response.body);
-      print(response.statusCode);
+      // http.Response response = await http.get(uri);
+      bool is_logined = await launchUrl(uri, webOnlyWindowName: "_self");
+      print(is_logined);
       // ログイン成功時の処理を追加
     } catch (e) {
       print('Authentication failed: $e');
