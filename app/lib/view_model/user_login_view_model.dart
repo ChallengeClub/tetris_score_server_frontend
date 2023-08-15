@@ -23,10 +23,9 @@ class UserLoginStateNotifier extends StateNotifier<UserModel?> {
   }
   
 
-  Future<void> loginById() async {
+  Future<void> signIn() async {
     try{
-      // state = await _authRepository.signIn();
-      await Future.delayed(Duration(seconds: 0));
+      state = await _authRepository.signIn();
       print("loginButton pressed");
     } catch(e){
       print(e);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../model/user_model.dart';
 import '../../view_model/providers.dart';
@@ -43,13 +44,12 @@ class UserMenuDrawer extends ConsumerWidget{
           ListTile(
             leading: Icon(Icons.login),
             title: Text('Login'),
-            onTap: (){
-              ref.read(userLoginStateNotifierProvider.notifier).loginById();
-            }
+            onTap: () {
+              ref.read(userLoginStateNotifierProvider.notifier).signIn();
+            },
           ),
         ],
       ),
     );
   }
-
 }
