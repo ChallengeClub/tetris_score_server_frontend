@@ -41,13 +41,22 @@ class UserMenuDrawer extends ConsumerWidget{
             leading: Icon(Icons.settings),
             title: Text('Settings'),
           ),
-          ListTile(
-            leading: Icon(Icons.login),
-            title: Text('Login'),
-            onTap: () {
-              ref.read(userLoginStateNotifierProvider.notifier).signIn();
-            },
-          ),
+          if (_state==null)
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                ref.read(userLoginStateNotifierProvider.notifier).signIn();
+              },
+            )
+          else 
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                ref.read(userLoginStateNotifierProvider.notifier).signOut();
+              },
+            )          
         ],
       ),
     );

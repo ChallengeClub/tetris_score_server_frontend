@@ -10,14 +10,14 @@ import '../amplifyconfiguration.dart';
 abstract class AuthRepository {
   Future<void> configAuth();
   Future<UserModel?> signIn();
+  Future<UserModel?> signOut();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> configAuth() async {
     try {
-      final auth = AmplifyAuthCognito();
-      await Amplify.addPlugin(auth);
+      await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
     } on Exception catch (e) {
       safePrint('An error occurred configuring Amplify: $e');
@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel?> signIn() async {
     try {
       final result = await Amplify.Auth.signInWithWebUI(
-        provider: AuthProvider.google,
+        // provider: AuthProvider.google,
       );
       safePrint('Sign in result: $result');
       return null;
@@ -36,5 +36,15 @@ class AuthRepositoryImpl implements AuthRepository {
       safePrint('Error signing in: ${e.message}');
     }
   }
-
+  @override
+  Future<UserModel?> signOut() async {
+    final result = await Amplify.Auth.signOut();
+    if (result is CognitoCompleteSignOut) {
+      safePrint('Sign out completed successfully');
+      return null;
+    } else if (result is CognitoFailedSignOut) {
+      safePrint('Error signing user out: ${result.exception.message}');
+      return null;
+    }
+  }
 }
