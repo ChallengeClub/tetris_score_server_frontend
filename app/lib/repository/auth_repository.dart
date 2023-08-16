@@ -5,7 +5,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 import '../model/user_model.dart';
 import '../error.dart' as Error;
-import '../amplifyconfiguration.dart';
+import '../amplifyconfiguration.dart' as AmplifyConfiguration;
 
 abstract class AuthRepository {
   Future<void> configAuth();
@@ -24,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return;
       }
       await Amplify.addPlugin(AmplifyAuthCognito());
-      await Amplify.configure(amplifyconfig);
+      await Amplify.configure(AmplifyConfiguration.amplifyconfig);
       print("Amplify.configure was called");
       print("Amplify.isConfigured");
       print(Amplify.isConfigured.toString());
