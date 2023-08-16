@@ -10,27 +10,18 @@ import '../model/user_model.dart';
 class UserLoginStateNotifier extends StateNotifier<UserModel?> {
   final AuthRepository _authRepository;
   
-  UserLoginStateNotifier(this._authRepository) : super(null){
+  UserLoginStateNotifier(this._authRepository) : super(null) {
     configAuth();
-    // updateLoginState();
   }
 
   Future<void> configAuth() async {
     try{
-      await _authRepository.configAuth();
-    } catch(e){
-      print(e);
-    }
-  }
-
-  Future<void> updateLoginState() async {
-    try{
+      await _authRepository.configAuth();      
       state = await _authRepository.checkLoginSatatus();
     } catch(e){
       print(e);
     }
   }
-  
 
   Future<void> signIn() async {
     try{

@@ -33,14 +33,6 @@ class UserMenuDrawer extends ConsumerWidget{
             ),
           ),
           ListTile(
-            leading: Icon(Icons.message),
-            title: Text('Messages'),
-          ),
-          ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
-          ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
           ),
@@ -49,13 +41,6 @@ class UserMenuDrawer extends ConsumerWidget{
               leading: Icon(Icons.login),
               title: Text('Login'),
               onTap: () {
-                // showModalBottomSheet(
-                //   context: context,
-                //   builder: (BuildContext context) {
-                //     return Authenticator.builder(
-                //     );
-                //   },
-                // );
                 ref.read(userLoginStateNotifierProvider.notifier).signIn();
               },
             )
@@ -66,14 +51,7 @@ class UserMenuDrawer extends ConsumerWidget{
               onTap: () {
                 ref.read(userLoginStateNotifierProvider.notifier).signOut();
               },
-            ),
-          ListTile(
-            leading: Icon(Icons.login),
-            title: Text('Status check'),
-            onTap: () {
-              ref.read(userLoginStateNotifierProvider.notifier).updateLoginState();
-            },
-          )        
+            ),   
         ],
       ),
     );
