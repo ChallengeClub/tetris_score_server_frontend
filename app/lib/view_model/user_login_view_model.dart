@@ -12,6 +12,7 @@ class UserLoginStateNotifier extends StateNotifier<UserModel?> {
   
   UserLoginStateNotifier(this._authRepository) : super(null){
     configAuth();
+    // updateLoginState();
   }
 
   Future<void> configAuth() async {
@@ -21,11 +22,19 @@ class UserLoginStateNotifier extends StateNotifier<UserModel?> {
       print(e);
     }
   }
+
+  Future<void> updateLoginState() async {
+    try{
+      state = await _authRepository.checkLoginSatatus();
+    } catch(e){
+      print(e);
+    }
+  }
   
 
   Future<void> signIn() async {
     try{
-      state = await _authRepository.signIn();
+      await _authRepository.signIn();
     } catch(e){
       print(e);
     }
@@ -33,7 +42,7 @@ class UserLoginStateNotifier extends StateNotifier<UserModel?> {
 
   Future<void> signOut() async {
     try{
-      state = await _authRepository.signOut();
+      await _authRepository.signOut();
     } catch(e){
       print(e);
     }
