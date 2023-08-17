@@ -31,8 +31,8 @@ const String amplifyconfig = '''{
                         "OAuth": {
                             "WebDomain": "${EnvironmentVariables.tetrisCognitoWebDomain}",
                             "AppClientId": "${EnvironmentVariables.tetrisCognitoAppClientId}",
-                            "SignInRedirectURI": "http://localhost:8888/",
-                            "SignOutRedirectURI": "http://localhost:8888/",
+                            "SignInRedirectURI": "${EnvironmentVariables.tetrisFrontendDomain}/",
+                            "SignOutRedirectURI": "${EnvironmentVariables.tetrisFrontendDomain}/",
                             "Scopes": [
                                 "phone",
                                 "email",

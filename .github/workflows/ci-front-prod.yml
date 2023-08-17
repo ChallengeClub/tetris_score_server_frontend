@@ -15,6 +15,7 @@ jobs:
       TETRIS_COGNITO_USER_POOL_ID: ${{ secrets.TETRIS_COGNITO_USER_POOL_ID_PROD }}
       TETRIS_COGNITO_APP_CLIENT_ID: ${{ secrets.TETRIS_COGNITO_APP_CLIENT_ID_PROD }}
       TETRIS_COGNITO_WEB_DOMAIN: ${{ secrets.TETRIS_COGNITO_WEB_DOMAIN_PROD }}
+      TETRIS_FRONTEND_DOMAIN:  ${{ secrets.TETRIS_FRONT_DOMAIN_PROD }}
     
     steps:
       - name: Git clone the repository
