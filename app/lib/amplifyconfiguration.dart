@@ -1,3 +1,5 @@
+import 'envs.dart';
+
 const String amplifyconfig = '''{
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",
@@ -12,23 +14,23 @@ const String amplifyconfig = '''{
                 "CredentialsProvider": {
                     "CognitoIdentity": {
                         "Default": {
-                            "PoolId": "${String.fromEnvironment('TETRIS_COGNITO_USER_POOL_ID')}",
+                            "PoolId": "${EnvironmentVariables.tetrisCognitoPoolId}",
                             "Region": "ap-northeast-1"
                         }
                     }
                 },
                 "CognitoUserPool": {
                     "Default": {
-                        "PoolId":  "${String.fromEnvironment('TETRIS_COGNITO_USER_POOL_ID')}",
-                        "AppClientId":  "${String.fromEnvironment('TETRIS_COGNITO_APP_CLIENT_ID')}",
+                        "PoolId":  "${EnvironmentVariables.tetrisCognitoPoolId}",
+                        "AppClientId":  "${EnvironmentVariables.tetrisCognitoAppClientId}",
                         "Region": "ap-northeast-1"
                     }
                 },
                 "Auth": {
                     "Default": {
                         "OAuth": {
-                            "WebDomain": "${String.fromEnvironment('TETRIS_COGNITO_WEB_DOMAIN')}",
-                            "AppClientId": "${String.fromEnvironment('TETRIS_COGNITO_APP_CLIENT_ID')}",
+                            "WebDomain": "${EnvironmentVariables.tetrisCognitoWebDomain}",
+                            "AppClientId": "${EnvironmentVariables.tetrisCognitoAppClientId}",
                             "SignInRedirectURI": "http://localhost:8888/",
                             "SignOutRedirectURI": "http://localhost:8888/",
                             "Scopes": [

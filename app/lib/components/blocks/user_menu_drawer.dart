@@ -33,6 +33,20 @@ class UserMenuDrawer extends ConsumerWidget{
             ),
           ),
           ListTile(
+            leading: Icon(Icons.account_circle),
+            title: Text('Profile'),
+          ),
+          if (_state==null)
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+            )
+          else 
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+            ),
+          ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
           ),
@@ -51,7 +65,7 @@ class UserMenuDrawer extends ConsumerWidget{
               onTap: () {
                 ref.read(userLoginStateNotifierProvider.notifier).signOut();
               },
-            ),   
+            ), 
         ],
       ),
     );
