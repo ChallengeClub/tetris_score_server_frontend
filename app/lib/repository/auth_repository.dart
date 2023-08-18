@@ -55,7 +55,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel?> checkLoginSatatus() async {
     try {
       final authSession = await Amplify.Auth.fetchAuthSession();
-      print("login status checked")
+      print("login status checked");
       if (authSession.isSignedIn) {
         print("signed in");
         final user = await Amplify.Auth.getCurrentUser();
