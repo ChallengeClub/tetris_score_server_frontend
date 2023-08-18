@@ -16,8 +16,12 @@ class UserLoginStateNotifier extends StateNotifier<UserModel?> {
 
   Future<void> configAuth() async {
     try{
+      print("config auth in statenotifier started");
       await _authRepository.configAuth();      
+      print("config auth in statenotifier ended");
+      print("checklogin status in statenotifier started");
       state = await _authRepository.checkLoginSatatus();
+      print("checklogin status in statenotifier ended");
     } catch(e){
       print(e);
     }
