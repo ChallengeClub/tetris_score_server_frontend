@@ -56,7 +56,6 @@ class AuthRepositoryImpl implements AuthRepository {
         return UserModel(
           user.userId,
           user.username,
-          "https://github.com/seigot/tetris.git"
         );
       } else {
         return null;

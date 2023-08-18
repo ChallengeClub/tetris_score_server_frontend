@@ -32,10 +32,6 @@ class UserMenuDrawer extends ConsumerWidget{
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
           if (_state==null)
             ListTile(
               leading: Icon(Icons.account_circle),
@@ -43,8 +39,11 @@ class UserMenuDrawer extends ConsumerWidget{
             )
           else 
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+              onTap: () {
+                context.push("/users");
+              },
             ),
           ListTile(
             leading: Icon(Icons.settings),

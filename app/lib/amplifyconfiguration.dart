@@ -1,6 +1,4 @@
-import 'envs.dart';
-
-const String amplifyconfig = '''{
+const amplifyconfig = '''{
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",
     "auth": {
@@ -14,25 +12,25 @@ const String amplifyconfig = '''{
                 "CredentialsProvider": {
                     "CognitoIdentity": {
                         "Default": {
-                            "PoolId": "${EnvironmentVariables.tetrisCognitoPoolId}",
+                            "PoolId": "ap-northeast-1:19567d3b-6bb8-42c2-ba2d-9af83ec3b072",
                             "Region": "ap-northeast-1"
                         }
                     }
                 },
                 "CognitoUserPool": {
                     "Default": {
-                        "PoolId":  "${EnvironmentVariables.tetrisCognitoPoolId}",
-                        "AppClientId":  "${EnvironmentVariables.tetrisCognitoAppClientId}",
+                        "PoolId": "ap-northeast-1_Sc1WdCJXj",
+                        "AppClientId": "26r9h12f2vvurk69naq9r5ej9o",
                         "Region": "ap-northeast-1"
                     }
                 },
                 "Auth": {
                     "Default": {
                         "OAuth": {
-                            "WebDomain": "${EnvironmentVariables.tetrisCognitoWebDomain}",
-                            "AppClientId": "${EnvironmentVariables.tetrisCognitoAppClientId}",
-                            "SignInRedirectURI": "${EnvironmentVariables.tetrisFrontendDomain}/",
-                            "SignOutRedirectURI": "${EnvironmentVariables.tetrisFrontendDomain}/",
+                            "WebDomain": "tetrisauthdev6e0bb537-6e0bb537-dev.auth.ap-northeast-1.amazoncognito.com",
+                            "AppClientId": "26r9h12f2vvurk69naq9r5ej9o",
+                            "SignInRedirectURI": "http://localhost:8888/,http://localhost:8888/",
+                            "SignOutRedirectURI": "http://localhost:8888/,http://localhost:8888/",
                             "Scopes": [
                                 "phone",
                                 "email",
