@@ -18,8 +18,11 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> configAuth() async {
     try {
+      print("config Auth start");
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(AmplifyConfiguration.amplifyconfig);
+      print("config Auth ended");
+
     } on Exception catch (e) {
       safePrint('An error occurred configuring Amplify: $e');
     }
@@ -28,6 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserModel?> signIn() async {
     try {
+      print("SignIn button pressed");
       final result = await Amplify.Auth.signInWithWebUI();
       return null;
     } on AuthException catch (e) {
@@ -51,13 +55,16 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel?> checkLoginSatatus() async {
     try {
       final authSession = await Amplify.Auth.fetchAuthSession();
+      print("login status checked")
       if (authSession.isSignedIn) {
+        print("signed in");
         final user = await Amplify.Auth.getCurrentUser();
         return UserModel(
           user.userId,
           user.username,
         );
       } else {
+        print("signed out");
         return null;
       }
     } catch (e) {
