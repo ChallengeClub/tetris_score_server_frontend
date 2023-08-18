@@ -12,7 +12,11 @@ jobs:
     
     env:
       TETRIS_API: ${{ secrets.TETRIS_API_DEV }}
-
+      TETRIS_COGNITO_USER_POOL_ID: ${{ secrets.TETRIS_COGNITO_USER_POOL_ID_DEV }}
+      TETRIS_COGNITO_APP_CLIENT_ID: ${{ secrets.TETRIS_COGNITO_APP_CLIENT_ID_DEV }}
+      TETRIS_COGNITO_WEB_DOMAIN: ${{ secrets.TETRIS_COGNITO_WEB_DOMAIN_DEV }}
+      TETRIS_FRONTEND_DOMAIN:  ${{ secrets.TETRIS_FRONT_DOMAIN_DEV }}
+    
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3

@@ -9,6 +9,7 @@ import 'components/pages/news_page.dart';
 import 'components/pages/news_detail_page.dart';
 import 'components/pages/training_page.dart';
 import 'components/pages/training_lists_page.dart';
+import 'components/pages/user_page.dart';
 
 final GoRouter Router = GoRouter(
   routes: <RouteBase>[
@@ -58,6 +59,12 @@ final GoRouter Router = GoRouter(
           path: 'results/:Id',
           builder: (BuildContext context, GoRouterState state) {
             return ResultDetailPage(state.params['Id'] ?? "");
+          },
+        ),
+        GoRoute(
+          path: 'users',
+          builder: (BuildContext context, GoRouterState state) {
+            return UserPage();
           },
         ),
         GoRoute(

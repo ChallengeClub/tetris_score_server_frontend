@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../model/news_model.dart';
 import '../../view_model/providers.dart';
+import '../blocks/custom_appbar.dart';
+import '../blocks/user_menu_drawer.dart';
 
 class NewsPage extends ConsumerWidget {
   @override
@@ -16,7 +18,8 @@ class NewsPage extends ConsumerWidget {
     double _news_line_height = _height*0.07;
     double _news_line_width = _width;
     return Scaffold(
-      appBar: AppBar(title: const Text('Tetris News Page')),
+      appBar: CustomAppbar(title: const Text('Tetris News Page')),
+      endDrawer: UserMenuDrawer(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: _height*0.02, horizontal: _width*0.05),
