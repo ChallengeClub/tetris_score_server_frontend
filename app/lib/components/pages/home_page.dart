@@ -10,6 +10,7 @@ import '../blocks/home_news.dart';
 import '../blocks/home_contents.dart';
 import '../blocks/custom_appbar.dart';
 import '../blocks/user_menu_drawer.dart';
+import 'chat_room.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -35,7 +36,10 @@ class HomePage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               HomeNewsField(_size.width/3, _size.height),
-              HomeContentsField(_size.width*0.45, _size.height),
+              HomeContentsField(_size.width*0.4, _size.height),
+              const Expanded(
+                child: ChatRoomField(),
+              ),
             ],
           );
         }
