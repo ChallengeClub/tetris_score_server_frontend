@@ -10,7 +10,7 @@ import '../blocks/home_news.dart';
 import '../blocks/home_contents.dart';
 import '../blocks/custom_appbar.dart';
 import '../blocks/user_menu_drawer.dart';
-import 'chat_room.dart';
+import 'chat_page.dart';
 
 class HomePage extends ConsumerWidget {
   @override
