@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
@@ -19,7 +20,7 @@ class ChatRoom extends State<ChatRoomField> {
     id: 'tetris',
     firstName: "Smino",
     lastName: "",
-    imageUrl: "",
+    imageUrl: "images/Smino.jpg",
   );
   ApiService? _apiService;
 
@@ -70,10 +71,8 @@ class ChatRoom extends State<ChatRoomField> {
     );
 
     _addMessage(textMessage);
-
     Map<String, dynamic>? apiResponseData = await _apiService?.performAuthorizedPost(message.text);
-
-    final responseText = apiResponseData?['status'] ?? 'Failed';
+    final responseText = apiResponseData?['message'] ?? 'Failed';
     debugPrint(responseText);
 
     final responseMessage = types.TextMessage(
@@ -97,13 +96,49 @@ class ApiService {
   String? get getIdentityId => _identityId;
 
   Future<Map<String, dynamic>> performAuthorizedGet() async {
-    return {'status': 'test', 'reason': 'test'};
+    final response = await http.get(Uri.parse('https://baf4kq3w1d.execute-api.ap-northeast-1.amazonaws.com/Prod/ask'));
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      return jsonResponse;
+    }else{
+      return {'status': 'Error'};
+    }
   }
 
   Future<Map<String, dynamic>> performAuthorizedPost(String inputText) async {
-    return {'status': 'test', 'reason': 'test'};
+    print("send message");
+    String apiUrl = 'https://baf4kq3w1d.execute-api.ap-northeast-1.amazonaws.com/Prod/ask';
+    Map<String, dynamic> data = {
+      'input_text': inputText,
+      'identity_id': 'identity_id',
+      'character_name': 'character_name',
+    };
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(data),
+    );
+
+    if (response.statusCode == 200) {
+      try {
+        var jsonResponse = json.decode(response.body);
+        return jsonResponse;
+      } catch (e) {
+        print("Error decoding response: $e");
+        return {'status': 'Error', 'message': 'Invalid response format'};
+      }
+    } else {
+      return {'status': 'Error'};
+    }
   }
 
   Future<void> signOut() async {
+    try {
+      debugPrint('Successfully signed out');
+    } catch (e) {
+      debugPrint('Error signing out: $e');
+    }
   }
 }
