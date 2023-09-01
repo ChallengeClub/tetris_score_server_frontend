@@ -94,9 +94,10 @@ String randomString() {
 class ApiService {
   String? _identityId;
   String? get getIdentityId => _identityId;
+  static const apiUrl = 'https://ms2pp1ypcf.execute-api.ap-northeast-1.amazonaws.com/tetris_api_stage';
 
   Future<Map<String, dynamic>> performAuthorizedGet() async {
-    final response = await http.get(Uri.parse('https://baf4kq3w1d.execute-api.ap-northeast-1.amazonaws.com/Prod/ask'));
+    final response = await http.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
       return jsonResponse;
@@ -106,8 +107,7 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> performAuthorizedPost(String inputText) async {
-    print("send message");
-    String apiUrl = 'https://baf4kq3w1d.execute-api.ap-northeast-1.amazonaws.com/Prod/ask';
+    debugPrint("post message");
     Map<String, dynamic> data = {
       'input_text': inputText,
       'identity_id': 'identity_id',
@@ -126,7 +126,7 @@ class ApiService {
         var jsonResponse = json.decode(response.body);
         return jsonResponse;
       } catch (e) {
-        print("Error decoding response: $e");
+        debugPrint("Error decoding response: $e");
         return {'status': 'Error', 'message': 'Invalid response format'};
       }
     } else {
