@@ -94,7 +94,7 @@ String randomString() {
 class ApiService {
   String? _identityId;
   String? get getIdentityId => _identityId;
-  static const apiUrl = 'https://ms2pp1ypcf.execute-api.ap-northeast-1.amazonaws.com/tetris_api_stage';
+  static const apiUrl = 'https://ms2pp1ypcf.execute-api.ap-northeast-1.amazonaws.com/Stage/chat';
 
   Future<Map<String, dynamic>> performAuthorizedGet() async {
     final response = await http.get(Uri.parse(apiUrl));
