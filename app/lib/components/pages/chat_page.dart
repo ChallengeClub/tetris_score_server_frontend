@@ -71,7 +71,8 @@ class ChatRoom extends State<ChatRoomField> {
     );
 
     _addMessage(textMessage);
-    Map<String, dynamic>? apiResponseData = await _apiService?.performAuthorizedPost(message.text);
+    //Map<String, dynamic>? apiResponseData = await _apiService?.performAuthorizedPost(message.text);
+    Map<String, dynamic>? apiResponseData = await _apiService?.performAuthorizedGet();
     final responseText = apiResponseData?['message'] ?? 'Failed';
     debugPrint(responseText);
 
