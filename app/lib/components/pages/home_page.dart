@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'score_server_page.dart';
 import 'competition_entry_page.dart';
+import 'chat_page.dart';
 import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
 import '../blocks/home_news.dart';
@@ -35,7 +36,10 @@ class HomePage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               HomeNewsField(_size.width/3, _size.height),
-              HomeContentsField(_size.width*0.45, _size.height),
+              HomeContentsField(_size.width/3, _size.height),
+              const Expanded(
+                child: ChatRoomField(),
+              ),
             ],
           );
         }
