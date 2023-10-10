@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 import '../model/form_model.dart';
@@ -12,6 +13,7 @@ abstract class FormRepository {
   Future<bool> sendRequestToAPI(FormModel msg);
   Future<bool> sendRequestToEntryAPI(FormModel msg);
   Future<Map<String, dynamic>> postTrainingCode(TrainingModel msg, String code);
+  Future<Map<String, dynamic>> postTurtleTrainingCode(TrainingModel training, String code);
 }
 
 class FormRepositoryImpl implements FormRepository {
@@ -78,6 +80,25 @@ class FormRepositoryImpl implements FormRepository {
       "status": response.statusCode == 200,
       "results": jsonDecode(response.body),
     };
+    return result;
+  }
+
+  @override
+  Future<Map<String, dynamic>> postTurtleTrainingCode(TrainingModel training, String code) async {
+    if (_api==null){
+      Map<String, dynamic> result = {
+        "status": false,
+        "results": ["_api is not defined"],
+      };
+      return result;
+    }
+    final uri = Uri.parse("${_api}/turtle-training");
+    http.Response response = await http.post(uri, body: code);
+    Map<String, dynamic> result = {
+      "status": response.statusCode == 200,
+      "response": base64Decode(response.body),
+    };
+
     return result;
   }
 }

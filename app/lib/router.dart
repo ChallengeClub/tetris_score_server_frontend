@@ -8,6 +8,7 @@ import 'components/pages/result_dialog_page.dart';
 import 'components/pages/news_page.dart';
 import 'components/pages/news_detail_page.dart';
 import 'components/pages/training_page.dart';
+import 'components/pages/turtle_training_page.dart';
 import 'components/pages/training_lists_page.dart';
 import 'components/pages/user_page.dart';
 
@@ -68,18 +69,30 @@ final GoRouter Router = GoRouter(
           },
         ),
         GoRoute(
-          path: 'training/:Section/:Id',
-          builder: (BuildContext context, GoRouterState state) {
-            String _section = state.params['Section'] ?? "";
-            String _id = state.params['Id'] ?? "";
-            return TrainingPage(_section, _id);
-          },
-        ),
-        GoRoute(
           path: 'trainings',
           builder: (BuildContext context, GoRouterState state) {
             return TrainingListsPage();
-          }
+          },
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'algorithm/:Id',
+              builder: (BuildContext context, GoRouterState state) {
+                return TrainingPage("algorithm", state.params['Id'] ?? "");
+              },
+            ),      
+            GoRoute(
+              path: 'tetris/:Id',
+              builder: (BuildContext context, GoRouterState state) {
+                return TrainingPage("tetris", state.params['Id'] ?? "");
+              },
+            ),      
+            GoRoute(
+              path: 'turtle/:Id',
+              builder: (BuildContext context, GoRouterState state) {
+                return TurtleTrainingPage("turtle", state.params['Id'] ?? "");
+              },
+            ),
+          ]
         ),
       ],
     ),
