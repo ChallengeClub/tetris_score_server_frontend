@@ -49,7 +49,6 @@ class TrainingFormStateNotifier extends StateNotifier<TrainingFormModel> {
       Map<String, dynamic> res;
       state = state.copyWith(status: "submitting");
       res = await _formRepository.postTurtleTrainingCode(state.training!, code);
-      // image_byteへのキャストは要修正
       state = res["status"] ? state.copyWith(status: "finished", image_byte: res["response"]) : state.copyWith(status: "error", error_message: "failed to submit code to api\n${res["response"]}");
     } catch(e){
       state = state.copyWith(status: "error", error_message: "error occured\n${e}");
