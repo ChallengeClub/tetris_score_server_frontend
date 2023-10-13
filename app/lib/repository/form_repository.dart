@@ -12,7 +12,8 @@ abstract class FormRepository {
   Future<bool> checkExistWeightFile(FormModel msg);
   Future<bool> sendRequestToAPI(FormModel msg);
   Future<bool> sendRequestToEntryAPI(FormModel msg);
-  Future<Map<String, dynamic>> postTrainingCode(TrainingModel msg, String code);
+  Future<Map<String, dynamic>> postAlgorithmTrainingCode(TrainingModel msg, String code);
+  Future<Map<String, dynamic>> postTetrisTrainingCode(TrainingModel msg, String code);
   Future<Map<String, dynamic>> postTurtleTrainingCode(TrainingModel training, String code);
 }
 
@@ -66,7 +67,7 @@ class FormRepositoryImpl implements FormRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> postTrainingCode(TrainingModel training, String code) async {
+  Future<Map<String, dynamic>> postAlgorithmTrainingCode(TrainingModel training, String code) async {
     if (_api==null){
       Map<String, dynamic> result = {
         "status": false,
@@ -74,7 +75,25 @@ class FormRepositoryImpl implements FormRepository {
       };
       return result;
     }
-    final uri = Uri.parse("${_api}/training/${training.section}/${training.id}");
+    final uri = Uri.parse("${_api}/trainings/algorithm/${training.id}");
+    http.Response response = await http.post(uri, body: code);
+    Map<String, dynamic> result = {
+      "status": response.statusCode == 200,
+      "results": jsonDecode(response.body),
+    };
+    return result;
+  }
+
+  @override
+  Future<Map<String, dynamic>> postTetrisTrainingCode(TrainingModel training, String code) async {
+    if (_api==null){
+      Map<String, dynamic> result = {
+        "status": false,
+        "results": ["_api is not defined"],
+      };
+      return result;
+    }
+    final uri = Uri.parse("${_api}/trainings/tetris/${training.id}");
     http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
       "status": response.statusCode == 200,
@@ -92,11 +111,11 @@ class FormRepositoryImpl implements FormRepository {
       };
       return result;
     }
-    final uri = Uri.parse("${_api}/turtle-training");
+    final uri = Uri.parse("${_api}/trainings/turtle");
     http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
       "status": response.statusCode == 200,
-      "response": base64Decode(response.body),
+      "response": base64Decode(response.body), // decode to image binary
     };
 
     return result;

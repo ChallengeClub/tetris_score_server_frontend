@@ -14,15 +14,14 @@ import '../parts/training_answer_example.dart';
 import '../blocks/custom_appbar.dart';
 import '../blocks/user_menu_drawer.dart';
 
-class TrainingPage extends HookConsumerWidget {
-  final String _section;
+class TrainingAlgorithmPage extends HookConsumerWidget {
   final String _id;
-  TrainingPage(this._section, this._id);
+  TrainingAlgorithmPage(this._id);
   final TextEditingController _codeEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel("algorithm", _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
     
     // 初期値を設定
@@ -161,7 +160,7 @@ class TrainingPage extends HookConsumerWidget {
                                               TextButton(
                                                 child: Text("OK"),
                                                 onPressed: () {
-                                                  ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).submitCode(
+                                                  ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).submitAlgorithmCode(
                                                       _codeEditingController.text,
                                                   );
                                                   Navigator.pop(context);

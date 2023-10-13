@@ -7,8 +7,9 @@ import 'components/pages/score_server_page.dart';
 import 'components/pages/result_dialog_page.dart';
 import 'components/pages/news_page.dart';
 import 'components/pages/news_detail_page.dart';
-import 'components/pages/training_page.dart';
-import 'components/pages/turtle_training_page.dart';
+import 'components/pages/training_algorithm_page.dart';
+import 'components/pages/training_turtle_page.dart';
+import 'components/pages/training_tetris_page.dart';
 import 'components/pages/training_lists_page.dart';
 import 'components/pages/user_page.dart';
 
@@ -77,19 +78,19 @@ final GoRouter Router = GoRouter(
             GoRoute(
               path: 'algorithm/:Id',
               builder: (BuildContext context, GoRouterState state) {
-                return TrainingPage("algorithm", state.params['Id'] ?? "");
+                return TrainingAlgorithmPage(state.params['Id'] ?? "");
               },
             ),      
             GoRoute(
               path: 'tetris/:Id',
               builder: (BuildContext context, GoRouterState state) {
-                return TrainingPage("tetris", state.params['Id'] ?? "");
+                return TrainingTetrisPage(state.params['Id'] ?? "");
               },
             ),      
             GoRoute(
               path: 'turtle/:Id',
               builder: (BuildContext context, GoRouterState state) {
-                return TurtleTrainingPage("turtle", state.params['Id'] ?? "");
+                return TurtleTrainingPage(state.params['Id'] ?? "");
               },
             ),
           ]

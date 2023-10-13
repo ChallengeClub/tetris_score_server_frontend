@@ -15,14 +15,13 @@ import '../blocks/custom_appbar.dart';
 import '../blocks/user_menu_drawer.dart';
 
 class TurtleTrainingPage extends HookConsumerWidget {
-  final String _section;
   final String _id;
-  TurtleTrainingPage(this._section, this._id);
+  TurtleTrainingPage(this._id);
   final TextEditingController _codeEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel("turtle", _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
     
     // 初期値を設定
