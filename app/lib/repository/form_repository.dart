@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
+import '../error.dart' as Error;
 
 import '../model/form_model.dart';
 import '../model/training_form_model.dart';
@@ -18,8 +19,8 @@ abstract class FormRepository {
 }
 
 class FormRepositoryImpl implements FormRepository {
-  static const String? _api = const String.fromEnvironment('TETRIS_API');
-
+  static String _api = const String.fromEnvironment('TETRIS_API') ?? (throw Error.APINotDefinedError());
+  
   @override
   // this method must be called after formStateNotifier.checkRepositoryURLPattern
   Future<bool> checkExistBranch(FormModel msg) async {
@@ -47,9 +48,6 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> sendRequestToAPI(FormModel msg) async {
     ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
-    if (_api==null){
-      return false;
-    }
     final uri = Uri.parse("${_api}/evaluation");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
@@ -58,9 +56,6 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> sendRequestToEntryAPI(FormModel msg) async {
     ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
-    if (_api==null){
-      return false;
-    }
     final uri = Uri.parse("${_api}/entry");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
@@ -68,13 +63,6 @@ class FormRepositoryImpl implements FormRepository {
 
   @override
   Future<Map<String, dynamic>> postAlgorithmTrainingCode(TrainingModel training, String code) async {
-    if (_api==null){
-      Map<String, dynamic> result = {
-        "status": false,
-        "results": ["_api is not defined"],
-      };
-      return result;
-    }
     final uri = Uri.parse("${_api}/trainings/algorithm/${training.id}");
     http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
@@ -86,13 +74,6 @@ class FormRepositoryImpl implements FormRepository {
 
   @override
   Future<Map<String, dynamic>> postTetrisTrainingCode(TrainingModel training, String code) async {
-    if (_api==null){
-      Map<String, dynamic> result = {
-        "status": false,
-        "results": ["_api is not defined"],
-      };
-      return result;
-    }
     final uri = Uri.parse("${_api}/trainings/tetris/${training.id}");
     http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
@@ -104,13 +85,6 @@ class FormRepositoryImpl implements FormRepository {
 
   @override
   Future<Map<String, dynamic>> postTurtleTrainingCode(TrainingModel training, String code) async {
-    if (_api==null){
-      Map<String, dynamic> result = {
-        "status": false,
-        "results": ["_api is not defined"],
-      };
-      return result;
-    }
     final uri = Uri.parse("${_api}/trainings/turtle");
     http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
