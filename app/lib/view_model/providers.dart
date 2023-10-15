@@ -1,7 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:fixnum/fixnum.dart' as $fixnum;
 
-
 import 'form_view_model.dart' as FormViewModel;
 import 'results_table_view_model.dart' as ResultsTableViewModel;
 import 'entries_view_model.dart' as EntriesViewModel;
@@ -11,7 +10,6 @@ import 'interrupt_evaluation_view_model.dart' as InterruptionEvaluationViewModel
 import 'news_view_model.dart' as NewsViewModel;
 import 'news_detail_view_model.dart' as NewsDetailViewModel;
 import 'training_form_view_model.dart' as TrainingFormViewModel;
-import 'training_detail_view_model.dart' as TrainingDetailViewModel;
 import 'training_list_view_model.dart' as TrainingListViewModel;
 
 import '../model/result_model.dart' as ResultModel;

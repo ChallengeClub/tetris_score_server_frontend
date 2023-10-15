@@ -24,7 +24,7 @@ class TrainingListBlock extends ConsumerWidget {
         itemCount: _trainings.length,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => context.push('/training/${_section}/${_trainings[index].id}'),
+            onTap: () => context.push('/trainings/${_section}/${_trainings[index].id}'),
             child: Container(
             padding: EdgeInsets.symmetric(horizontal: _line_width*0.08),
             height: _line_height,
