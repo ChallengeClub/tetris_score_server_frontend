@@ -11,7 +11,6 @@ import 'components/pages/training_algorithm_page.dart';
 import 'components/pages/training_turtle_page.dart';
 import 'components/pages/training_tetris_page.dart';
 import 'components/pages/training_lists_page.dart';
-import 'components/pages/user_page.dart';
 
 final GoRouter Router = GoRouter(
   routes: <RouteBase>[
@@ -61,12 +60,6 @@ final GoRouter Router = GoRouter(
           path: 'results/:Id',
           builder: (BuildContext context, GoRouterState state) {
             return ResultDetailPage(state.params['Id'] ?? "");
-          },
-        ),
-        GoRoute(
-          path: 'users',
-          builder: (BuildContext context, GoRouterState state) {
-            return UserPage();
           },
         ),
         GoRoute(

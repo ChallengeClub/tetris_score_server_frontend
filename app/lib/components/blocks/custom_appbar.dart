@@ -11,7 +11,7 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(userLoginStateNotifierProvider); // this part is only for call auth configure method
+    // ref.watch(userLoginStateNotifierProvider); // this part is only for call auth configure method
     return AppBar(
       title: title,
       bottom: bottom,

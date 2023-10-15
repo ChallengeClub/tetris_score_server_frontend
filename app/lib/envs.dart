@@ -1,6 +1,5 @@
-class EnvironmentVariables {
-    static const tetrisCognitoPoolId = String.fromEnvironment('TETRIS_COGNITO_USER_POOL_ID');
-    static const tetrisCognitoAppClientId = String.fromEnvironment('TETRIS_COGNITO_APP_CLIENT_ID');
-    static const tetrisCognitoWebDomain = String.fromEnvironment('TETRIS_COGNITO_WEB_DOMAIN');
+import 'error.dart' as Error;
+class EnvironmentVariables {    
+    static String apiUrl = const String.fromEnvironment('TETRIS_API') ?? (throw Error.APINotDefinedError());
     static const tetrisFrontendDomain = String.fromEnvironment('TETRIS_FRONTEND_DOMAIN');
 }

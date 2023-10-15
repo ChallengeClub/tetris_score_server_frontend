@@ -5,7 +5,7 @@ import '../model/result_model.dart';
 import '../model/entry_model.dart';
 import '../model/news_model.dart';
 import '../model/training_form_model.dart';
-import '../error.dart' as Error;
+import '../envs.dart' as Env;
 
 abstract class DBRepository {
   Future<Map<String, dynamic>> getEvaluationResults(int _limit, String _competition, dynamic? _exclusive_start_key);
@@ -19,11 +19,9 @@ abstract class DBRepository {
 }
 
 class DBRepositoryImpl implements DBRepository {
-  static String _api = const String.fromEnvironment('TETRIS_API') ?? (throw Error.APINotDefinedError());
-
   @override
   Future<Map<String, dynamic>> getEvaluationResults(int _limit, String _competition, dynamic? _exclusive_start_key) async {
-    String uri_string = "${_api}/results?limit=${_limit}&competition=${_competition}";
+    String uri_string = "${Env.EnvironmentVariables.apiUrl}/results?limit=${_limit}&competition=${_competition}";
     if (_exclusive_start_key!=null){
       uri_string += "&exclusive_start_key=${convert.jsonEncode(_exclusive_start_key)}";
     }
@@ -41,7 +39,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<ResultModel> getResultDetailById(String _id) async {
-    final uri = Uri.parse("${_api}/result/${_id}");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/result/${_id}");
     http.Response result = await http.get(uri);
     dynamic _map = convert.jsonDecode(result.body);
     ResultModel _result = ResultModel.fromJson(_map);
@@ -50,7 +48,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<List<EntryModel>> getEntries() async {
-    final uri = Uri.parse("${_api}/entries");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/entries");
     http.Response result = await http.get(uri);
     List<dynamic> _map = convert.jsonDecode(result.body);
     List<EntryModel> results = _map.map(
@@ -61,7 +59,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<String> interruptEvaluation(String _id) async {
-    final uri = Uri.parse("${_api}/evaluation/cancel/${_id}");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/evaluation/cancel/${_id}");
     http.Response result = await http.put(uri);
     String res = "";
     if (result.statusCode!=200){
@@ -72,7 +70,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<List<NewsModel>> getNews() async {
-    final uri = Uri.parse("${_api}/news");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/news");
     http.Response result = await http.get(uri);
     List<dynamic> _map = convert.jsonDecode(result.body);
     List<NewsModel> results = _map.map(
@@ -83,7 +81,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<NewsModel> getNewsDetailById(String _id) async {
-    final uri = Uri.parse("${_api}/news/${_id}");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/news/${_id}");
     http.Response result = await http.get(uri);
     dynamic _map = convert.jsonDecode(result.body);
     NewsModel _result = NewsModel.fromJson(_map);
@@ -92,7 +90,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<TrainingModel> getTrainingDetail(String _section, String _id) async {
-    final uri = Uri.parse("${_api}/training/${_section}/${_id}");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/training/${_section}/${_id}");
     http.Response result = await http.get(uri);
     dynamic _map = convert.jsonDecode(result.body);
     TrainingModel _result = TrainingModel.fromJson(_map);
@@ -101,7 +99,7 @@ class DBRepositoryImpl implements DBRepository {
 
   @override
   Future<List<TrainingModel>> getTrainingList(String _section) async {
-    final uri = Uri.parse("${_api}/trainings/${_section}");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/trainings/${_section}");
     http.Response result = await http.get(uri);
     dynamic _map = convert.jsonDecode(result.body);
     List<TrainingModel> results = _map["Items"].map<TrainingModel>(

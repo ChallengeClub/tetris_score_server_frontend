@@ -11,23 +11,19 @@ import 'news_view_model.dart' as NewsViewModel;
 import 'news_detail_view_model.dart' as NewsDetailViewModel;
 import 'training_form_view_model.dart' as TrainingFormViewModel;
 import 'training_list_view_model.dart' as TrainingListViewModel;
-import 'user_login_view_model.dart' as UserLoginViewModel;
 
 import '../model/result_model.dart' as ResultModel;
 import '../model/entry_model.dart' as EntryModel;
 import '../model/results_table_model.dart' as ResultsTableModel;
 import '../model/news_model.dart' as NewsModel;
 import '../model/training_form_model.dart' as TrainingFormModel;
-import '../model/user_model.dart' as UserModel;
 import '../repository/form_repository.dart';
 import '../repository/file_repository.dart';
 import '../repository/db_repository.dart';
-import '../repository/auth_repository.dart';
 
 final formRepositoryProvider = Provider<FormRepository>((ref) => FormRepositoryImpl());
 final dbRepositoryProvider = Provider<DBRepository>((ref) => DBRepositoryImpl());
 final fileRepositoryProvider = Provider<FileRepository>((ref) => FileRepositoryImpl());
-final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepositoryImpl());
 
 final formStateNotifierProvider = StateNotifierProvider(
   (ref) => FormViewModel.FormStateNotifier(ref.watch(formRepositoryProvider)),
@@ -67,8 +63,4 @@ final trainingFormStateNotifierProvider = StateNotifierProvider.autoDispose.fami
 
 final trainingListStateNotifierProvider = StateNotifierProvider.autoDispose.family<TrainingListViewModel.TrainingListStateNotifier, List<TrainingFormModel.TrainingModel>, String>(
   (ref, section) => TrainingListViewModel.TrainingListStateNotifier(ref.watch(dbRepositoryProvider), section),
-);
-
-final userLoginStateNotifierProvider = StateNotifierProvider<UserLoginViewModel.UserLoginStateNotifier, UserModel.UserModel?>(
-  (ref) => UserLoginViewModel.UserLoginStateNotifier(ref.watch(authRepositoryProvider))
 );
