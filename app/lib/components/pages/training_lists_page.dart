@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../view_model/providers.dart';
 import '../blocks/training_list_block.dart';
-import '../blocks/custom_appbar.dart';
-import '../blocks/user_menu_drawer.dart';
 
 class TrainingListsPage extends ConsumerWidget {
   @override
@@ -17,8 +15,7 @@ class TrainingListsPage extends ConsumerWidget {
     double _line_height = _height*0.07;
     double _line_width = _width;
     return Scaffold(
-      appBar: CustomAppbar(title: const Text('Tetris Training Page')),
-      endDrawer: UserMenuDrawer(),
+      appBar: AppBar(title: const Text('Tetris Training Page')),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: _height*0.02, horizontal: _width*0.05),

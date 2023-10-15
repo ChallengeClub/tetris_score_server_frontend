@@ -8,16 +8,13 @@ import '../parts/server_button.dart';
 import '../parts/competition_button.dart';
 import '../blocks/home_news.dart';
 import '../blocks/home_contents.dart';
-import '../blocks/custom_appbar.dart';
-import '../blocks/user_menu_drawer.dart';
 
 class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppbar(title: Text('Tetris HP')),
-      endDrawer: UserMenuDrawer(),
+      appBar: AppBar(title: const Text('Tetris HP')),
       body: ((){
         if (_size.width < 700){
           return SingleChildScrollView(
