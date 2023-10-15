@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class TrainingModel{
   final String section;
   final String id;
@@ -71,20 +73,23 @@ class TrainingFormModel {
   final String status;
   final String? error_message;
   final List<String>? results;
+  final Uint8List? image_byte;
   
   TrainingFormModel(
     this.training,
     this.status,
     this.error_message,
     this.results,
+    this.image_byte,
   );
 
-  TrainingFormModel copyWith({TrainingModel? training, String? status, String? error_message, List<String>? results}){
+  TrainingFormModel copyWith({TrainingModel? training, String? status, String? error_message, List<String>? results, Uint8List? image_byte}){
     return TrainingFormModel(
       training ?? this.training,
       status ?? this.status,
       error_message ?? this.error_message,
       results ?? this.results,
+      image_byte ?? this.image_byte,
     );
   }
 }

@@ -35,8 +35,9 @@ class TrainingListsPage extends ConsumerWidget {
                 ),
                 padding: EdgeInsets.only(bottom: _width*0.05)
               ),
-              TrainingListBlock("test"),
-              TrainingListBlock("tetris")
+              TrainingListBlock("algorithm"),
+              TrainingListBlock("tetris"),              
+              TrainingListBlock("turtle"),
             ]
           )
         )

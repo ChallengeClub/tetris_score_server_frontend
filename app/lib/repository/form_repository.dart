@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
+import '../envs.dart' as Env;
 
 import '../model/form_model.dart';
 import '../model/training_form_model.dart';
@@ -11,12 +13,12 @@ abstract class FormRepository {
   Future<bool> checkExistWeightFile(FormModel msg);
   Future<bool> sendRequestToAPI(FormModel msg);
   Future<bool> sendRequestToEntryAPI(FormModel msg);
-  Future<Map<String, dynamic>> postTrainingCode(TrainingModel msg, String code);
+  Future<Map<String, dynamic>> postAlgorithmTrainingCode(TrainingModel msg, String code);
+  Future<Map<String, dynamic>> postTetrisTrainingCode(TrainingModel msg, String code);
+  Future<Map<String, dynamic>> postTurtleTrainingCode(TrainingModel training, String code);
 }
 
 class FormRepositoryImpl implements FormRepository {
-  static const String? _api = const String.fromEnvironment('TETRIS_API');
-
   @override
   // this method must be called after formStateNotifier.checkRepositoryURLPattern
   Future<bool> checkExistBranch(FormModel msg) async {
@@ -44,10 +46,7 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> sendRequestToAPI(FormModel msg) async {
     ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
-    if (_api==null){
-      return false;
-    }
-    final uri = Uri.parse("${_api}/evaluation");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/evaluation");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
   }
@@ -55,29 +54,42 @@ class FormRepositoryImpl implements FormRepository {
   @override
   Future<bool> sendRequestToEntryAPI(FormModel msg) async {
     ScoreEvaluationMessage protobuf_msg = msg.toProtobufMsg();
-    if (_api==null){
-      return false;
-    }
-    final uri = Uri.parse("${_api}/entry");
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/entry");
     http.Response response = await http.post(uri, body: base64.encode(protobuf_msg.writeToBuffer()));
     return response.statusCode == 200;
   }
 
   @override
-  Future<Map<String, dynamic>> postTrainingCode(TrainingModel training, String code) async {
-    if (_api==null){
-      Map<String, dynamic> result = {
-        "status": false,
-        "results": ["_api is not defined"],
-      };
-      return result;
-    }
-    final uri = Uri.parse("${_api}/training/${training.section}/${training.id}");
+  Future<Map<String, dynamic>> postAlgorithmTrainingCode(TrainingModel training, String code) async {
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/trainings/algorithm/${training.id}");
     http.Response response = await http.post(uri, body: code);
     Map<String, dynamic> result = {
       "status": response.statusCode == 200,
       "results": jsonDecode(response.body),
     };
+    return result;
+  }
+
+  @override
+  Future<Map<String, dynamic>> postTetrisTrainingCode(TrainingModel training, String code) async {
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/trainings/tetris/${training.id}");
+    http.Response response = await http.post(uri, body: code);
+    Map<String, dynamic> result = {
+      "status": response.statusCode == 200,
+      "results": jsonDecode(response.body),
+    };
+    return result;
+  }
+
+  @override
+  Future<Map<String, dynamic>> postTurtleTrainingCode(TrainingModel training, String code) async {
+    final uri = Uri.parse("${Env.EnvironmentVariables.apiUrl}/trainings/turtle");
+    http.Response response = await http.post(uri, body: code);
+    Map<String, dynamic> result = {
+      "status": response.statusCode == 200,
+      "response": base64Decode(response.body), // decode to image binary
+    };
+
     return result;
   }
 }

@@ -14,15 +14,14 @@ import '../parts/training_answer_example.dart';
 import '../blocks/custom_appbar.dart';
 import '../blocks/user_menu_drawer.dart';
 
-class TrainingPage extends HookConsumerWidget {
-  final String _section;
+class TurtleTrainingPage extends HookConsumerWidget {
   final String _id;
-  TrainingPage(this._section, this._id);
+  TurtleTrainingPage(this._id);
   final TextEditingController _codeEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel(_section, _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
+    TrainingFormModel _state = ref.watch(trainingFormStateNotifierProvider(TrainingModel("turtle", _id, null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)));
     Size _size = MediaQuery.of(context).size;
     
     // 初期値を設定
@@ -161,7 +160,7 @@ class TrainingPage extends HookConsumerWidget {
                                               TextButton(
                                                 child: Text("OK"),
                                                 onPressed: () {
-                                                  ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).submitCode(
+                                                  ref.read(trainingFormStateNotifierProvider.call(_state.training).notifier).submitTurtleCode(
                                                       _codeEditingController.text,
                                                   );
                                                   Navigator.pop(context);
@@ -186,35 +185,11 @@ class TrainingPage extends HookConsumerWidget {
                                   Container(
                                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                                     height: 200,
-                                    child: ListView.builder(
-                                      itemCount: _state.results!.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        String result = _state.results![index];
-                                        return Container(
-                                          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                          child: Row(
-                                            children:[
-                                              Text(index.toString()),
-                                              SizedBox(width: 10),
-                                              ElevatedButton(
-                                                onPressed: (){},
-                                                child: Text(result, style:TextStyle(color: Colors.white)),
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: ((){
-                                                    if (result=="AC"){
-                                                      return Colors.green;
-                                                    } else {
-                                                      return Colors.orange;
-                                                    }
-                                                  })(),
-                                                ),
-                                              )
-                                            ]
-                                          )
-                                        );
-                                      },
+                                    child: Image.memory(
+                                      _state.image_byte!, // 画像データをバイト配列から読み込む
+                                      fit: BoxFit.contain, // 画像を適切に表示するフィットモードを設定
                                     )
-                                  )
+                                  ),
                                 ]
                               );
                             } else if (_state.status=="error"){
