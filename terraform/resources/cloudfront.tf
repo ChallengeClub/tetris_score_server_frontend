@@ -24,15 +24,21 @@ resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
         forward = "none"
       }
     }
-    function_association {
-      event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.subpage-redirect-function.arn
-    }
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
+  }
+  
+  # without this, requests to subpage requests (like "/page") directory goes to origin s3 bucket
+  # 404 error would be thrown by s3, because the bucket doesn't have such a file or folder
+  # resulting in cloudfront originated 403 response for client
+  custom_error_response {
+    error_caching_min_ttl = 86400
+    error_code = 403
+    response_code = 200
+    response_page_path = "/"
   }
 
   restrictions {
