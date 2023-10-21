@@ -57,11 +57,3 @@ resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "tetris-hosting" {}
-
-resource "aws_cloudfront_function" "subpage-redirect-function" {
-  name    = "subpage-redirect-function"
-  runtime = "cloudfront-js-1.0"
-  comment = "without this, invalid access to  origin s3 throws 404 error"
-  publish = true
-  code    = file("${path.module}/cloudfront-function.js")
-}
