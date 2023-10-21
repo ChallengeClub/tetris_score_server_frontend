@@ -30,6 +30,16 @@ resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
     default_ttl            = 3600
     max_ttl                = 86400
   }
+  
+  # without this, requests to subpage requests (like "/page") directory goes to origin s3 bucket
+  # 404 error would be thrown by s3, because the bucket doesn't have such a file or folder
+  # resulting in cloudfront originated 403 response for client
+  custom_error_response {
+    error_caching_min_ttl = 86400
+    error_code = 403
+    response_code = 200
+    response_page_path = "/"
+  }
 
   restrictions {
     geo_restriction {
@@ -42,6 +52,8 @@ resource "aws_cloudfront_distribution" "tetris-hosting-cloudfront" {
     ssl_support_method = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
+
+  
 }
 
 resource "aws_cloudfront_origin_access_identity" "tetris-hosting" {}
