@@ -138,11 +138,11 @@ class SubmitForm extends HookConsumerWidget {
                           height: _formCardHeight,
                           child: TextFormField(
                             decoration: const InputDecoration(
-                              labelText: 'game mode ["default", "predict", "predict_sample", "predict_sample2"]',
+                              labelText: 'game mode ["default", "sample", "predict", "predict_sample", "predict_sample2"]',
                             ),
                             controller: _gameModeController,
                             validator: (String? value) {
-                              List game_modes = ["default", "predict", "predict_sample", "predict_sample2"];
+                              List game_modes = ["default", "sample", "predict", "predict_sample", "predict_sample2"];
                               if (!game_modes.contains(value)) {
                                 return 'must be in ${game_modes}';
                               }

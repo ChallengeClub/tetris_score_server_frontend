@@ -131,11 +131,11 @@ class EntryForm extends HookConsumerWidget {
                     height: _formCardHeight,
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        labelText: 'game mode ["default", "predict", "predict_sample", "predict_sample2", "art"]',
+                        labelText: 'game mode ["default", "sample", "predict", "predict_sample", "predict_sample2", "art"]',
                       ),
                       controller: _gameModeController,
                       validator: (String? value) {
-                        List game_modes = ["default", "predict", "predict_sample", "predict_sample2", "art"];
+                        List game_modes = ["default", "sample", "predict", "predict_sample", "predict_sample2", "art"];
                         if (!game_modes.contains(value)) {
                           return 'must be in ${game_modes}';
                         }
